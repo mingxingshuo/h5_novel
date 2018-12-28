@@ -10,7 +10,6 @@ var ChapterSchema = new Schema({
     content: String,
     isvip: String,
     bid: Number,  //书id
-    sortid: Number,  //原id用于排序
     createAt: {
         type: Date,
         default: Date.now

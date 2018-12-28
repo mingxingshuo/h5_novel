@@ -5,7 +5,7 @@ router.prefix('/chapter')
 
 router.get('/all', async function (ctx, next) {
     let bid = ctx.request.query.bid;
-    let chapter = await ChapterModel.find({bid: bid}).sort({sortid:1})
+    let chapter = await ChapterModel.find({bid: bid})
     ctx.body = chapter
 })
 

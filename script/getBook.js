@@ -25,14 +25,13 @@ async function getBook() {
             zhuishu: book[0].zhuishu
         }
         let bookRes = await BookModel.create(book_data)
-        let chapters = await p.query('select * from ien_chapter where bid=' + i)
+        let chapters = await p.query('select * from ien_chapter where bid=' + i +' order by id asc')
         for (let chapter of chapters) {
             let chapter_data = {
                 title: chapter.title,
                 content: chapter.content,
                 isvip: chapter.isvip,
-                bid: bookRes.id,
-                sortid: chapter.id
+                bid: bookRes.id
             }
             await ChapterModel.create(chapter_data)
         }
