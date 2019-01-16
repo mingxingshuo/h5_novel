@@ -8,7 +8,7 @@ autoIncrement.initialize(DB.getDB());
 var ChapterSchema = new Schema({
     title: String,
     content: String,
-    isvip: String,
+    isvip: {type: Number, default: 0}, //0免费，1付费
     bid: Number,  //书id
     createAt: {
         type: Date,
