@@ -15,7 +15,7 @@ router.get('/all', async function (ctx, next) {
     if (title) {
         param.title = {$regex: title}
     }
-    let book = await BookModel.find(param).skip((page - 1) * 10).limit(10)
+    let book = await BookModel.find(param).skip((page - 1) * 10).limit(10).sort({zhishu:-1})
     console.log(book,'------------book')
     ctx.body = book
 })
