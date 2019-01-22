@@ -7,7 +7,7 @@ router.prefix('/book')
 router.get('/all', async function (ctx, next) {
     let page = ctx.request.query.page || 1
     let sex = ctx.request.query.sex;
-    let title = ctx.request.query.title;
+    let title = new RegExp(ctx.request.query.title);
     let param = {}
     if (sex) {
         param.sex = sex
@@ -37,7 +37,10 @@ router.post('/update', async(ctx, next) => {
         zhishu: ctx.request.body.zhishu,
         xstype: ctx.request.body.xstype,
         status: ctx.request.body.status,
+        qiyong: ctx.request.body.qiyong,
         sex: ctx.request.body.sex,
+        type: ctx.request.body.type,
+        pay_num: pay_num,
         xianmian_start: ctx.request.body.xianmian_start,
         xianmian_end: ctx.request.body.xianmian_end
     }

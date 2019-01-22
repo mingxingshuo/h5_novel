@@ -14,7 +14,10 @@ var BookSchema = new Schema({
     zhishu: {type: Number, default: 0},
     xstype:{type: Number, default: 0}, //小说状态 0连载中，1已完结
     status:{type: Number, default: 0}, //0未上架，1上架
+    qiyong:{type: Number, default: 0}, //0未启用，1启用
     sex:{type: Number, default: 2}, //1女，2男
+    type:{type:Number, default: 1}, //小说类型
+    pay_num:Number, //开始付费章节
     xianmian_start: Number,  //限免开始时间
     xianmian_end: Number,  //限免结束时间
     createAt: {
