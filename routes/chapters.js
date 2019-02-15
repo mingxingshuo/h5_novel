@@ -21,17 +21,21 @@ router.get('/', async function (ctx, next) {
         return ctx.body = "请先登录"
     }
     if (chapter.isvip) {
-        let pay_chapter = user.pay_chapter.indexOf(id)
-        if (pay_chapter != -1) {
+        if(user.isvip) {
             return ctx.body = chapter
-        } else {
-            if (user.current > price) {
-                await UserModel.findOne({unionid: unionid}, {$addToSet: {pay_chapter: id}})
-                await UserModel.findOneAndUpdate({unionid: unionid}, {$inc: {current: price}})
-                await UserModel.findOneAndUpdate({unionid: unionid}, {$addToSet: {pay_chapter: id}})
+        }else{
+            let pay_chapter = user.pay_chapter.indexOf(id)
+            if (pay_chapter != -1) {
                 return ctx.body = chapter
             } else {
-                return ctx.body = "您的余额已不足，请及时充值"
+                if (user.current > price) {
+                    await UserModel.findOne({unionid: unionid}, {$addToSet: {pay_chapter: id}})
+                    await UserModel.findOneAndUpdate({unionid: unionid}, {$inc: {current: price}})
+                    await UserModel.findOneAndUpdate({unionid: unionid}, {$addToSet: {pay_chapter: id}})
+                    return ctx.body = chapter
+                } else {
+                    return ctx.body = "您的余额已不足，请及时充值"
+                }
             }
         }
     } else {

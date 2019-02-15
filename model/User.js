@@ -16,6 +16,7 @@ var UserSchema = new Schema({
     tag_sex:Number,
     shelf: Array,
     pay_chapter: Array,
+    isvip: {type: Number, default: 0}, //用户是否VIP，1是，0不是
     createAt: {
         type: Date,
         default: Date.now
