@@ -28,10 +28,10 @@ router.get('/', async function (ctx, next) {
             if (pay_chapter != -1) {
                 return ctx.body = chapter
             } else {
-                if (user.current > price) {
+                if (user.balance > price) {
                     user.update({
                         $addToSet: {pay_chapter: id},
-                        $inc: {current: price}
+                        $inc: {balance: price}
                     })
                     return ctx.body = chapter
                 } else {
