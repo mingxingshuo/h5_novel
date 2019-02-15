@@ -7,9 +7,10 @@ router.prefix('/user')
 
 router.get('/', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
-    let user = await mem.get("novelUser_" + unionid)
-    if(user){
-        ctx.body = "已登陆"
+    let mem_user = await mem.get("novelUser_" + unionid)
+    if(mem_user){
+        let user = await UserModel.findOne({unionid: unionid})
+        ctx.body = user
     }else{
       ctx.body = "未登陆"
     }
