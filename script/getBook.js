@@ -17,6 +17,7 @@ async function getBook() {
     for (let i of book_arr) {
         let book = await p.query('select * from ien_book where id=' + i)
         let book_data = {
+            origin_id: book[0].id,
             title: book[0].title,
             zuozhe: book[0].zuozhe,
             desc: book[0].desc,
@@ -30,7 +31,7 @@ async function getBook() {
             let chapter_data = {
                 title: chapter.title,
                 content: chapter.content,
-                isvip: 0,
+                isvip: parseInt(chapter.isvip),
                 bid: bookRes.id
             }
             await ChapterModel.create(chapter_data)
@@ -39,4 +40,4 @@ async function getBook() {
     console.log("get book success")
 }
 
-// getBook()
+getBook()

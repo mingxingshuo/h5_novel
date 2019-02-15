@@ -6,6 +6,7 @@ var autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(DB.getDB());
 
 var BookSchema = new Schema({
+    origin_id:Number,
     title: String,
     zuozhe: String,
     desc: String,

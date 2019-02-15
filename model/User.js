@@ -4,25 +4,28 @@ var Schema = mongoose.Schema;
 var DB = require('./DB');
 
 var UserSchema = new Schema({
-  openid: String,
-  nickname: String,
-  unionid:String,
-  sex: String,
-  province: String,
-  city: String,
-  country: String,
-  headimgurl: String,
-  action_time:Number,
-  createAt: {
-      type: Date,
-      default: Date.now
-  },
-  updateAt: {
-      type: Date,
-      default: Date.now
-  }
-},{
-    timestamps: { createdAt: 'createAt', updatedAt: 'updateAt' }
+    openid: String,
+    nickname: String,
+    unionid: String,
+    sex: String,
+    province: String,
+    city: String,
+    country: String,
+    headimgurl: String,
+    action_time: Number,
+    tag_sex:Number,
+    shelf: Array,
+    pay_chapter: Array,
+    createAt: {
+        type: Date,
+        default: Date.now
+    },
+    updateAt: {
+        type: Date,
+        default: Date.now
+    }
+}, {
+    timestamps: {createdAt: 'createAt', updatedAt: 'updateAt'}
 });
 
 

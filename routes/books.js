@@ -1,17 +1,15 @@
 const router = require('koa-router')()
 const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
+const UserModel = require('../model/User')
 
 router.prefix('/book')
 
 router.get('/all', async function (ctx, next) {
     let page = ctx.request.query.page || 1
-    let sex = ctx.request.query.sex;
+    let sex = ctx.request.query.sex || 2;
     let title = new RegExp(ctx.request.query.title);
-    let param = {}
-    if (sex) {
-        param.sex = sex
-    }
+    let param = {sex:sex}
     if (title) {
         param.title = {$regex: title}
     }
@@ -23,6 +21,31 @@ router.get('/all', async function (ctx, next) {
 router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
     let book = await BookModel.find({id: id})
+    ctx.body = book
+})
+
+router.get('/shelf', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let id = ctx.request.query.id;
+    let user = await UserModel.findOneAndUpdate({unionid: unionid},{
+        $addToSet: {shelf: id}
+    })
+    ctx.body = "添加至书架成功"
+})
+
+router.get('/unshelf', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let id = ctx.request.query.id;
+    let user = await UserModel.findOneAndUpdate({unionid: unionid},{
+        $pull: {shelf: id}
+    })
+    ctx.body = "从书架移除成功"
+})
+
+router.get('/userbooks', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let user = await UserModel.findOne({unionid: unionid})
+    let book = await BookModel.find({id: {$in: user.shelf}})
     ctx.body = book
 })
 
