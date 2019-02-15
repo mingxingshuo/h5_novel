@@ -29,9 +29,10 @@ router.get('/', async function (ctx, next) {
                 return ctx.body = chapter
             } else {
                 if (user.current > price) {
-                    await UserModel.findOne({unionid: unionid}, {$addToSet: {pay_chapter: id}})
-                    await UserModel.findOneAndUpdate({unionid: unionid}, {$inc: {current: price}})
-                    await UserModel.findOneAndUpdate({unionid: unionid}, {$addToSet: {pay_chapter: id}})
+                    user.update({
+                        $addToSet: {pay_chapter: id},
+                        $inc: {current: price}
+                    })
                     return ctx.body = chapter
                 } else {
                     return ctx.body = "您的余额已不足，请及时充值"
