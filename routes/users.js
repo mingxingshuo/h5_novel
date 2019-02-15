@@ -39,4 +39,22 @@ router.get('/logout', async function (ctx, next) {
     }
 })
 
+router.get('/shelf', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let id = ctx.request.query.id;
+    await UserModel.findOneAndUpdate({unionid: unionid},{
+        $addToSet: {shelf: id}
+    })
+    ctx.body = "添加至书架成功"
+})
+
+router.get('/unshelf', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let id = ctx.request.query.id;
+    await UserModel.findOneAndUpdate({unionid: unionid},{
+        $pull: {shelf: id}
+    })
+    ctx.body = "从书架移除成功"
+})
+
 module.exports = router

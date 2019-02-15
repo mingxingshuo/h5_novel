@@ -7,13 +7,13 @@ router.prefix('/book')
 
 router.get('/all', async function (ctx, next) {
     let page = ctx.request.query.page || 1
-    let sex = ctx.request.query.sex || 2;
+    let tag_sex = ctx.request.query.tag_sex || 2;
     let title = new RegExp(ctx.request.query.title);
-    let param = {sex:sex}
+    let param = {tag_sex:tag_sex}
     if (title) {
         param.title = {$regex: title}
     }
-    let book = await BookModel.find(param).skip((page - 1) * 10).limit(10).sort({zhishu:-1})
+    let book = await BookModel.find(param).skip((page - 1) * 10).limit(10)
     console.log(book,'------------book')
     ctx.body = book
 })
@@ -22,24 +22,6 @@ router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
     let book = await BookModel.find({id: id})
     ctx.body = book
-})
-
-router.get('/shelf', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let id = ctx.request.query.id;
-    let user = await UserModel.findOneAndUpdate({unionid: unionid},{
-        $addToSet: {shelf: id}
-    })
-    ctx.body = "添加至书架成功"
-})
-
-router.get('/unshelf', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let id = ctx.request.query.id;
-    let user = await UserModel.findOneAndUpdate({unionid: unionid},{
-        $pull: {shelf: id}
-    })
-    ctx.body = "从书架移除成功"
 })
 
 router.get('/userbooks', async function (ctx, next) {

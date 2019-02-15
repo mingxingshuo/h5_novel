@@ -22,8 +22,9 @@ async function getBook() {
             zuozhe: book[0].zuozhe,
             desc: book[0].desc,
             zishu: parseFloat(book[0].zishu) || 0,
+            zhishu: parseFloat(book[0].zhishu) || 0,
             xstype: book[0].xstype || 0,
-            sex: parseInt(book[0].cid) || 2
+            tag_sex: parseInt(book[0].cid) || 2
         }
         let bookRes = await BookModel.create(book_data)
         let chapters = await p.query('select * from ien_chapter where bid=' + i + ' order by id asc')
