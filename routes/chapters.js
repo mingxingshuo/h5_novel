@@ -3,7 +3,7 @@ const ChapterModel = require('../model/Chapter')
 const UserModel = require('../model/User')
 
 router.prefix('/chapter')
-var price = -30
+var price = 30
 
 router.get('/all', async function (ctx, next) {
     let bid = ctx.request.query.bid;
@@ -31,7 +31,7 @@ router.get('/', async function (ctx, next) {
                 if (user.balance > price) {
                     user.update({
                         $addToSet: {pay_chapter: id},
-                        $inc: {balance: price}
+                        $inc: {balance: -price}
                     })
                     return ctx.body = chapter
                 } else {
