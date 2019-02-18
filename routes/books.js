@@ -20,7 +20,7 @@ router.get('/all', async function (ctx, next) {
 
 router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
-    let book = await BookModel.find({id: id})
+    let book = await BookModel.findOne({id: id})
     ctx.body = book
 })
 
