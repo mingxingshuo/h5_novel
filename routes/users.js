@@ -32,7 +32,7 @@ router.get('/logout', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let user = await UserModel.findOne({unionid: unionid})
     if(user){
-        await mem.set("novelUser_" + unionid, 0, 24 * 3600)
+        await mem.set("novelUser_" + unionid, 0, 1)
         let client = await wechat_util.getClient(code)
         ctx.body = '退出登陆成功'
     }else{

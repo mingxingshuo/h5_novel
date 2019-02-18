@@ -16,8 +16,9 @@ router.get('/', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let chapter = await ChapterModel.findOne({id: id})
     let user = await UserModel.findOne({unionid: unionid})
+    let mem_user = await mem.get("novelUser_" + unionid)
     console.log(id, unionid, chapter, user, '---------------------chapter')
-    if (!user.login) {
+    if (!mem_user) {
         return ctx.body = "请先登录"
     }
     if (chapter.isvip) {
