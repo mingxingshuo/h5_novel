@@ -21,27 +21,25 @@ router.get('/', async function (ctx, next) {
     if (!mem_user) {
         return ctx.body = {err: "请先登录"}
     }
-    if (chapter.isvip) {
-        if (user.isvip) {
+    if (!chapter.isvip) {
+        return ctx.body = {success: '成功', data: chapter}
+    }
+    if (user.isvip) {
+        return ctx.body = {success: '成功', data: chapter}
+    }
+    let pay_chapter = user.pay_chapter.indexOf(id)
+    if (pay_chapter != -1) {
+        return ctx.body = {success: '成功', data: chapter}
+    } else {
+        if (user.balance > price) {
+            user.update({
+                $addToSet: {pay_chapter: id},
+                $inc: {balance: -price}
+            })
             return ctx.body = {success: '成功', data: chapter}
         } else {
-            let pay_chapter = user.pay_chapter.indexOf(id)
-            if (pay_chapter != -1) {
-                return ctx.body = {success: '成功', data: chapter}
-            } else {
-                if (user.balance > price) {
-                    user.update({
-                        $addToSet: {pay_chapter: id},
-                        $inc: {balance: -price}
-                    })
-                    return ctx.body = {success: '成功', data: chapter}
-                } else {
-                    return ctx.body = {err: "您的余额不足，请及时充值"}
-                }
-            }
+            return ctx.body = {err: "您的余额不足，请及时充值"}
         }
-    } else {
-        return ctx.body = {success: '成功', data: chapter}
     }
 })
 
