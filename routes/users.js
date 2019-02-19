@@ -8,54 +8,61 @@ router.prefix('/user')
 router.get('/', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let mem_user = await mem.get("novelUser_" + unionid)
-    if(mem_user){
+    if (mem_user) {
         let user = await UserModel.findOne({unionid: unionid})
-        ctx.body = user
-    }else{
-      ctx.body = "未登陆"
+        ctx.body = {success: '成功', data: user}
+    } else {
+        ctx.body = {err: "您还没有登陆，请先登录"}
     }
 })
 
 router.get('/login', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let user = await UserModel.findOne({unionid: unionid})
-    if(user){
+    if (user) {
         await mem.set("novelUser_" + unionid, 1, 24 * 3600)
         let client = await wechat_util.getClient(code)
-        ctx.body = '登陆成功'
-    }else{
-        ctx.body = '登陆失败'
+        ctx.body = {success: '成功', data: user}
+    } else {
+        ctx.body = {err: "登陆失败"}
     }
 })
 
 router.get('/logout', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let user = await UserModel.findOne({unionid: unionid})
-    if(user){
+    if (user) {
         await mem.set("novelUser_" + unionid, 0, 1)
-        let client = await wechat_util.getClient(code)
-        ctx.body = '退出登陆成功'
-    }else{
-        ctx.body = '退出登陆失败'
+        ctx.body = {success: '成功', data: user}
+    } else {
+        ctx.body = {err: "退出登陆失败"}
     }
 })
 
 router.get('/shelf', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let id = ctx.request.query.id;
-    await UserModel.findOneAndUpdate({unionid: unionid},{
+    let user = await UserModel.findOneAndUpdate({unionid: unionid}, {
         $addToSet: {shelf: id}
-    })
-    ctx.body = "添加至书架成功"
+    }, {new: true})
+    if (user) {
+        ctx.body = {success: '成功', data: user}
+    } else {
+        ctx.body = {err: "添加到书架失败"}
+    }
 })
 
 router.get('/unshelf', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let id = ctx.request.query.id;
-    await UserModel.findOneAndUpdate({unionid: unionid},{
+    let user = await UserModel.findOneAndUpdate({unionid: unionid}, {
         $pull: {shelf: id}
-    })
-    ctx.body = "从书架移除成功"
+    }, {new: true})
+    if (user) {
+        ctx.body = {success: '成功', data: user}
+    } else {
+        ctx.body = {err: "从书架移除失败"}
+    }
 })
 
 module.exports = router
