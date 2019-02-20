@@ -26,6 +26,18 @@ app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
 
+
+app.use(async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Headers', 'content-type,xfilecategory,xfilename,xfilesize');
+	ctx.set('Access-Control-Allow-Origin', '*');
+	ctx.set('Access-Control-Allow-Credentials', 'true');
+  ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET,OPTIONS');
+  if (ctx.request.method == "OPTIONS") {
+    ctx.response.status = 200
+  }
+	await next();
+}); 
+
 // logger
 app.use(async (ctx, next) => {
   const start = new Date()
