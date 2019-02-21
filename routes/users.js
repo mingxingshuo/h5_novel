@@ -18,13 +18,29 @@ router.get('/', async function (ctx, next) {
 
 router.get('/login', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
+    let openid = ctx.request.query.openid
+    let code = ctx.request.query.code
     let user = await UserModel.findOne({unionid: unionid})
-    if (user) {
-        await mem.set("novelUser_" + unionid, 1, 24 * 3600)
-        let client = await wechat_util.getClient(code)
-        ctx.body = {success: '成功', data: user}
-    } else {
-        ctx.body = {err: "登陆失败"}
+    if(unionid) {
+        if (user) {
+            await mem.set("novelUser_" + unionid, 1, 24 * 3600)
+            ctx.body = {success: '成功', data: user}
+        } else {
+            await mem.set("novelUser_" + unionid, 1, 24 * 3600)
+            user = new UserModel();
+            user.nickname = '';
+            user.sex = '0';
+            user.openid = openid;
+            user.unionid = unionid;
+            user.code = code;
+            user.balance = 0;
+            user.action_time = Date.now();
+            user.save(function () {
+                ctx.body = {success: '成功', data: user}
+            })
+        }
+    }else{
+        ctx.body = {err: "登陆失败，unionid不能为空"}
     }
 })
 

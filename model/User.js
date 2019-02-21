@@ -18,6 +18,7 @@ var UserSchema = new Schema({
     pay_chapter: Array,
     isvip: {type: Number, default: 0}, //用户是否VIP，1是，0不是
     balance:{type: Number, default: 0},//余额
+    sign: {type: Number, default: 0},          //标记
     createAt: {
         type: Date,
         default: Date.now
@@ -29,6 +30,22 @@ var UserSchema = new Schema({
 }, {
     timestamps: {createdAt: 'createAt', updatedAt: 'updateAt'}
 });
+
+UserSchema.statics = {
+    fetch_openid(id, code, cb){
+        if (id) {
+            return this.find({_id: {$lt: id}, code: code, sign: {$ne: 1}, subscribe_flag: true}, ['openid'])
+                .limit(50)
+                .sort({'_id': -1})
+                .exec(cb);
+        } else {
+            return this.find({code: code, sign: {$ne: 1}, subscribe_flag: true}, ['openid'])
+                .limit(50)
+                .sort({'_id': -1})
+                .exec(cb);
+        }
+    }
+}
 
 
 var UserModel = DB.getDB().model('User', UserSchema);
