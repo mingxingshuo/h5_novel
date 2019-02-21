@@ -1,10 +1,12 @@
 const UserModel = require('../model/User')
 
-user = new UserModel();
-user.sex = '2';
-user.unionid = '2';
-user.balance = 100000;
-user.action_time = Date.now();
-user.save(function () {
-    console.log({success: '成功', data: user})
-})
+async function a() {
+    let user = await UserModel.findOne({unionid: '1'})
+    user.update({
+        $addToSet: {pay_chapter: 1540},
+        $inc: {balance: -30}
+    })
+    user.save()
+    console.log(user, '------------------user')
+}
+a()

@@ -32,7 +32,7 @@ router.get('/', async function (ctx, next) {
         return ctx.body = {success: '成功', data: chapter}
     } else {
         if (user.balance > price) {
-            UserModel.update({
+            UserModel.findOneAndUpdate({unionid:unionid},{
                 $addToSet: {pay_chapter: id},
                 $inc: {balance: -price}
             })
