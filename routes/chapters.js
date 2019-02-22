@@ -44,35 +44,20 @@ router.get('/', async function (ctx, next) {
       data: chapter
     }
   }
-  let pay_chapter = user.pay_chapter.indexOf(id)
-  if (pay_chapter != -1) {
-    console.log(2)
-    return ctx.body = {
-      success: '成功',
-      data: chapter
-    }
-  } else {
-    if (user.balance > price) {
-      UserModel.findOneAndUpdate({unionid: unionid},{
-        $addToSet: {
-          pay_chapter: id
-        },
-        $inc: {
-          balance: -price
-        }
-      })
-      console.log(3)
-      return ctx.body = {
-        success: '成功',
-        data: chapter
-      }
+    let pay_chapter = user.pay_chapter.indexOf(id)
+    if (pay_chapter != -1) {
+        return ctx.body = {success: '成功', data: chapter}
     } else {
-      console.log(4)
-      return ctx.body = {
-        err: "您的余额不足，请及时充值"
+        if (user.balance > price) {
+            await UserModel.findOneAndUpdate({unionid:unionid},{
+                $addToSet: {pay_chapter: id},
+                $inc: {balance: -price}
+            })
+            return ctx.body = {success: '成功', data: chapter}
+        } else {
+            return ctx.body = {err: "您的余额不足，请及时充值"}
+        }
       }
-    }
-  }
 })
 
 router.get('/reset', async (ctx, next) => {
