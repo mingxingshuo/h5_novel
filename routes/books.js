@@ -1,6 +1,6 @@
 const router = require('koa-router')()
 const BookModel = require('../model/Book')
-// const ChapterModel = require('../model/Chapter')
+const ChapterModel = require('../model/Chapter')
 const UserModel = require('../model/User')
 const RecordModel = require('../model/Record')
 
@@ -22,7 +22,10 @@ router.get('/all', async function (ctx, next) {
 router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
     let book = await BookModel.findOne({id: id})
-    ctx.body = {success: '成功', data: book}
+    let chapters = await ChapterModel.find({bid: id}).sort({id: 1})
+    let first = chapters[0].id
+    let last = chapters[chapters.length - 1].id
+    ctx.body = {success: '成功', data: {book: book, first: first, last: last}}
 })
 
 router.get('/userbooks', async function (ctx, next) {
@@ -34,7 +37,14 @@ router.get('/userbooks', async function (ctx, next) {
 
 router.get('/recordbook', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
-    let record = await RecordModel.findOne({unionid: unionid}).sort({updateAt:-1})
+    let record = await RecordModel.findOne({unionid: unionid}).sort({updateAt: -1})
+    ctx.body = {success: '成功', data: record}
+})
+
+router.get('/record', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let bid = ctx.request.query.bid
+    let record = await RecordModel.findOne({unionid: unionid, bid: bid})
     ctx.body = {success: '成功', data: record}
 })
 
