@@ -1,0 +1,28 @@
+.container{
+	width: 100%;
+	height: auto;
+	min-height: 100%;
+	overflow: hidden;
+}
+
+.fl{
+	float: left;
+}
+.ov{
+	overflow: hidden;
+}
+.dis{
+	display: none;
+}
+.ver{
+	vertical-align: middle;
+	display: inline-block;
+	margin-top: -3px;
+}
+.positionCenter{
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="Keywords" content="关键词">
+  <meta name="description" content="描述">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/bookDetail.css">
+  <title>详情</title>
+  <style>
+    body {
+      background: rgb(241, 242, 247);
+    }
+  </style>
+</head>
+
+<body>
+    <div>
+        <!-- 小说详情 -->
+        <div class="book_detail">
+
+        </div>
+        <!-- 加入书架按钮 -->
+        <div class="book-btn">
+          <button class="add_shelf">加入书架</button>
+          <button class="read" style="background: #1989fa;color: #fff;margin-left: 20%;">免费阅读</button>
+        </div>
+        <!-- 小说简介 -->
+        <span class="desc"></span>
+        <div class="chapter">
+          <span class="chapter-title">目录</span>
+          <ul class="chapter_list"></ul>
+        </div>
+      </div>
+</body>
+<script src="../js/rem.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/cookie.js"></script>
+<script src="../js/http.js"></script>
+<script src="../js/bookDetail.js"></script>
+<script>
+  // 移动端调试
+  // (function () {
+  //   var script = document.createElement('script');
+  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
+  //   document.body.appendChild(script);
+  //   script.onload = function () {
+  //     eruda.init()
+  //   }
+  // })()
+</script>
+
+</html>

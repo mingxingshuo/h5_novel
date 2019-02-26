@@ -1,0 +1,17 @@
+.record li {
+  padding: .3rem;
+  border-bottom: 1px solid #999;
+}
+
+.date {
+  float: left;
+  margin-bottom: .2rem;
+}
+
+.money {
+  float: right;
+}
+
+.order_id {
+  clear: both;
+}

@@ -1,0 +1,101 @@
+.chapter-container {
+  line-height: 2;
+  /* background: #cfc0a9; */
+  padding: .5rem .2rem;
+  text-align: left;
+}
+.chapter-name {
+  font-size: .4rem;
+  color: rgb(255, 162, 62);
+  text-align: center;
+  display: block;
+}
+.setting {
+  width: 100%;
+  overflow: hidden;
+  margin-top: .3rem;
+}
+
+.color-setting {
+  float: left;
+}
+
+.color-setting li {
+  float: left;
+  width: .5rem;
+  height: .25rem;
+  margin-left: .1rem;
+  border: 1px solid #f9f9f9;
+  border-radius: 3px;
+}
+
+.color-huise {
+  background: #eee !important;
+  color: #2c3e50 !important;
+}
+
+.color-shushi {
+  background: #cfc0a9 !important;
+  color: #2c3e50 !important;
+}
+
+.color-lvse {
+  background: #cfe5bc !important;
+  color: #2c3e50 !important;
+}
+
+.color-heise {
+  background: #2c3e50 !important;
+  color: #f0f0f0 !important;
+}
+
+.font-setting {
+  float: right;
+  overflow: hidden;
+  margin-right: .1rem;
+}
+
+.font-setting li {
+  float: right;
+  width: .5rem;
+  height: .25rem;
+  margin-right: .1rem;
+  border: 1px solid #999;
+  border-radius: 3px;
+  line-height: .3rem;
+  text-align: center;
+  font-size: .24rem;
+}
+.chapter-content {
+  margin-top: .5rem;
+  text-indent: 2em;
+}
+.chapter-content p {
+  margin-bottom: .3rem;
+  font-size: .36rem;
+}
+
+/* 按钮列表 */
+.btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.btn-wrapper li{
+  width: 1.5rem;
+  height: .5rem;
+  border-radius: .1rem;
+  text-align: center;
+  line-height: .5rem;
+}
+
+.btn-wrapper li.change-chapter {
+  border: 1px solid #000;
+}
+
+.btn-wrapper li.to-chapters {
+  border: 1px solid #000;
+  font-weight: bold;
+}

@@ -1,0 +1,101 @@
+/* 小说详情 */
+
+.book-info-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: .3rem;
+  align-items: flex-start;
+  padding: 0 5%;
+  text-align: left;
+}
+
+.book-info-container img {
+  width: 1.5rem;
+}
+
+.book-info {
+  padding-left: .3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-info > span {
+  margin-bottom: .3rem;
+}
+
+.title {
+  font-size: .4rem;
+  margin-bottom: .1rem;
+}
+
+.gray {
+  color: #999;
+  font-size: .27rem;
+}
+
+
+.blue {
+  color: blue;
+  font-size: .27rem;
+}
+
+.red {
+  color: red;
+  font-size: .27rem;
+}
+
+.share-btn {
+  padding: 0 .1rem;
+  float: right;
+  font-size: .27rem;
+}
+
+/* 按钮 */
+
+.book-btn {
+  margin: .3rem 3%;
+}
+
+.book-btn button {
+  width: 36%;
+  border-radius: .2rem;
+}
+
+/* 小说简介 */
+.desc {
+  color: #999;
+  display: block;
+  padding: .3rem 3%;
+  border-bottom: .2rem solid #eee;
+  text-align: left;
+  text-indent: 2em;
+}
+
+.chapter {
+  text-align: left;
+  margin-bottom: .5rem;
+}
+
+.chapter-title {
+  line-height: 1rem;
+  margin-left: .3rem;
+  font-size: .4rem;
+}
+
+.chapter_list li {
+  padding: .3rem .5rem;
+  border-bottom: 1px solid #999;
+}
+
+.chapter_list li p {
+  display: inline;
+}
+
+.chapter_list li span {
+  display: block;
+  float: right;
+}
+
+.free {
+  color: red;
+}

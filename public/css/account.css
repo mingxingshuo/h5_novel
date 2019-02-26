@@ -1,0 +1,57 @@
+.user-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: .5rem;
+  box-sizing: border-box;
+  background: rgb(99, 169, 238);
+  margin-bottom: .3rem;
+}
+
+.avator {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  margin-right: .3rem;
+  border: 1px solid #000;
+}
+
+.user-desc {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.user-name {
+  font-size: .4rem;
+  margin-bottom: .12rem;
+}
+.action {
+  /* padding: .3rem 0; */
+}
+
+.action li {
+  padding: .3rem;
+  background: rgb(99, 169, 238);
+  margin-bottom: .1rem;
+  color: #fff;
+}
+
+.chongzhi button {
+  float: right;
+  width: 1.5rem;
+  height: .7rem;
+  border-radius: .1rem;
+  background: #fff;
+  border: 0;
+  font-size: .3rem;
+  font-weight: bold;
+  margin-top: -.1rem;
+  color: #000;
+}
+
+.action li span.arrow {
+  display: block;
+  float: right;
+}

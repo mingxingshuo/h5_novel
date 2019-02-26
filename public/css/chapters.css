@@ -1,0 +1,32 @@
+.chapter {
+  text-align: left;
+  margin-bottom: .5rem;
+}
+
+.chapter-title {
+  display: block;
+  line-height: 1rem;
+  font-size: .4rem;
+  text-align: center;
+}
+
+.chapter_list {
+}
+
+.chapter_list li {
+  padding: .3rem .5rem;
+  border-bottom: 1px solid #999;
+}
+
+.chapter_list li p {
+  display: inline;
+}
+
+.chapter_list li span {
+  display: block;
+  float: right;
+}
+
+.free {
+  color: red;
+}
