@@ -37,6 +37,7 @@ router.get('/', async function (ctx, next) {
       data: chapter
     }
   }
+  console.log("user", user)
   if (user.isvip) {
     console.log(1)
     return ctx.body = {
