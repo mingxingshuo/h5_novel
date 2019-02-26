@@ -31,6 +31,7 @@ router.get('/', async function (ctx, next) {
 router.get('/userbooks', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let user = await UserModel.findOne({unionid: unionid})
+    console.log(user, 1111111111111)
     let book = await BookModel.find({id: {$in: user.shelf}})
     ctx.body = {success: '成功', data: book}
 })

@@ -5,24 +5,29 @@ var mem = require('../util/mem.js');
 
 router.prefix('/user')
 
-router.get('/', async function (ctx, next) {
-  let user = await UserModel.find()
-  ctx.body = {
-    success: '成功',
-    data: user
-  }
-})
-
 // router.get('/', async function (ctx, next) {
-//   let unionid = ctx.request.query.unionid
-//   let mem_user = await mem.get("novelUser_" + unionid)
-//   if (mem_user) {
-//       let user = await UserModel.findOne({unionid: unionid})
-//       ctx.body = {success: '成功', data: user}
-//   } else {
-//       ctx.body = {err: "您还没有登陆，请先登录"}
+//   let user = await UserModel.find()
+//   ctx.body = {
+//     success: '成功',
+//     data: user
 //   }
 // })
+
+router.get('/', async function (ctx, next) {
+  let unionid = ctx.request.query.unionid
+
+  let user = await UserModel.findOne({unionid: unionid})
+  ctx.body = {success: '成功', data: user}
+
+  
+  // let mem_user = await mem.get("novelUser_" + unionid)
+  // if (mem_user) {
+  //     let user = await UserModel.findOne({unionid: unionid})
+  //     ctx.body = {success: '成功', data: user}
+  // } else {
+  //     ctx.body = {err: "您还没有登陆，请先登录"}
+  // }
+})
 
 
 router.get('/login', async function (ctx, next) {
