@@ -1,7 +1,8 @@
 const router = require('koa-router')()
 const BookModel = require('../model/Book')
-const ChapterModel = require('../model/Chapter')
+// const ChapterModel = require('../model/Chapter')
 const UserModel = require('../model/User')
+const RecordModel = require('../model/Record')
 
 router.prefix('/book')
 
@@ -29,6 +30,12 @@ router.get('/userbooks', async function (ctx, next) {
     let user = await UserModel.findOne({unionid: unionid})
     let book = await BookModel.find({id: {$in: user.shelf}})
     ctx.body = {success: '成功', data: book}
+})
+
+router.get('/recordbook', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let record = await RecordModel.findOne({unionid: unionid}).sort({updateAt:-1})
+    ctx.body = {success: '成功', data: record}
 })
 
 // router.post('/update', async(ctx, next) => {
