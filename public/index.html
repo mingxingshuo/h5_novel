@@ -17,12 +17,19 @@
     </style>
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but novel_vip doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script src="/js/jquery.min.js"></script>
+  <script>
+    $.ajax({
+      url:"http://localhost:3001/chapter?id=1570&unionid=1",
+      type:"get",
+      success: function(res) {
+        $("#app").append(res.data.content)
+      }
+    })
+  </script>
   <script>
     // 移动端调试
     // (function () {

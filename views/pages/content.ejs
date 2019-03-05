@@ -9,15 +9,15 @@
   <meta content="telephone=no" name="format-detection">
   <meta name="Keywords" content="关键词">
   <meta name="description" content="描述">
-  <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/content.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/content.css">
   <title>内容</title>
 </head>
 
 <body>
   <div class="detail">
     <div class="chapter-container">
-      <span class="chapter-name"></span>
+      <span class="chapter-name"><%= data.title %></span>
       <div class="setting">
         <ul class="color-setting">
           <li data-color="#eee" class="color-huise"></li>
@@ -30,20 +30,22 @@
           <li class="font-reduce">A-</li>
         </ul>
       </div>
-      <div class="chapter-content"></div>
+      <div class="chapter-content">
+        <%- data.content %>
+      </div>
       <ul class="btn-wrapper">
-        <li class="change-chapter prev_chapter">上一章</li>
+        <li class="change-chapter prev_chapter" style='display: <%= isfirst ? "none" : "block" %>'>上一章</li>
         <li class="to-chapters">目录</li>
-        <li class="change-chapter next_chapter">下一章</li>
+        <li class="change-chapter next_chapter" style='display: <%= islast ? "none" : "block" %>'>下一章</li>
       </ul>
     </div>
   </div>
 </body>
-<script src="../js/rem.js"></script>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/cookie.js"></script>
-<script src="../js/http.js"></script>
-<script src="../js/content.js"></script>
+<script src="/js/rem.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/cookie.js"></script>
+<script src="/js/http.js"></script>
+<script src="/js/content.js"></script>
 <script>
   // 移动端调试
   // (function () {

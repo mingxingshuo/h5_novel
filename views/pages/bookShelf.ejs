@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="Keywords" content="关键词">
+  <meta name="description" content="描述">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/bookShelf.css">
+  <title>书架</title>
+  <style>
+    body {
+      background: rgb(241, 242, 247);
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="book_store">
+    <div class="read-continue">
+      <%= data.data %>
+      <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="">
+      <div class="read-info">
+        <span class="title"><%= data.title %></span>
+        <span style="font-size: .27rem;margin: .3rem 0;">
+          <span class='<%= data.xstype == 1 ? "blue" : "red" %>'><%= data.xstype == 1 ? "已完结" : "连载中" %></span>
+          | <%= data.type == 1 ? "都市" : "" %>
+        </span>
+        <div class="continue">继续阅读</div>
+      </div>
+    </div>
+    <div class="books_container">
+      <ul class="book_list">
+        <% for(let i = 0; i < shelf.length; i++) { %>
+          <li class="book_item" data-id="<%= shelf[i].id %>">
+            <div class="book-grid">
+              <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="" srcset="">
+              <span class="title"><%= shelf[i].title %></span>
+            </div>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</body>
+<script src="/js/rem.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/cookie.js"></script>
+<script src="/js/http.js"></script>
+<script>
+detailClick(1)
+function detailClick(unionid) {
+  $(".book_list").on("click", "li", function() {
+    var bid = $(this).attr("data-id"), title = $(this).find("span").text()
+    httpRequest("/book/record", "get", {bid: bid, unionid: unionid}, function(res) {
+      if(res.data) {
+        window.location.href = "/content?id=" + res.data.cid + "&bid=" + res.data.bid + "&title=" + title;
+      } else {
+        httpRequest("/book", "get", {
+          id: bid
+        }, function (res) {
+          let data = res.data
+          window.location.href = "/content?id=" + data.first + "&bid=" + bid + "&title=" + title;
+        })
+      }
+    })
+  })
+}
+</script>
+<script>
+  $(".continue").click(function () {
+    window.location.href = "/content?id=" + res.data.cid + "&bid=" + res.data.bid + "&title=" + data.title;
+  })
+</script>
+<script>
+  // 移动端调试
+  // (function () {
+  //   var script = document.createElement('script');
+  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
+  //   document.body.appendChild(script);
+  //   script.onload = function () {
+  //     eruda.init()
+  //   }
+  // })()
+</script>
+
+</html>

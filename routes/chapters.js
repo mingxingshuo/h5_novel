@@ -18,7 +18,7 @@ router.get('/', async function (ctx, next) {
     let chapter = await ChapterModel.findOne({id: id})
     let user = await UserModel.findOne({unionid: unionid})
     // let mem_user = await mem.get("novelUser_" + unionid)
-    // console.log(id, unionid, chapter, user, '---------------------chapter')
+    console.log(id, unionid, chapter, user, '---------------------chapter')
     // if (!mem_user) {
     //     return ctx.body = {err: "请先登录"}
     // }

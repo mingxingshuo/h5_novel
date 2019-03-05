@@ -9,8 +9,8 @@
   <meta content="telephone=no" name="format-detection">
   <meta name="Keywords" content="关键词">
   <meta name="description" content="描述">
-  <link rel="stylesheet" href="../css/reset.css">
-  <link rel="stylesheet" href="../css/account.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/account.css">
   <title>我的</title>
   <style>
     body {
@@ -26,7 +26,7 @@
         alt="">
       <div class="user-desc">
         <span class="user-name">佚名</span>
-        <p class="shubi">书币: <span>300</span></p>
+        <p class="shubi">书币: <span><%= balance %></span></p>
       </div>
     </div>
     <ul class="action">
@@ -45,11 +45,20 @@
     </ul>
   </div>
 </body>
-<script src="../js/rem.js"></script>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/cookie.js"></script>
-<script src="../js/http.js"></script>
-<script src="../js/account.js"></script>
+<script src="/js/rem.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/cookie.js"></script>
+<script>
+toPayPage()
+function toPayPage() {
+  $(".chongzhi button").click(function() {
+    window.location.href = "/recharge"
+  })
+  $(".record").click(function() {
+    window.location.href = "/record"
+  })
+}
+</script>
 <script>
   // 移动端调试
   // (function () {

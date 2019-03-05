@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="Keywords" content="关键词">
+  <meta name="description" content="描述">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/bookDetail.css">
+  <title>详情</title>
+  <style>
+    body {
+      background: rgb(241, 242, 247);
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <!-- 小说详情 -->
+    <div class="book_detail">
+      <div class="book-info-container">
+        <!-- <img :src="bookDetail.img" alt=""> -->
+        <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="" srcset="">
+        <div class="book-info">
+          <span class="title">
+            <%= info.title %></span>
+          <span class="gray">
+            <%= info.type == 1 ? "都市" : "" %> |
+            <%= info.zuozhe %>
+          </span>
+          <span class="gray">
+            <span class="${data.xstype == 1 ? " blue" : "red" }">
+              <%= info.xstype == 1 ? "已完结" : "连载中" %></span>
+            |
+            <%= info.zishu %>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- 加入书架按钮 -->
+    <div class="book-btn">
+      <button class="add_shelf add">加入书架</button>
+      <button class="add_shelf remove">已添加到书架</button>
+      <button class="read" style="background: #1989fa;color: #fff;margin-left: 20%;display: <%= read.hasrecord ? 'none' : 'inline-block' %>">免费阅读</button>
+      <button class="read" style="background: #1989fa;color: #fff;margin-left: 20%;display: <%= read.hasrecord ? 'inline-block' : 'none' %>">继续阅读</button>
+    </div>
+    <!-- 小说简介 -->
+    <span class="desc">
+      <%= info.desc %></span>
+    <div class="chapter">
+      <span class="chapter-title">目录</span>
+      <ul class="chapter_list">
+        <% for(let i = 0; i < chapters.length; i ++) { %>
+        <li data-id="<%= chapters[i].id %>">
+          <p>
+            <%= chapters[i].title %>
+          </p>
+          <span>
+            <%= chapters[i].isvip == 0 ? "免费" : "付费" %></span>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</body>
+<script src="/js/rem.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/cookie.js"></script>
+<script src="/js/http.js"></script>
+<script>
+  let bid = "<%= info.id %>",
+    id = "<%= read.id %>",
+    title = "<%= info.title %>",
+    inShelf = "<%= inShelf %>"
+  if (inShelf) {
+    $(".add").css({
+      "display": "none"
+    })
+    $(".remove").css({
+      "display": "inline-block"
+    })
+  } else {
+    $(".remove").css({
+      "display": "none"
+    })
+    $(".add").css({
+      "display": "inline-block"
+    })
+  }
+  $(".read").click(function () {
+    window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
+  })
+  chapterClick(bid, title)
+
+  function chapterClick(bid, title) {
+    $(".chapter_list").on("click", "li", function () {
+      let id = $(this).attr("data-id")
+      window.location.href = "/content?id=" + id + "&bid=" + bid + "&title=" + title;
+    })
+  }
+
+  add_shelf(bid, "1")
+
+  function add_shelf(id, unionid) {
+    $(".add").click(function () {
+      httpRequest("/user/shelf", "get", {
+        unionid: unionid,
+        id: id
+      }, function (res) {
+        if (res.success) {
+          $(".add").css({
+            "display": "none"
+          })
+          $(".remove").css({
+            "display": "inline-block"
+          })
+          alert("已添加到书架")
+        } else {
+          alert(res.err)
+        }
+      })
+    })
+    $(".remove").click(function () {
+      httpRequest("/user/unshelf", "get", {
+        unionid: unionid,
+        id: id
+      }, function (res) {
+        if (res.success) {
+          $(".remove").css({
+            "display": "none"
+          })
+          $(".add").css({
+            "display": "inline-block"
+          })
+          alert("已移出书架")
+        } else {
+          alert(res.err)
+        }
+      })
+    })
+  }
+</script>
+
+<script>
+  // 移动端调试
+  // (function () {
+  //   var script = document.createElement('script');
+  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
+  //   document.body.appendChild(script);
+  //   script.onload = function () {
+  //     eruda.init()
+  //   }
+  // })()
+</script>
+
+</html>
