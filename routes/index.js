@@ -26,7 +26,7 @@ router.get('/bookDetail', async (ctx, next) => {
   let info = await httpRequest("http://localhost:3001/book?id=" + id)
   // 是否有阅读记录
   let result = await httpRequest("http://localhost:3001/book/record?unionid=1&bid=" + id)
-  if(info && result) {
+  if(info && result.data) {
     read = {
       id: result.data.cid,
       hasrecord: true
