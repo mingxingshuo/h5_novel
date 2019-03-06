@@ -5,6 +5,7 @@
 .tab_container {
   border-bottom: 1px solid #999;
   overflow: hidden;
+  margin-bottom: .15rem;
 }
 
 .tab_container li {
@@ -20,28 +21,29 @@
 }
 
 .books_container {
-  padding: .25rem;
+  padding: .36rem;
 }
 
 .book_item {
-  margin-bottom: .3rem;
+  margin-bottom: .16rem;
+  overflow: hidden;
 }
 
 .book_item img {
-  width: 2rem;
+  width: 1.84rem;
   vertical-align: top;
   float: left;
 }
 
 .book_info {
-  padding-left: .3rem;
+  padding-left: .2rem;
   display: flex;
   flex-direction: column;
 }
 
 .title {
   font-size: .4rem;
-  margin-bottom: .2rem;
+  margin-bottom: .1rem;
 }
 
 .desc {
@@ -51,8 +53,8 @@
   display: block;
   display: -webkit-box;
   max-width: 100%;
-  margin: 0 auto .2rem;
-  font-size: .32rem;
+  margin: 0 auto .1rem;
+  font-size: .3rem;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;

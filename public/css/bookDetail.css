@@ -1,4 +1,8 @@
 /* 小说详情 */
+.container {
+  position: relative;
+  padding-bottom: 1rem;
+}
 
 .book-info-container {
   display: flex;
@@ -10,38 +14,36 @@
 }
 
 .book-info-container img {
-  width: 1.5rem;
+  width: 2.2rem;
 }
 
 .book-info {
-  padding-left: .3rem;
+  padding-left: .48rem;
   display: flex;
   flex-direction: column;
 }
 
-.book-info > span {
-  margin-bottom: .3rem;
+.book-info span {
+  font-size: .32rem;
 }
 
-.title {
+.book-info span.title {
   font-size: .4rem;
-  margin-bottom: .1rem;
+  font-weight: bold;
+  margin: .1rem 0 .5rem;
 }
 
-.gray {
-  color: #999;
-  font-size: .27rem;
+.book-info span.type {
+  margin-bottom: .2rem;
+  font-size: .3rem;
 }
 
-
-.blue {
+.book-info span .blue {
   color: blue;
-  font-size: .27rem;
 }
 
-.red {
+.book-info span .red {
   color: red;
-  font-size: .27rem;
 }
 
 .share-btn {
@@ -53,27 +55,37 @@
 /* 按钮 */
 
 .book-btn {
-  margin: .3rem 3%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
-.book-btn button {
-  width: 36%;
-  border-radius: .2rem;
+.book-btn div {
+  width: 50%;
+  float: left;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+}
+
+.add_shelf {
+  background: #eee;
 }
 
 /* 小说简介 */
 .desc {
-  color: #999;
+  font-size: .3rem;
   display: block;
-  padding: .3rem 3%;
-  border-bottom: .2rem solid #eee;
+  padding: .69rem 5% .3rem;
+  border-bottom: .02rem solid #999;
   text-align: left;
   text-indent: 2em;
 }
 
 .chapter {
   text-align: left;
-  margin-bottom: .5rem;
+  margin-bottom: .42rem;
 }
 
 .chapter-title {
@@ -85,17 +97,24 @@
 .chapter_list li {
   padding: .3rem .5rem;
   border-bottom: 1px solid #999;
+  font-size: .3rem;
 }
 
 .chapter_list li p {
   display: inline;
+  font-size: .3rem;
 }
 
 .chapter_list li span {
   display: block;
   float: right;
+  font-size: .3rem;
 }
 
 .free {
   color: red;
+}
+
+.pay {
+  color: blue;
 }

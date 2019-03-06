@@ -82,7 +82,7 @@ function renderBookList(data) {
   $.each(data, function(i, el) {
     html += `
       <li data-id="${el.id}" class="book_item">
-        <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="" srcset="">
+        <img src="${el.image}" alt="" srcset="">
         <div class="book_info">
           <span class="title">${el.title}</span>
           <span class="desc">${el.desc}</span>

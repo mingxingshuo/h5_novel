@@ -1,20 +1,24 @@
+.account {
+  position: relative;
+  min-height: 100vh;
+}
+
 .user-info {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: .5rem;
+  padding: .77rem .58rem;
   box-sizing: border-box;
   background: rgb(99, 169, 238);
-  margin-bottom: .3rem;
+  margin-bottom: .37rem;
 }
 
 .avator {
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1.76rem;
+  height: 1.76rem;
   border-radius: 50%;
-  margin-right: .3rem;
-  border: 1px solid #000;
+  margin-right: .32rem;
 }
 
 .user-desc {
@@ -24,15 +28,20 @@
 }
 
 .user-name {
-  font-size: .4rem;
-  margin-bottom: .12rem;
+  font-size: .42rem;
+  font-weight: bold;
+  margin: .4rem 0 .29rem;
+}
+
+.shubi {
+  /* font-size: .3rem; */
 }
 .action {
   /* padding: .3rem 0; */
 }
 
 .action li {
-  padding: .3rem;
+  padding: .3rem .7rem;
   background: rgb(99, 169, 238);
   margin-bottom: .1rem;
   color: #fff;
@@ -45,7 +54,7 @@
   border-radius: .1rem;
   background: #fff;
   border: 0;
-  font-size: .3rem;
+  font-size: .36rem;
   font-weight: bold;
   margin-top: -.1rem;
   color: #000;
@@ -54,4 +63,17 @@
 .action li span.arrow {
   display: block;
   float: right;
+}
+
+.logout {
+  width: 2.35rem;
+  height: .69rem;
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  margin-left: -1.175rem;
+}
+
+.logout img {
+  width: 100%;
 }

@@ -20,34 +20,42 @@
 </head>
 
 <body>
-  <div>
+  <div class="container">
     <!-- 小说详情 -->
     <div class="book_detail">
       <div class="book-info-container">
         <!-- <img :src="bookDetail.img" alt=""> -->
-        <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="" srcset="">
+        <img src="<%= info.image %>" alt="" srcset="">
         <div class="book-info">
           <span class="title">
             <%= info.title %></span>
-          <span class="gray">
+          <span class="type">
             <%= info.type == 1 ? "都市" : "" %> |
             <%= info.zuozhe %>
           </span>
-          <span class="gray">
-            <span class="${data.xstype == 1 ? " blue" : "red" }">
+          <span>
+            <span class='<%= info.xstype == 1 ? " blue" : "red" %>'>
               <%= info.xstype == 1 ? "已完结" : "连载中" %></span>
             |
-            <%= info.zishu %>
+            <%= info.zishu %>万字
           </span>
         </div>
       </div>
     </div>
     <!-- 加入书架按钮 -->
     <div class="book-btn">
-      <button class="add_shelf add">加入书架</button>
-      <button class="add_shelf remove">已添加到书架</button>
-      <button class="read" style="background: #1989fa;color: #fff;margin-left: 20%;display: <%= read.hasrecord ? 'none' : 'inline-block' %>">免费阅读</button>
-      <button class="read" style="background: #1989fa;color: #fff;margin-left: 20%;display: <%= read.hasrecord ? 'inline-block' : 'none' %>">继续阅读</button>
+      <div
+       class="add_shelf add">加入书架</div
+        >
+      <div
+       class="add_shelf remove">已添加到书架</div
+        >
+      <div
+       class="read" style="background: #1989fa;color: #fff;display: <%= read.hasrecord ? 'none' : 'inline-block' %>">免费阅读</div
+        >
+      <div
+       class="read" style="background: #1989fa;color: #fff;display: <%= read.hasrecord ? 'inline-block' : 'none' %>">继续阅读</div
+        >
     </div>
     <!-- 小说简介 -->
     <span class="desc">
@@ -60,7 +68,7 @@
           <p>
             <%= chapters[i].title %>
           </p>
-          <span>
+          <span class='<%= chapters[i].isvip == 0 ? "free" : "pay" %>'>
             <%= chapters[i].isvip == 0 ? "免费" : "付费" %></span>
         </li>
         <% } %>
