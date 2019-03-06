@@ -34,6 +34,18 @@
   color: rgb(248, 159, 27);
 }
 
+.recharge-list li > *{
+  margin-bottom: .15rem;
+}
+
+.recharge-list li p img {
+  width: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -.1rem;
+}
+
+
 .submit {
   width: 3.6rem;
   height: .8rem;

@@ -45,8 +45,8 @@
           <span>20000+20000书币</span>
           <span>多送200元</span>
         </li>
-        <li data-price="365">
-          <p>年费VIP会员</p>
+        <li data-price="365" class="price365">
+          <p>年费<img src="/img/vip.png" />会员</p>
           <span>365元</span>
           <span>每天1元，全年免费看</span>
         </li>
@@ -61,9 +61,18 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/cookie.js"></script>
-<script src="/js/http.js"></script>
-<script src="/js/recharge.js"></script>
+<script>
+$(function() {
+  $(".recharge-list").on("click", "li", function() {
+    $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
+    $(this).addClass('selected');
+  })
+  $(".submit").click(function() {
+    let price = $(".recharge-list li.selected").attr("data-price")
+    window.location.href = "/needpay?price=" + price;
+  })
+})
+</script>
 <script>
   // 移动端调试
   // (function () {
