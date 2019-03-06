@@ -23,9 +23,9 @@
 <body>
   <div class="book_store">
     <div class="read-continue">
-      <%= data.data %>
       <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="">
       <div class="read-info">
+        
         <span class="title"><%= data.title %></span>
         <span style="font-size: .27rem;margin: .3rem 0;">
           <span class='<%= data.xstype == 1 ? "blue" : "red" %>'><%= data.xstype == 1 ? "已完结" : "连载中" %></span>
@@ -53,6 +53,7 @@
 <script src="/js/cookie.js"></script>
 <script src="/js/http.js"></script>
 <script>
+  console.log("<%= result.bid %>")
 detailClick(1)
 function detailClick(unionid) {
   $(".book_list").on("click", "li", function() {
@@ -74,7 +75,7 @@ function detailClick(unionid) {
 </script>
 <script>
   $(".continue").click(function () {
-    window.location.href = "/content?id=" + res.data.cid + "&bid=" + res.data.bid + "&title=" + data.title;
+    window.location.href = "/content?id=<%- result.cid %>&bid=<%- result.bid %>&title=<%- data.title %>";
   })
 </script>
 <script>

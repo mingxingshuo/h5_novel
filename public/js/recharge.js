@@ -1,5 +1,6 @@
 $(function() {
-  $(".recharge-list").on("click", "li", function() {
+  $(".recharge-list").on("click", "li", function(event) {
+    event.stopPropagation();
     $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
     $(this).addClass('selected');
   })
