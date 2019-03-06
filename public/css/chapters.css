@@ -5,9 +5,12 @@
 
 .chapter-title {
   display: block;
-  line-height: 1rem;
   font-size: .4rem;
   text-align: center;
+  padding: .9rem 0;
+  font-size: .5rem;
+  font-weight: bold;
+  color: rgb(1, 119, 230)
 }
 
 .chapter_list {
@@ -29,4 +32,8 @@
 
 .free {
   color: red;
+}
+
+.pay {
+  color: blue;
 }

@@ -1,6 +1,6 @@
 $(function () {
-  let id = location.search.split("=")[1].split("&")[0]
-  let bid = location.search.split("=")[2].split("&")[0]
+  let id = location.search.split("=")[2].split("&")[0]
+  let bid = location.search.split("=")[1].split("&")[0]
   let title = location.search.split("=")[3]
   getBgColor()
   changeBgColor()

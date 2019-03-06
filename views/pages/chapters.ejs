@@ -27,7 +27,7 @@
         <% for(let i = 0; i < data.length; i ++) { %>
           <li data-id="<%= data[i].id %>">
             <p><%= data[i].title %></p>
-            <span><%= data[i].isvip == 0 ? "免费" : "付费" %></span>
+            <span class='<%= data[i].isvip == 0 ? "free" : "pay" %>'><%= data[i].isvip == 0 ? "免费" : "付费" %></span>
           </li>
         <% } %>
       </ul>
