@@ -22,47 +22,85 @@
 <body>
   <div class="book_store">
     <ul class="tab_container">
-      <li>
+      <li data-tag_sex="2">
         <a href="javascript:;">男生</a>
       </li>
-      <li>
+      <li data-tag_sex="1">
         <a href="javascript:;">女生</a>
       </li>
     </ul>
     <div class="books_container">
-      <ul class="book_list">
-        <%for(var i=0;i<data.length;i++){%>
-          <li data-id="<%= data[i].id %>" class="book_item">
-            <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="" srcset="">
-            <div class="book_info">
-              <span class="title"><%= data[i].title %></span>
-              <span class="desc"><%= data[i].desc %></span>
-              <span style="font-size: .3rem;">
-                <span class="<%= data[i].xstype == 1 ? 'blue' : 'red' %>">
-                    <%= data[i].xstype == 1 ? '已完结' : '连载中' %>
-                </span>
-                | 都市
-              </span>
-            </div>
-          </li>
-        <%}%>
-      </ul>
+      <ul class="book_list"></ul>
     </div>
   </div>
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/cookie.js"></script>
 <script>
-detailClick()
+
+
+$(function() {
+  let tag = getCookie("tag_sex")
+  if(tag) {
+    getBookList(1, tag)
+  } else {
+    getBookList(1, 2)
+  }
+  detailClick()
+  $(".tab_container").on("click", "li", function() {
+    let tag_sex = $(this).attr("data-tag_sex");
+    setCookie("tag_sex", tag_sex)
+    $(".book_list").empty()
+    getBookList(1, tag_sex)
+  })
+})
+
 function detailClick() {
   $(".book_list").on("click", "li", function() {
     let id = $(this).attr("data-id");
     window.location.href = "/bookDetail?id=" + id
   })
 }
+
+function getBookList(page, tag_sex) {
+  $.ajax({
+    url: "/book/all",
+    type: "get",
+    data: {
+      page: page,
+      tag_sex: tag_sex
+    },
+    success: function(res) {
+      renderBookList(res.data)
+    }
+  })
+}
+
+function renderBookList(data) {
+  let html = "";
+  $.each(data, function(i, el) {
+    html += `
+      <li data-id="${el.id}" class="book_item">
+        <img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=702693500,4139197472&fm=58" alt="" srcset="">
+        <div class="book_info">
+          <span class="title">${el.title}</span>
+          <span class="desc">${el.desc}</span>
+          <span style="font-size: .3rem;">
+            <span class="${el.xstype == 1 ? 'blue' : 'red'}">
+              ${el.xstype == 1 ? '已完结' : '连载中'}
+            </span>
+            | 都市
+          </span>
+        </div>
+      </li>
+    `
+  })
+  $(".book_list").append(html)
+}
 </script>
 <script>
-  移动端调试
+  // 移动端调试
   (function () {
     var script = document.createElement('script');
     script.src = "http://eruda.liriliri.io/eruda.min.js";

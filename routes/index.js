@@ -52,8 +52,7 @@ router.get('/bookShelf', async (ctx, next) => {
 })
 
 router.get('/bookStore', async (ctx, next) => {
-  let result = await httpRequest("http://localhost:3001/book/all")
-  await ctx.render('pages/bookStore', {data: result.data})
+  await ctx.render('pages/bookStore')
 })
 
 router.get('/content', async (ctx, next) => {
