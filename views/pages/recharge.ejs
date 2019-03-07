@@ -21,7 +21,6 @@
 
 <body>
   <div class="recharge">
-    <van-nav-bar left-text="充值页面" left-arrow @click-left="goBack" fixed />
     <div class="container">
       <span class="title">请选择充值⾦额</span>
       <ul class="recharge-list">
@@ -63,11 +62,11 @@
 <script src="/js/jquery.min.js"></script>
 <script>
 $(function() {
-  $(".recharge-list").on("click", "li", function() {
+  $(".recharge-list").on("touchstart", "li", function() {
     $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
     $(this).addClass('selected');
   })
-  $(".submit").click(function() {
+  $(".submit").touchstart(function() {
     let price = $(".recharge-list li.selected").attr("data-price")
     window.location.href = "/needpay?price=" + price;
   })

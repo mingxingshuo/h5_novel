@@ -50,33 +50,21 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/cookie.js"></script>
 <script>
 toPayPage()
 function toPayPage() {
-  $(".chongzhi button").click(function() {
+  $(".chongzhi button").touchstart(function() {
     window.location.href = "/recharge"
   })
-  $(".record").click(function() {
+  $(".record").touchstart(function() {
     window.location.href = "/record"
   })
 }
 $(function() {
-  $(".logout").click(function() {
+  $(".logout").touchstart(function() {
     window.location.href = "/logout"
   })
 })
-</script>
-<script>
-  // 移动端调试
-  // (function () {
-  //   var script = document.createElement('script');
-  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
-  //   document.body.appendChild(script);
-  //   script.onload = function () {
-  //     eruda.init()
-  //   }
-  // })()
 </script>
 
 </html>

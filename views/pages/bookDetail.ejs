@@ -78,7 +78,6 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/cookie.js"></script>
 <script src="/js/http.js"></script>
 <script>
   let bid = "<%= info.id %>",
@@ -101,13 +100,13 @@
       "display": "inline-block"
     })
   }
-  $(".read").click(function () {
+  $(".read").touchstart(function () {
     window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
   })
   chapterClick(bid, title)
 
   function chapterClick(bid, title) {
-    $(".chapter_list").on("click", "li", function () {
+    $(".chapter_list").on("touchstart", "li", function () {
       let id = $(this).attr("data-id")
       window.location.href = "/content?id=" + id + "&bid=" + bid + "&title=" + title;
     })
@@ -116,7 +115,7 @@
   add_shelf(bid, "1")
 
   function add_shelf(id, unionid) {
-    $(".add").click(function () {
+    $(".add").touchstart(function () {
       httpRequest("/user/shelf", "get", {
         unionid: unionid,
         id: id
@@ -134,7 +133,7 @@
         }
       })
     })
-    $(".remove").click(function () {
+    $(".remove").touchstart(function () {
       httpRequest("/user/unshelf", "get", {
         unionid: unionid,
         id: id
@@ -154,17 +153,4 @@
     })
   }
 </script>
-
-<script>
-  // 移动端调试
-  // (function () {
-  //   var script = document.createElement('script');
-  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
-  //   document.body.appendChild(script);
-  //   script.onload = function () {
-  //     eruda.init()
-  //   }
-  // })()
-</script>
-
 </html>

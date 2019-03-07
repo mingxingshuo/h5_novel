@@ -48,7 +48,7 @@ $(function() {
     getBookList(1, 2)
   }
   detailClick()
-  $(".tab_container").on("click", "li", function() {
+  $(".tab_container").on("touchstart", "li", function() {
     let tag_sex = $(this).attr("data-tag_sex");
     setCookie("tag_sex", tag_sex)
     $(".book_list").empty()
@@ -57,7 +57,7 @@ $(function() {
 })
 
 function detailClick() {
-  $(".book_list").on("click", "li", function() {
+  $(".book_list").on("touchstart", "li", function() {
     let id = $(this).attr("data-id");
     window.location.href = "/bookDetail?id=" + id
   })
