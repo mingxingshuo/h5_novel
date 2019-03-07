@@ -57,7 +57,9 @@ $(function() {
 })
 </script>
 <script>
-detailClick(1)
+
+let unionid = window.AndroidWebView.grtUid()
+detailClick(unionid)
 function detailClick(unionid) {
   $(".book_list").on("click", "li", function() {
     var bid = $(this).attr("data-id"), title = $(this).find("span").text()

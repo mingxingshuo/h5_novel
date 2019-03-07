@@ -74,7 +74,16 @@ $(function() {
   })
   $(".submit").click(function() {
     let price = $(".recharge-list li.selected").attr("data-price")
-    window.location.href = "/needpay?price=" + price;
+    let info = location.search, redirecturl = ""
+    if(info) {
+      let bid = info.split("=")[1].split("&")[0]
+      let id = info.split("=")[2].split("&")[0]
+      let title = info.split("=")[3]
+      redirecturl = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
+    } else {
+      redirecturl = "/account"
+    }
+    window.location.href = "/needPay?price=" + price;
   })
 })
 </script>

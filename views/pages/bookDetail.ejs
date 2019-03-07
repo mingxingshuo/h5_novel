@@ -89,8 +89,8 @@ $(function() {
   let bid = "<%= info.id %>",
     id = "<%= read.id %>",
     title = "<%= info.title %>",
-    inShelf = "<%= inShelf %>"
-    console.log(inShelf)
+    inShelf = "<%= inShelf %>",
+    unionid = window.AndroidWebView.grtUid()
   if (!inShelf) {
     $(".add").css({
       "display": "none"
@@ -118,7 +118,7 @@ $(function() {
     })
   }
 
-  add_shelf(bid, "1")
+  add_shelf(bid, unionid)
 
   function add_shelf(id, unionid) {
     $(".add").click(function () {
