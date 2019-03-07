@@ -4,21 +4,17 @@ var Schema = mongoose.Schema;
 var DB = require('./DB');
 
 var UserSchema = new Schema({
-    openid: String,
-    nickname: String,
     unionid: String,
-    sex: String,
-    province: String,
-    city: String,
-    country: String,
-    headimgurl: String,
+    screen_name: String,
+    gender: String,
+    profile_image_url: String,
     action_time: Number,
-    tag_sex:Number,
+    tag_sex: Number,
     shelf: Array,
     pay_chapter: Array,
     isvip: {type: Number, default: 0}, //用户是否VIP，1是，0不是
-    balance:{type: Number, default: 0},//余额
-    sign: {type: Number, default: 0},          //标记
+    vip_time: Date, //用户购买VIP时间
+    balance: {type: Number, default: 0},//余额
     createAt: {
         type: Date,
         default: Date.now
@@ -32,21 +28,20 @@ var UserSchema = new Schema({
 });
 
 UserSchema.statics = {
-    fetch_openid(id, code, cb){
+    fetch(id, cb){
         if (id) {
-            return this.find({_id: {$lt: id}, code: code, sign: {$ne: 1}, subscribe_flag: true}, ['openid'])
-                .limit(50)
+            return this.find({_id: {$lt: id}, isvip: 1}, ['unionid', 'vip_time'])
+                .limit(1000)
                 .sort({'_id': -1})
                 .exec(cb);
         } else {
-            return this.find({code: code, sign: {$ne: 1}, subscribe_flag: true}, ['openid'])
-                .limit(50)
+            return this.find({isvip: 1}, ['unionid', 'vip_time'])
+                .limit(1000)
                 .sort({'_id': -1})
                 .exec(cb);
         }
     }
 }
-
 
 var UserModel = DB.getDB().model('User', UserSchema);
 

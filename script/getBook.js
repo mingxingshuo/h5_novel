@@ -12,7 +12,7 @@ const options = {
 }
 const pool = mysql.createPool(options);
 const p = wrapper(pool);
-var book_arr = [3418, 3357]
+var book_arr = [3418, 3357, 3424, 3423, 3422, 600, 599, 598, 597, 596]
 async function getBook() {
     for (let i of book_arr) {
         let book = await p.query('select * from ien_book where id=' + i)
