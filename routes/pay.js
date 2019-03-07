@@ -16,7 +16,7 @@ router.get('/', async function (ctx, next) {
     let mch_id = "1527118561"
     let nonce_str = rand()
     let notify_url = "http://n.tyuss.com/pay/back"
-    let spbill_create_ip = "39.106.138.15"
+    let spbill_create_ip = "127.0.0.1"
     let price = ctx.request.query.price
     let total_fee = ctx.request.query.price * 100
     let trade_type = "APP"
@@ -44,9 +44,9 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
-    console.log(param, '-------------------------result');
+    // console.log(param, '-------------------------result');
     request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
-        // console.log(err, res, data, '-------------------------result1');
+        console.log(err, res, data, '-------------------------result1');
         parser.parseString(data.text, function (err1, result) {
             // console.log(err1, result, '-------------------------result2');
             ctx.body = {success: '成功'}
