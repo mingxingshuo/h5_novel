@@ -50,7 +50,7 @@ function changeChapter(id, title) {
     httpRequest("/chapter", "get", data, function(res) {
       let data1 = res.data
       if(res.success == "成功") { 
-        window.location.href = "/content?id=" + data1.id + "&bid=" + data1.bid + "&title=" + title
+        window.location.href = "/content?bid=" + data1.bid + "&id=" + data1.id + "&title=" + title
       } else {
         alert("书币不足，请充值")
       }
@@ -62,9 +62,9 @@ function changeChapter(id, title) {
       unionid: "1"
     }
     httpRequest("/chapter", "get", data, function(res) {
-      let data = res.data
+      let data1 = res.data
       if(res.success == "成功") {
-        window.location.href = "/content?id=" + data.id + "&bid=" + data.bid + "&title=" + title
+        window.location.href = "/content?bid=" + data1.bid + "&id=" + data1.id + "&title=" + title
       } else {
         alert("书币不足，请充值")
       }
