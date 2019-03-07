@@ -26,7 +26,7 @@ router.get('/', async function (ctx, next) {
     }
     let doc = await OrderModel.create(data)
     let out_trade_no = doc.order_number
-    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=yWaUgkQkASFQTspRJZGDelK2X7GqkXLK"
+    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=yWaUgkQkASFQTspRJZGDelK2X7GqkXLK"
     console.log(str,'------------------str')
     let md5 = crypto.createHash('md5');
     md5.update(str, "utf8");
