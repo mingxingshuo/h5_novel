@@ -16,7 +16,7 @@ router.get('/', async function (ctx, next) {
     let mch_id = "1527118561"
     let nonce_str = rand()
     let notify_url = "http://n.tyuss.com/pay/back"
-    let spbill_create_ip = "127.0.0.1"
+    let spbill_create_ip = "39.106.138.15"
     let price = ctx.request.query.price
     let total_fee = ctx.request.query.price * 100
     let trade_type = "APP"
