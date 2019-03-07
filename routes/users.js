@@ -1,5 +1,4 @@
 const router = require('koa-router')()
-const wechat_util = require('../util/get_weichat_client')
 const UserModel = require('../model/User')
 // var mem = require('../util/mem.js');
 
