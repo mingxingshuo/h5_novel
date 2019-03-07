@@ -36,12 +36,18 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/fastclick.js"></script>
+<script>
+$(function(){
+  FastClick.attach(document.body); 
+});
+</script>
 <script>
 let id = location.search.split("=")[1].split("&")[0]
 let title = "<%= title %>"
 chapterClick(id, title)
 function chapterClick(bid, title) {
-  $(".chapter_list").on("tap", "li", function () {
+  $(".chapter_list").on("click", "li", function () {
     let id = $(this).attr("data-id")
     window.location.href = "/content?id=" + id + "&bid=" + bid + "&title=" + title;
   })

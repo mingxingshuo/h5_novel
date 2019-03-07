@@ -50,18 +50,24 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/fastclick.js"></script>
+<script>
+$(function(){
+  FastClick.attach(document.body); 
+});
+</script>
 <script>
 toPayPage()
 function toPayPage() {
-  $(".chongzhi button").tap(function() {
+  $(".chongzhi button").click(function() {
     window.location.href = "/recharge"
   })
-  $(".record").tap(function() {
+  $(".record").click(function() {
     window.location.href = "/record"
   })
 }
 $(function() {
-  $(".logout").tap(function() {
+  $(".logout").click(function() {
     window.location.href = "/logout"
   })
 })
