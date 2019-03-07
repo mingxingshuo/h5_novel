@@ -99,3 +99,5 @@ function rand() {
     }
     return rand;
 }
+
+module.exports = router
