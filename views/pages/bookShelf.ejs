@@ -57,13 +57,13 @@ function detailClick(unionid) {
     var bid = $(this).attr("data-id"), title = $(this).find("span").text()
     httpRequest("/book/record", "get", {bid: bid, unionid: unionid}, function(res) {
       if(res.data) {
-        window.location.href = "/content?id=" + res.data.cid + "&bid=" + res.data.bid + "&title=" + title;
+        window.location.href = "/content?bid=" + res.data.bid + "&cid=" + res.data.cid + "&title=" + title;
       } else {
         httpRequest("/book", "get", {
           id: bid
         }, function (res) {
           let data = res.data
-          window.location.href = "/content?id=" + data.first + "&bid=" + bid + "&title=" + title;
+          window.location.href = "/content?bid=" + bid + "&id=" + data.first + "&title=" + title;
         })
       }
     })
@@ -72,7 +72,7 @@ function detailClick(unionid) {
 </script>
 <script>
   $(".continue").click(function () {
-    window.location.href = "/content?id=<%- result.cid %>&bid=<%- result.bid %>&title=<%- data.title %>";
+    window.location.href = "/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>";
   })
 </script>
 <script>
