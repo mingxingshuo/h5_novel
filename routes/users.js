@@ -29,11 +29,11 @@ router.get('/', async function (ctx, next) {
     // }
 })
 
-router.get('/login', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let screen_name = ctx.request.query.screen_name
-    let gender = ctx.request.query.gender
-    let profile_image_url = ctx.request.query.profile_image_url
+router.post('/login', async function (ctx, next) {
+    let unionid = ctx.request.body.unionid
+    let screen_name = ctx.request.body.screen_name
+    let gender = ctx.request.body.gender
+    let profile_image_url = ctx.request.body.profile_image_url
     let sex = 0
     if (gender == "男") {
         sex = 2
@@ -41,7 +41,7 @@ router.get('/login', async function (ctx, next) {
         sex = 1
     }
     if (unionid) {
-        await UserModel.findOneAndUpdate({unionid: unionid}, {
+        let user = await UserModel.findOneAndUpdate({unionid: unionid}, {
             unionid: unionid,
             screen_name: screen_name,
             gender: sex,
