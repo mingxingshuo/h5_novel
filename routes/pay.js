@@ -12,11 +12,11 @@ router.prefix('/pay')
 router.get('/', async function (ctx, next) {
     let u_id = ctx.request.query.u_id
     let appid = "wxd5d2f830fbcd609c"
-    let body = "黑牛全本小说"
+    let body = "aa"
     let mch_id = "1527118561"
     let nonce_str = rand()
     let notify_url = "http://n.tyuss.com/pay/back"
-    let spbill_create_ip = "39.106.138.15"
+    let spbill_create_ip = "127.0.0.1"
     let price = ctx.request.query.price
     let total_fee = ctx.request.query.price * 100
     let trade_type = "APP"
@@ -98,7 +98,7 @@ router.get('/back', function (ctx, next) {
 function rand() {
     var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var rand = '';
-    for (var i = 0; i < 31; i++) {
+    for (var i = 0; i < 32; i++) {
         rand += s.substr(parseInt(Math.random() * 36), 1);
     }
     return rand;
