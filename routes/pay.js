@@ -79,6 +79,8 @@ router.get('/back', function (ctx, next) {
                         await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 40000}})
                     } else if (order.total_fee == 365) {
                         await UserModel.findOneAndUpdate({_id: order.u_id}, {isvip: 1, vip_time: new Date()})
+                    } else if (order.total_fee == 0.01) {
+                        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 100}})
                     }
                     ctx.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
                 } else {
