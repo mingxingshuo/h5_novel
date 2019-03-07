@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 //mongoose.set('debug', true); 
 var Schema = mongoose.Schema;
 var DB = require('./DB');
+var autoIncrement = require('mongoose-auto-increment');
+autoIncrement.initialize(DB.getDB());
 
 var OrderSchema = new Schema({
     u_id: String,
