@@ -5,7 +5,7 @@ $(function () {
   getBgColor()
   changeBgColor()
   toChapters(bid, title)
-  changeChapter(id, title)
+  changeChapter(bid, id, title)
   getFontSize()
   changeFontSize()
 })
@@ -41,34 +41,35 @@ function toChapters(bid, title) {
 }
 
 // 切换章节
-function changeChapter(id, title) {
+function changeChapter(bid, id, title) {
   $(".prev_chapter").click(function() {
-    let data = {
-      id: (Number(id) - 1),
-      unionid: "1"
-    }
-    httpRequest("/chapter", "get", data, function(res) {
-      let data1 = res.data
-      if(res.success == "成功") { 
-        window.location.href = "/content?bid=" + data1.bid + "&id=" + data1.id + "&title=" + title
-      } else {
-        alert("书币不足，请充值")
-      }
-    })
+    // let data = {
+    //   id: (Number(id) - 1),
+    //   unionid: "1"
+    // }
+    window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) - 1) + "&title=" + title
+    // httpRequest("/chapter", "get", data, function(res) {
+    //   let data1 = res.data
+    //   if(res.success == "成功") { 
+    //   } else {
+    //     alert("书币不足，请充值")
+    //   }
+    // })
   })
   $(".next_chapter").click(function() {
-    let data = {
-      id: (Number(id) + 1),
-      unionid: "1"
-    }
-    httpRequest("/chapter", "get", data, function(res) {
-      let data1 = res.data
-      if(res.success == "成功") {
-        window.location.href = "/content?bid=" + data1.bid + "&id=" + data1.id + "&title=" + title
-      } else {
-        alert("书币不足，请充值")
-      }
-    })
+    // let data = {
+    //   id: (Number(id) + 1),
+    //   unionid: "1"
+    // }
+    window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) + 1) + "&title=" + title
+    // httpRequest("/chapter", "get", data, function(res) {
+    //   let data1 = res.data
+    //   if(res.success == "成功") {
+    //     window.location.href = "/content?bid=" + data1.bid + "&id=" + data1.id + "&title=" + title
+    //   } else {
+    //     alert("书币不足，请充值")
+    //   }
+    // })
   })
 }
 
