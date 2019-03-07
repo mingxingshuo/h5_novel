@@ -53,15 +53,15 @@
 <script>
 toPayPage()
 function toPayPage() {
-  $(".chongzhi button").touchstart(function() {
+  $(".chongzhi button").tap(function() {
     window.location.href = "/recharge"
   })
-  $(".record").touchstart(function() {
+  $(".record").tap(function() {
     window.location.href = "/record"
   })
 }
 $(function() {
-  $(".logout").touchstart(function() {
+  $(".logout").tap(function() {
     window.location.href = "/logout"
   })
 })

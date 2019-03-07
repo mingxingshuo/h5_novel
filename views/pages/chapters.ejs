@@ -41,7 +41,7 @@ let id = location.search.split("=")[1].split("&")[0]
 let title = "<%= title %>"
 chapterClick(id, title)
 function chapterClick(bid, title) {
-  $(".chapter_list").on("touchstart", "li", function () {
+  $(".chapter_list").on("tap", "li", function () {
     let id = $(this).attr("data-id")
     window.location.href = "/content?id=" + id + "&bid=" + bid + "&title=" + title;
   })

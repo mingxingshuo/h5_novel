@@ -53,7 +53,7 @@
 <script>
 detailClick(1)
 function detailClick(unionid) {
-  $(".book_list").on("touchstart", "li", function() {
+  $(".book_list").on("tap", "li", function() {
     var bid = $(this).attr("data-id"), title = $(this).find("span").text()
     httpRequest("/book/record", "get", {bid: bid, unionid: unionid}, function(res) {
       if(res.data) {
@@ -71,7 +71,7 @@ function detailClick(unionid) {
 }
 </script>
 <script>
-  $(".continue").touchstart(function () {
+  $(".continue").tap(function () {
     window.location.href = "/content?id=<%- result.cid %>&bid=<%- result.bid %>&title=<%- data.title %>";
   })
 </script>

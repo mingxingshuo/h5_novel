@@ -100,13 +100,13 @@
       "display": "inline-block"
     })
   }
-  $(".read").touchstart(function () {
+  $(".read").tap(function () {
     window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
   })
   chapterClick(bid, title)
 
   function chapterClick(bid, title) {
-    $(".chapter_list").on("touchstart", "li", function () {
+    $(".chapter_list").on("tap", "li", function () {
       let id = $(this).attr("data-id")
       window.location.href = "/content?id=" + id + "&bid=" + bid + "&title=" + title;
     })
@@ -115,7 +115,7 @@
   add_shelf(bid, "1")
 
   function add_shelf(id, unionid) {
-    $(".add").touchstart(function () {
+    $(".add").tap(function () {
       httpRequest("/user/shelf", "get", {
         unionid: unionid,
         id: id
@@ -133,7 +133,7 @@
         }
       })
     })
-    $(".remove").touchstart(function () {
+    $(".remove").tap(function () {
       httpRequest("/user/unshelf", "get", {
         unionid: unionid,
         id: id
