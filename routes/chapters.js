@@ -27,7 +27,7 @@ router.get('/', async function (ctx, next) {
             unionid: unionid,
             bid: chapter.bid,
             cid: id,
-            updateAt:Date.now()
+            updateAt: Date.now()
         }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     }
@@ -36,7 +36,7 @@ router.get('/', async function (ctx, next) {
             unionid: unionid,
             bid: chapter.bid,
             cid: id,
-            updateAt:Date.now()
+            updateAt: Date.now()
         }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     }
@@ -46,7 +46,7 @@ router.get('/', async function (ctx, next) {
             unionid: unionid,
             bid: chapter.bid,
             cid: id,
-            updateAt:Date.now()
+            updateAt: Date.now()
         }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     } else {
@@ -59,11 +59,13 @@ router.get('/', async function (ctx, next) {
                 unionid: unionid,
                 bid: chapter.bid,
                 cid: id,
-                updateAt:Date.now()
+                updateAt: Date.now()
             }, {upsert: true})
             return ctx.body = {success: '成功', data: chapter}
         } else {
-            return ctx.body = {err: "您的余额不足，请及时充值"}
+            // return ctx.body = {err: "您的余额不足，请及时充值"}
+            let book = await BookModel.find({id: chapter.bid})
+            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
         }
     }
 })
