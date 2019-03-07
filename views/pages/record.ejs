@@ -36,19 +36,11 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/cookie.js"></script>
-<script src="/js/http.js"></script>
-<script src="/js/record.js"></script>
+<script src="/js/fastclick.js"></script>
 <script>
-  // 移动端调试
-  // (function () {
-  //   var script = document.createElement('script');
-  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
-  //   document.body.appendChild(script);
-  //   script.onload = function () {
-  //     eruda.init()
-  //   }
-  // })()
+$(function() {
+  FastClick.attach(document.body)
+})
 </script>
 
 </html>

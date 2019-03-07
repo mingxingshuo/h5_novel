@@ -21,7 +21,6 @@
 
 <body>
   <div class="recharge">
-    <van-nav-bar left-text="充值页面" left-arrow @click-left="goBack" fixed />
     <div class="container">
       <span class="title">请选择充值⾦额</span>
       <ul class="recharge-list">
@@ -61,6 +60,12 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/fastclick.js"></script>
+<script>
+$(function() {
+  FastClick.attach(document.body)
+})
+</script>
 <script>
 $(function() {
   $(".recharge-list").on("click", "li", function() {

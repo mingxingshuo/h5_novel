@@ -12,12 +12,17 @@
   float: left;
   text-align: center;
   width: 50%;
+  color: #999;
 }
 
 .tab_container li a {
   display: block;
   width: 100%;
-  padding: .3rem 0;
+  padding: .1rem 0;
+}
+
+.tab_container li.active {
+  color: #ff5625;
 }
 
 .books_container {

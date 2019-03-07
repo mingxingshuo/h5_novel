@@ -78,14 +78,20 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/cookie.js"></script>
 <script src="/js/http.js"></script>
+<script src="/js/fastclick.js"></script>
+<script>
+$(function() {
+  FastClick.attach(document.body)
+})
+</script>
 <script>
   let bid = "<%= info.id %>",
     id = "<%= read.id %>",
     title = "<%= info.title %>",
     inShelf = "<%= inShelf %>"
-  if (inShelf) {
+    console.log(inShelf)
+  if (!inShelf) {
     $(".add").css({
       "display": "none"
     })
@@ -108,7 +114,7 @@
   function chapterClick(bid, title) {
     $(".chapter_list").on("click", "li", function () {
       let id = $(this).attr("data-id")
-      window.location.href = "/content?id=" + id + "&bid=" + bid + "&title=" + title;
+      window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
     })
   }
 
@@ -153,17 +159,4 @@
     })
   }
 </script>
-
-<script>
-  // 移动端调试
-  // (function () {
-  //   var script = document.createElement('script');
-  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
-  //   document.body.appendChild(script);
-  //   script.onload = function () {
-  //     eruda.init()
-  //   }
-  // })()
-</script>
-
 </html>
