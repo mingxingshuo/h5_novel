@@ -11,6 +11,10 @@ router.prefix('/user')
 //     data: user
 //   }
 // })
+router.get('/all', async function (ctx, next) {
+    let user = await UserModel.find()
+    ctx.body = {success: '成功', data: user}
+})
 
 router.get('/', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
