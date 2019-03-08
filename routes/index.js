@@ -13,6 +13,7 @@ async function httpRequest(url) {
 }
 
 router.get('/account', async (ctx, next) => {
+  console.log(ctx)
   let result = await httpRequest("http://localhost:3001/user?unionid=1")
   await ctx.render('pages/account', result.data);
 })
