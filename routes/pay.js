@@ -50,7 +50,6 @@ router.get('/', async function (ctx, next) {
 
 
 router.get('/back', function (ctx, next) {
-    console.log('aaaaaaaaaaaaaaaaaaa')
     var buf = "";
     ctx.req.setEncoding('utf8');
     ctx.req.on('data', function (chunk) {
@@ -63,6 +62,7 @@ router.get('/back', function (ctx, next) {
             if (err) {
                 console.log(err, ' 订单返回错误');
             } else {
+                console.log(data,'-----------------data')
                 if (data.xml) {
                     let order = await OrderModel.findOneAndUpdate({order_number: data.xml.out_trade_no[0]}, {
                         status: 1,
