@@ -100,7 +100,7 @@ router.get('/back', function (ctx, next) {
 function rand() {
     var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var rand = '';
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < 32; i++) {
         rand += s.substr(parseInt(Math.random() * 36), 1);
     }
     return rand;
