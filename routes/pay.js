@@ -6,7 +6,6 @@ const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const UserModel = require('../model/User')
-const fxp = require("fast-xml-parser");
 
 router.prefix('/pay')
 
@@ -28,12 +27,12 @@ router.get('/', async function (ctx, next) {
     let doc = await OrderModel.create(data)
     let out_trade_no = doc.order_number
     let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=yWaUgkQkASFQTspRJZGDelK2X7GqkXLK"
-    console.log(str,'------------------str')
+    console.log(str, '------------------str')
     let md5 = crypto.createHash('md5');
     md5.update(str, "utf8");
     str = md5.digest('hex');
     let sign = str.toUpperCase();
-    console.log(sign,'------------------sign')
+    console.log(sign, '------------------sign')
     let send_data = {
         appid: appid,
         body: body,
@@ -46,9 +45,9 @@ router.get('/', async function (ctx, next) {
         trade_type: trade_type,
         sign: sign
     }
+    let param = '<xml><appid>'+appid+'</appid><body>'+body+'</body><mch_id>'+mch_id+'</mch_id><nonce_str>'+nonce_str+'</nonce_str><notify_url>'+notify_url+'</notify_url><out_trade_no>'+out_trade_no+'</out_trade_no><spbill_create_ip>'+spbill_create_ip+'</spbill_create_ip><total_fee>'+total_fee+'</total_fee><trade_type>'+trade_type+'</trade_type><sign>'+sign+'</sign></xml>'
     // let param = builder.buildObject(send_data);
-    let param = new fxp.j2xParser().parse(send_data)
-    console.log(param, '-------------------------result');
+    console.log(param, '-------------------------param');
     request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
         console.log(data, '-------------------------result1');
         parser.parseString(data.text, function (err1, result) {
