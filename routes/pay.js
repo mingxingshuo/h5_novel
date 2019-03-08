@@ -6,6 +6,7 @@ const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const UserModel = require('../model/User')
+const fxp = require("fast-xml-parser");
 
 router.prefix('/pay')
 
@@ -45,7 +46,8 @@ router.get('/', async function (ctx, next) {
         trade_type: trade_type,
         sign: sign
     }
-    let param = builder.buildObject(send_data);
+    // let param = builder.buildObject(send_data);
+    let param = new fxp.j2xParser().parse(send_data)
     console.log(param, '-------------------------result');
     request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
         console.log(data, '-------------------------result1');
