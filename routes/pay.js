@@ -45,8 +45,8 @@ router.get('/', async function (ctx, next) {
         trade_type: trade_type,
         sign: sign
     }
-    let param = '<xml><appid>'+appid+'</appid><body>'+body+'</body><mch_id>'+mch_id+'</mch_id><nonce_str>'+nonce_str+'</nonce_str><notify_url>'+notify_url+'</notify_url><out_trade_no>'+out_trade_no+'</out_trade_no><spbill_create_ip>'+spbill_create_ip+'</spbill_create_ip><total_fee>'+total_fee+'</total_fee><trade_type>'+trade_type+'</trade_type><sign>'+sign+'</sign></xml>'
-    // let param = builder.buildObject(send_data);
+    // let param = '<xml><appid>'+appid+'</appid><body>'+body+'</body><mch_id>'+mch_id+'</mch_id><nonce_str>'+nonce_str+'</nonce_str><notify_url>'+notify_url+'</notify_url><out_trade_no>'+out_trade_no+'</out_trade_no><spbill_create_ip>'+spbill_create_ip+'</spbill_create_ip><total_fee>'+total_fee+'</total_fee><trade_type>'+trade_type+'</trade_type><sign>'+sign+'</sign></xml>'
+    let param = builder.buildObject(send_data);
     console.log(param, '-------------------------param');
     request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
         console.log(data, '-------------------------result1');
@@ -100,7 +100,7 @@ router.get('/back', function (ctx, next) {
 function rand() {
     var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var rand = '';
-    for (var i = 0; i < 32; i++) {
+    for (var i = 0; i < 12; i++) {
         rand += s.substr(parseInt(Math.random() * 36), 1);
     }
     return rand;
