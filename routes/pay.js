@@ -18,7 +18,7 @@ router.get('/', async function (ctx, next) {
     let notify_url = "http://n.tyuss.com/pay/back"
     let spbill_create_ip = "39.106.138.15"
     let price = ctx.request.query.price
-    let total_fee = ctx.request.query.price * 100
+    let total_fee = parseInt(ctx.request.query.price * 100)
     let trade_type = "APP"
     let data = {
         u_id: u_id,
@@ -26,11 +26,13 @@ router.get('/', async function (ctx, next) {
     }
     let doc = await OrderModel.create(data)
     let out_trade_no = doc.order_number
-    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=rJV1FTkxjorutBpbxAjfYK2Mm70AuokQ"
+    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=yWaUgkQkASFQTspRJZGDelK2X7GqkXLK"
+    console.log(str, '------------------str')
     let md5 = crypto.createHash('md5');
     md5.update(str, "utf8");
     str = md5.digest('hex');
     let sign = str.toUpperCase();
+    console.log(sign, '------------------sign')
     let send_data = {
         appid: appid,
         body: body,
@@ -43,16 +45,18 @@ router.get('/', async function (ctx, next) {
         trade_type: trade_type,
         sign: sign
     }
+    // let param = '<xml><appid>'+appid+'</appid><body>'+body+'</body><mch_id>'+mch_id+'</mch_id><nonce_str>'+nonce_str+'</nonce_str><notify_url>'+notify_url+'</notify_url><out_trade_no>'+out_trade_no+'</out_trade_no><spbill_create_ip>'+spbill_create_ip+'</spbill_create_ip><total_fee>'+total_fee+'</total_fee><trade_type>'+trade_type+'</trade_type><sign>'+sign+'</sign></xml>'
     let param = builder.buildObject(send_data);
-    console.log(param, '-------------------------result');
-    request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', data: param}, function (err, res, data) {
-        // console.log(err, res, data, '-------------------------result1');
+    console.log(param, '-------------------------param');
+    request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
+        console.log(data, '-------------------------data');
         parser.parseString(data.text, function (err1, result) {
             // console.log(err1, result, '-------------------------result2');
             ctx.body = {success: '成功'}
         });
     })
 })
+
 
 router.get('/back', function (ctx, next) {
     var buf = "";
