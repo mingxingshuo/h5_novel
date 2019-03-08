@@ -49,8 +49,7 @@ router.post('/login', async function (ctx, next) {
             screen_name: screen_name,
             gender: sex,
             profile_image_url: profile_image_url,
-            tag_sex: sex,
-            balance: 0
+            tag_sex: sex
         }, {upsert: true})
         ctx.body = {
             success: '成功',
