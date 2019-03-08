@@ -45,11 +45,10 @@ router.get('/', async function (ctx, next) {
     }
     let param = builder.buildObject(send_data);
     request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
-        console.log(data, '-------------------------data');
         parser.parseString(data, function (err1, result) {
-            console.log(err1, result, '-------------------------result');
-            ctx.body = {success: '成功'}
-        });
+            console.log(result, '-------------------------result')
+            ctx.body = {success: '成功', data: result}
+        })
     })
 })
 
