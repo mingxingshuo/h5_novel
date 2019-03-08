@@ -50,6 +50,7 @@ router.get('/', async function (ctx, next) {
 
 
 router.get('/back', function (ctx, next) {
+    console.log('aaaaaaaaaaaaaaaaaaa')
     var buf = "";
     ctx.req.setEncoding('utf8');
     ctx.req.on('data', function (chunk) {
@@ -57,6 +58,7 @@ router.get('/back', function (ctx, next) {
     });
     ctx.req.on('end', function () {
         buf = buf.replace('undefined', '');
+        console.log(buf,'-----------------buf')
         parser.parseString(buf, async function (err, data) {
             if (err) {
                 console.log(err, ' 订单返回错误');
