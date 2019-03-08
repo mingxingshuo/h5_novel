@@ -48,12 +48,8 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
-    request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
-        parser.parseString(data, function (err1, result) {
-            console.log(result, '-------------------------result')
-            ctx.body = {success: '成功', data: result}
-        })
-    })
+    let data = await req(param)
+    ctx.body = data
 })
 
 
@@ -103,6 +99,17 @@ function rand() {
         rand += s.substr(parseInt(Math.random() * 36), 1);
     }
     return rand;
+}
+
+function req(param) {
+    return new Promise((resolve, reject) => {
+        request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
+            parser.parseString(data, function (err1, result) {
+                console.log(result, '-------------------------result')
+                resolve({success: '成功', data: result})
+            })
+        })
+    })
 }
 
 module.exports = router
