@@ -9,10 +9,6 @@ const UserModel = require('../model/User')
 
 router.prefix('/pay')
 
-router.get('/test', async function (ctx, next) {
-    ctx.body = {a: '1'}
-})
-
 router.get('/', async function (ctx, next) {
     let u_id = ctx.request.query.u_id
     let appid = "wxd5d2f830fbcd609c"
