@@ -44,8 +44,8 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
-    let data = await req(param)
-    ctx.body = data
+    let result = await req(param)
+    ctx.body = result
 })
 
 
