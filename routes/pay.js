@@ -42,13 +42,20 @@ router.get('/', async function (ctx, next) {
     }
     let param = builder.buildObject(send_data);
     let result = await req(param)
-    console.log(result,'-----------------aaa')
-    var pack = "prepay_id=" + result.xml.prepay_id[0];
+    console.log(result, '-----------------aaa')
+    var prepay_id = "prepay_id=" + result.xml.prepay_id[0];
     var h5_nonce_str = rand();
     let timeStamp = Date.parse(new Date()) / 1000;
-    let str1 = "appid=" + appid + "&nonce_str" + h5_nonce_str + "&package=prepay_id=" + pack + "&signType=MD5&timeStamp=" + timeStamp
+    let str1 = "appid=" + appid + "&nonce_str" + h5_nonce_str + "&package=Sign=WXPay&signType=MD5&timeStamp=" + timeStamp
     let paySign = md5(str1)
-    ctx.body = {"appid": appid, "timeStamp": timeStamp, "nonceStr": h5_nonce_str, "package": pack, "signType": "MD5", "paySign": paySign}
+    ctx.body = {
+        "appid": appid,
+        "timeStamp": timeStamp,
+        "nonceStr": h5_nonce_str,
+        "prepay_id": prepay_id,
+        "signType": "MD5",
+        "sign": paySign
+    }
 })
 
 
@@ -114,7 +121,7 @@ function req(param) {
     return new Promise((resolve, reject) => {
         request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
             parser.parseString(data, function (err1, result) {
-                console.log(result,'------------------result')
+                console.log(result, '------------------result')
                 resolve(result)
             })
         })
