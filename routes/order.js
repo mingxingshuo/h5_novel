@@ -18,8 +18,8 @@ router.get('/user', async function (ctx, next) {
 })
 
 router.get('/order', async function (ctx, next) {
-    let id = ctx.request.query.id
-    let order = await OrderModel.findOne({_id: id})
+    let order_number = ctx.request.query.order_number
+    let order = await OrderModel.findOne({order_number: order_number})
     ctx.body = {success: '成功', data: order}
 })
 

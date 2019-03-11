@@ -38,9 +38,9 @@ router.post('/create', async(ctx, next) => {
             chapterId: ctx.request.body.chapterId,
             chapterName: ctx.request.body.chapterName,
             sex: ctx.request.body.sex,
-            run: ctx.request.body.run
+            run: 1
         }
-        await QudaoModel.findAndUpdate({run: 0});
+        await QudaoModel.findAndUpdate({run: 0}, {new: true});
         let docs = await QudaoModel.create(data);
         if (docs) {
             ctx.body = {success: '成功', data: docs}
