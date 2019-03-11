@@ -62,6 +62,24 @@ router.post('/login', async function (ctx, next) {
     }
 })
 
+router.get('/balance', async function (ctx, next) {
+    let unionid = ctx.request.query.unionid
+    let balance = ctx.request.query.balance
+    let user = await UserModel.findOneAndUpdate({unionid: unionid}, {
+        balance: balance
+    })
+    if(user){
+        ctx.body = {
+            success: '成功',
+            data: user
+        }
+    }else{
+        ctx.body = {
+            err: "修改书币失败"
+        }
+    }
+})
+
 router.get('/shelf', async function (ctx, next) {
     let unionid = ctx.request.query.unionid
     let id = ctx.request.query.id;
