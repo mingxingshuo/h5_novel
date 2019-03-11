@@ -41,7 +41,7 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
-    let result = await req(appid, nonce_str, mch_id, param)
+    let result = await req(param)
     var pack = "prepay_id=" + result.xml.prepay_id[0];
     var h5_nonce_str = rand();
     let timeStamp = Date.parse(new Date()) / 1000;
