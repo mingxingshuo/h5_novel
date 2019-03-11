@@ -76,10 +76,11 @@ router.post('/back', async function (ctx, next) {
                 console.log(data, '-----------------data')
                 if (data.xml) {
                     balan(data).then(()=>{
-                        console.log('----------------------aaaaaaaa')
-                        ctx.response.status = 200;
-                        ctx.body = {
-                            "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                            console.log('----------------------aaaaaaaa')
+                            ctx.response.status = 200;
+                            ctx.body = {
+                                "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                            }
                         }
                     })
                 } else {
