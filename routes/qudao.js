@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const QudaoModel = require('../model/qudao')
+const QudaoModel = require('../model/Qudao')
 
 router.prefix('/qudao')
 
