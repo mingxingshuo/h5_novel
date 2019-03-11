@@ -10,6 +10,8 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const books = require('./routes/books')
 const chapters = require('./routes/chapters')
+const order = require('./routes/order')
+const qudao = require('./routes/qudao')
 const pay = require('./routes/pay')
 
 // error handler
@@ -52,6 +54,8 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(books.routes(), books.allowedMethods())
 app.use(chapters.routes(), chapters.allowedMethods())
+app.use(order.routes(), order.allowedMethods())
+app.use(qudao.routes(), qudao.allowedMethods())
 app.use(pay.routes(), pay.allowedMethods())
 
 // error-handling
