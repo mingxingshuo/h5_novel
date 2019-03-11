@@ -69,7 +69,6 @@ router.post('/back', function (ctx, next) {
     });
     ctx.req.on('end', function () {
         buf = buf.replace('undefined', '');
-        console.log(buf, '-----------------buf')
         parser.parseString(buf, async function (err, data) {
             if (err) {
                 console.log(err, ' 订单返回错误');
