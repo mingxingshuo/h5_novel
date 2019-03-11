@@ -13,12 +13,6 @@ router.get('/all', async function (ctx, next) {
 })
 
 router.get('/', async function (ctx, next) {
-    let id = ctx.request.query.id;
-    if (id) {
-        let qudao = await QudaoModel.find({run: 1})
-    } else {
-
-    }
     let qudao = await QudaoModel.find({run: 1})
     if (qudao) {
         ctx.body = {success: '成功', data: qudao}
@@ -28,20 +22,12 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/create', async(ctx, next) => {
-    let id = ctx.request.query.id;
+    let id = ctx.request.body.id;
+    let docs
     if (id) {
-        var data = {
-            name: ctx.request.body.name,
-            bookId: ctx.request.body.bookId,
-            bookName: ctx.request.body.bookName,
-            chapterId: ctx.request.body.chapterId,
-            chapterName: ctx.request.body.chapterName,
-            sex: ctx.request.body.sex,
-            run: ctx.request.body.run
-        }
-        var docs = await QudaoModel.create(data);
+        docs = await QudaoModel.findByIdAndUpdate(id, {run: 0});
     } else {
-        var data = {
+        let data = {
             name: ctx.request.body.name,
             bookId: ctx.request.body.bookId,
             bookName: ctx.request.body.bookName,
@@ -50,15 +36,14 @@ router.post('/create', async(ctx, next) => {
             sex: ctx.request.body.sex,
             run: ctx.request.body.run
         }
-        var docs = await QudaoModel.create(data);
+        docs = await QudaoModel.findAndUpdate({run: 0});
+        docs = await QudaoModel.create(data);
     }
-
     if (docs) {
         ctx.body = {success: '成功', data: docs}
     } else {
         ctx.body = {err: '创建失败，请检查输入是否有误'}
     }
-
 })
 
 router.post('/update', async(ctx, next) => {
