@@ -103,19 +103,17 @@ function req(param) {
     return new Promise((resolve, reject) => {
         request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
             parser.parseString(data, function (err1, result) {
-                console.log(result,'------------------result')
-                let xml = result.data.xml
                 let param = {
-                    return_msg:xml.return_msg[0],
-                    appid:xml.appid[0],
-                    mch_id:xml.mch_id[0],
-                    nonce_str:xml.nonce_str[0],
-                    sign:xml.sign[0],
-                    result_code:xml.result_code[0],
-                    prepay_id:xml.prepay_id[0],
-                    trade_type:xml.trade_type[0],
+                    return_msg:result.xml.return_msg[0],
+                    appid:result.xml.appid[0],
+                    mch_id:result.xml.mch_id[0],
+                    nonce_str:result.xml.nonce_str[0],
+                    sign:result.xml.sign[0],
+                    result_code:result.xml.result_code[0],
+                    prepay_id:result.xml.prepay_id[0],
+                    trade_type:result.xml.trade_type[0],
                 }
-                resolve({success: '成功', data: result})
+                resolve({success: '成功', data: param})
             })
         })
     })
