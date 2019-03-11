@@ -54,7 +54,7 @@ router.get('/', async function (ctx, next) {
         "nonceStr": h5_nonce_str,
         "prepay_id": prepay_id,
         "signType": "MD5",
-        "sign": paySign
+        "paySign": paySign
     }
 })
 
