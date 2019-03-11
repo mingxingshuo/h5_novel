@@ -46,12 +46,12 @@ router.get('/', async function (ctx, next) {
     var prepay_id = result.xml.prepay_id[0];
     var h5_nonce_str = rand();
     let timeStamp = Date.parse(new Date()) / 1000;
-    let str1 = "appid=" + appid + "&nonce_str" + h5_nonce_str + "&package=Sign=WXPay&partnerid=" + mch_id + "&prepayid=" + prepay_id + "&timeStamp=" + timeStamp + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
+    let str1 = "appid=" + appid + "&nonce_str=" + nonce_str + "&package=Sign=WXPay&partnerid=" + mch_id + "&prepayid=" + prepay_id + "&timeStamp=" + timeStamp + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
     let paySign = md5(str1)
     ctx.body = {
         "appid": appid,
         "timeStamp": timeStamp,
-        "nonceStr": h5_nonce_str,
+        "nonceStr": nonce_str,
         "prepay_id": prepay_id,
         "signType": "MD5",
         "paySign": paySign
