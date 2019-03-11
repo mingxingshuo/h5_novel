@@ -14,9 +14,9 @@ router.get('/all', async function (ctx, next) {
 
 router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
-    if(id){
+    if (id) {
         let qudao = await QudaoModel.find({run: 1})
-    }else{
+    } else {
 
     }
     let qudao = await QudaoModel.find({run: 1})
@@ -28,14 +28,31 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/create', async(ctx, next) => {
-    var data = {
-        name: ctx.request.body.name,
-        bookId: ctx.request.body.bookId,
-        chapterId: ctx.request.body.chapterId,
-        sex: ctx.request.body.sex,
-        run: ctx.request.body.run
+    let id = ctx.request.query.id;
+    if (id) {
+        var data = {
+            name: ctx.request.body.name,
+            bookId: ctx.request.body.bookId,
+            bookName: ctx.request.body.bookName,
+            chapterId: ctx.request.body.chapterId,
+            chapterName: ctx.request.body.chapterName,
+            sex: ctx.request.body.sex,
+            run: ctx.request.body.run
+        }
+        var docs = await QudaoModel.create(data);
+    } else {
+        var data = {
+            name: ctx.request.body.name,
+            bookId: ctx.request.body.bookId,
+            bookName: ctx.request.body.bookName,
+            chapterId: ctx.request.body.chapterId,
+            chapterName: ctx.request.body.chapterName,
+            sex: ctx.request.body.sex,
+            run: ctx.request.body.run
+        }
+        var docs = await QudaoModel.create(data);
     }
-    var docs = await QudaoModel.create(data);
+
     if (docs) {
         ctx.body = {success: '成功', data: docs}
     } else {
