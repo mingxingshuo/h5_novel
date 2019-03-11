@@ -75,23 +75,7 @@ router.post('/back', async function (ctx, next) {
             } else {
                 console.log(data, '-----------------data')
                 if (data.xml) {
-                    let order = await OrderModel.findOneAndUpdate({order_number: data.xml.out_trade_no[0]}, {
-                        status: 1,
-                        updateAt: Date.now()
-                    }, {new: true})
-                    if (order.total_fee == 30) {
-                        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 3000}})
-                    } else if (order.total_fee == 50) {
-                        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 8000}})
-                    } else if (order.total_fee == 100) {
-                        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 18000}})
-                    } else if (order.total_fee == 200) {
-                        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 40000}})
-                    } else if (order.total_fee == 365) {
-                        await UserModel.findOneAndUpdate({_id: order.u_id}, {isvip: 1, vip_time: new Date()})
-                    } else if (order.total_fee == 0.01) {
-                        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 100}})
-                    }
+                    await balan(data)
                     console.log('----------------------aaaaaaaa')
                     ctx.response.status = 200;
                     ctx.response.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
@@ -102,6 +86,26 @@ router.post('/back', async function (ctx, next) {
         });
     });
 })
+
+async function balan(data){
+    let order = await OrderModel.findOneAndUpdate({order_number: data.xml.out_trade_no[0]}, {
+        status: 1,
+        updateAt: Date.now()
+    }, {new: true})
+    if (order.total_fee == 30) {
+        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 3000}})
+    } else if (order.total_fee == 50) {
+        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 8000}})
+    } else if (order.total_fee == 100) {
+        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 18000}})
+    } else if (order.total_fee == 200) {
+        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 40000}})
+    } else if (order.total_fee == 365) {
+        await UserModel.findOneAndUpdate({_id: order.u_id}, {isvip: 1, vip_time: new Date()})
+    } else if (order.total_fee == 0.01) {
+        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 100}})
+    }
+}
 
 function rand() {
     var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
