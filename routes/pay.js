@@ -78,7 +78,9 @@ router.post('/back', async function (ctx, next) {
                     balan(data).then(()=>{
                         console.log('----------------------aaaaaaaa')
                         ctx.response.status = 200;
-                        ctx.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                        ctx.body = {
+                            "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                        }
                     })
                 } else {
                     console.log('订单返回错误');
