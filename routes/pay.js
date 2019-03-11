@@ -69,16 +69,17 @@ router.post('/back', async function (ctx, next) {
     });
     ctx.req.on('end', function () {
         buf = buf.replace('undefined', '');
-        parser.parseString(buf, async function (err, data) {
+        parser.parseString(buf, function (err, data) {
             if (err) {
                 console.log(err, ' 订单返回错误');
             } else {
                 console.log(data, '-----------------data')
                 if (data.xml) {
-                    await balan(data)
-                    console.log('----------------------aaaaaaaa')
-                    ctx.response.status = 200;
-                    ctx.response.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                    balan(data).then(()=>{
+                        console.log('----------------------aaaaaaaa')
+                        ctx.response.status = 200;
+                        ctx.response.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                    })
                 } else {
                     console.log('订单返回错误');
                 }
