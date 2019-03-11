@@ -27,10 +27,7 @@ router.get('/', async function (ctx, next) {
     let doc = await OrderModel.create(data)
     let out_trade_no = doc.order_number
     let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
-    let md5 = crypto.createHash('md5');
-    md5.update(str, "utf8");
-    str = md5.digest('hex');
-    let sign = str.toUpperCase();
+    let sign = md5(str)
     let send_data = {
         appid: appid,
         body: body,
@@ -44,8 +41,13 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
-    let result = await req(param)
-    ctx.body = result
+    let result = await req(appid, nonce_str, mch_id, param)
+    var pack = "prepay_id=" + result.xml.prepay_id[0];
+    var h5_nonce_str = rand();
+    let timeStamp = Date.parse(new Date()) / 1000;
+    let str1 = "appid=" + appid + "&nonce_str" + h5_nonce_str + "&&package=prepay_id=" + pack + "&signType=MD5&timeStamp=" + timeStamp
+    let paySign = md5(str1)
+    ctx.body = {"appid": appid, "timeStamp": timeStamp, "nonceStr": h5_nonce_str, "package": pack, "signType": "MD5", "paySign": paySign}
 })
 
 
@@ -57,12 +59,12 @@ router.get('/back', function (ctx, next) {
     });
     ctx.req.on('end', function () {
         buf = buf.replace('undefined', '');
-        console.log(buf,'-----------------buf')
+        console.log(buf, '-----------------buf')
         parser.parseString(buf, async function (err, data) {
             if (err) {
                 console.log(err, ' 订单返回错误');
             } else {
-                console.log(data,'-----------------data')
+                console.log(data, '-----------------data')
                 if (data.xml) {
                     let order = await OrderModel.findOneAndUpdate({order_number: data.xml.out_trade_no[0]}, {
                         status: 1,
@@ -99,21 +101,19 @@ function rand() {
     return rand;
 }
 
+function md5(str) {
+    let md5 = crypto.createHash('md5');
+    md5.update(str, "utf8");
+    str = md5.digest('hex');
+    let sign = str.toUpperCase();
+    return sign
+}
+
 function req(param) {
     return new Promise((resolve, reject) => {
         request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
             parser.parseString(data, function (err1, result) {
-                let param = {
-                    return_msg:result.xml.return_msg[0],
-                    appid:result.xml.appid[0],
-                    mch_id:result.xml.mch_id[0],
-                    nonce_str:result.xml.nonce_str[0],
-                    sign:result.xml.sign[0],
-                    result_code:result.xml.result_code[0],
-                    prepay_id:result.xml.prepay_id[0],
-                    trade_type:result.xml.trade_type[0],
-                }
-                resolve({success: '成功', data: param})
+                resolve({success: '成功', data: result})
             })
         })
     })
