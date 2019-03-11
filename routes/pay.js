@@ -77,11 +77,12 @@ router.post('/back', async function (ctx, next) {
                 if (data.xml) {
                     balan(data).then(()=>{
                             console.log('----------------------aaaaaaaa')
-                            ctx.response.status = 200;
-                            ctx.body = 
-                            {
-                                "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
-                            }
+                            var result="<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                            
+                            ctx.res.setHeader('Content-Type', 'application/xml')
+                            ctx.res.end(result)
+                            
+                            
                     })
                 } else {
                     console.log('订单返回错误');
