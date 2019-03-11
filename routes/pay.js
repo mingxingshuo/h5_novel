@@ -92,6 +92,7 @@ router.post('/back', function (ctx, next) {
                     } else if (order.total_fee == 0.01) {
                         await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 100}})
                     }
+                    console.log('----------------------aaaaaaaa')
                     ctx.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
                 } else {
                     console.log('订单返回错误');
