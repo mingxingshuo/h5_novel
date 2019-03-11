@@ -94,6 +94,7 @@ router.post('/back', async function (ctx, next) {
                     }
                     console.log('----------------------aaaaaaaa')
                     ctx.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
+                    next()
                 } else {
                     console.log('订单返回错误');
                 }
