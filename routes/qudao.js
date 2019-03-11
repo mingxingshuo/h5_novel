@@ -23,9 +23,13 @@ router.get('/', async function (ctx, next) {
 
 router.post('/create', async(ctx, next) => {
     let id = ctx.request.body.id;
-    let docs
     if (id) {
-        docs = await QudaoModel.findByIdAndUpdate(id, {run: 0});
+        let docs = await QudaoModel.findByIdAndUpdate(id, {run: 0});
+        if (docs) {
+            ctx.body = {success: '成功', data: docs}
+        } else {
+            ctx.body = {err: '创建失败，请检查输入是否有误'}
+        }
     } else {
         let data = {
             name: ctx.request.body.name,
@@ -36,13 +40,13 @@ router.post('/create', async(ctx, next) => {
             sex: ctx.request.body.sex,
             run: ctx.request.body.run
         }
-        docs = await QudaoModel.findAndUpdate({run: 0});
-        docs = await QudaoModel.create(data);
-    }
-    if (docs) {
-        ctx.body = {success: '成功', data: docs}
-    } else {
-        ctx.body = {err: '创建失败，请检查输入是否有误'}
+        await QudaoModel.findAndUpdate({run: 0});
+        let docs = await QudaoModel.create(data);
+        if (docs) {
+            ctx.body = {success: '成功', data: docs}
+        } else {
+            ctx.body = {err: '创建失败，请检查输入是否有误'}
+        }
     }
 })
 
