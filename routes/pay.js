@@ -113,6 +113,7 @@ function req(param) {
     return new Promise((resolve, reject) => {
         request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
             parser.parseString(data, function (err1, result) {
+                console.log(result,'------------------result')
                 resolve({success: '成功', data: result})
             })
         })
