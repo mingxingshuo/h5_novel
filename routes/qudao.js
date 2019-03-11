@@ -14,7 +14,12 @@ router.get('/all', async function (ctx, next) {
 
 router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
-    let qudao = await QudaoModel.find({id: id})
+    if(id){
+        let qudao = await QudaoModel.find({run: 1})
+    }else{
+
+    }
+    let qudao = await QudaoModel.find({run: 1})
     if (qudao) {
         ctx.body = {success: '成功', data: qudao}
     } else {
