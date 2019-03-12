@@ -40,7 +40,7 @@ router.post('/create', async(ctx, next) => {
             sex: ctx.request.body.sex,
             run: 1
         }
-        await QudaoModel.update({}, {run: 0}, {new: true, multi: true});
+        await QudaoModel.update({run:1}, {run: 0}, {new: true, multi: true});
         let docs = await QudaoModel.create(data);
         if (docs) {
             ctx.body = {success: '成功', data: docs}
