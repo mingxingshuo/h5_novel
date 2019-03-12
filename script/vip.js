@@ -19,7 +19,7 @@ function user_vip() {
 async function find_vip(_id, next) {
     let messages = await UserModel.fetch(_id, async function (err, users) {
         for (let user of users) {
-            if (Date.now() - Date.now(user.vip_time) >= 365 * 24 * 3600 * 1000) {
+            if (Date.now() - user.vip_time >= 365 * 24 * 3600 * 1000) {
                 await UserModel.findOneAndUpdate({unionid: user.unionid}, {isvip: 0})
             }
         }

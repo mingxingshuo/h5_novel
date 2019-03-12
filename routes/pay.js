@@ -56,7 +56,7 @@ router.get('/', async function (ctx, next) {
         "prepay_id": prepay_id,
         "signType": "MD5",
         "paySign": paySign,
-        "str1" :str1
+        "str1": str1
     }
 })
 
@@ -73,14 +73,9 @@ router.post('/back', async function (ctx, next) {
             if (err) {
                 console.log(err, ' 订单返回错误');
             } else {
-                console.log(data, '-----------------data')
                 if (data.xml) {
-                    balan(data).then(()=>{
-                            console.log('----------------------aaaaaaaa')
-                            var result="<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
-                            //ctx.res.setHeader('Content-Type', 'application/xml')
-                            ctx.response.type = 'xml';
-                            ctx.response.body =result;        
+                    balan(data).then(() => {
+                        console.log('订单处理成功');
                     })
                 } else {
                     console.log('订单返回错误');
@@ -88,9 +83,10 @@ router.post('/back', async function (ctx, next) {
             }
         });
     });
+    ctx.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
 })
 
-async function balan(data){
+async function balan(data) {
     let order = await OrderModel.findOneAndUpdate({order_number: data.xml.out_trade_no[0]}, {
         status: 1,
         updateAt: Date.now()
@@ -104,7 +100,12 @@ async function balan(data){
     } else if (order.total_fee == 200) {
         await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 40000}})
     } else if (order.total_fee == 365) {
-        await UserModel.findOneAndUpdate({_id: order.u_id}, {isvip: 1, vip_time: new Date()})
+        let user = await UserModel.findOne({_id: order.u_id})
+        if (user.isvip) {
+            await UserModel.findOneAndUpdate({_id: order.u_id}, {vip_time: Date.now() * 2 - user.vip_time})
+        } else {
+            await UserModel.findOneAndUpdate({_id: order.u_id}, {isvip: 1, vip_time: Date.now()})
+        }
     } else if (order.total_fee == 0.01) {
         await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 100}})
     }
