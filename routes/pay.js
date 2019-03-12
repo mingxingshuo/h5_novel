@@ -102,7 +102,7 @@ async function balan(data) {
     } else if (order.total_fee == 365) {
         let user = await UserModel.findOne({_id: order.u_id})
         if (user.isvip) {
-            await UserModel.findOneAndUpdate({_id: order.u_id}, {vip_time: Date.now() * 2 - user.vip_time})
+            await UserModel.findOneAndUpdate({_id: order.u_id}, {vip_time: user.vip_time + 365 * 24 * 3600 * 1000})
         } else {
             await UserModel.findOneAndUpdate({_id: order.u_id}, {isvip: 1, vip_time: Date.now()})
         }
