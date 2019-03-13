@@ -79,18 +79,18 @@
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/http.js"></script>
-<script src="/js/fastclick.js"></script>
-<script>
-$(function() {
-  FastClick.attach(document.body)
-})
-</script>
+<!--<script src="/js/fastclick.js"></script>-->
+<!--<script>-->
+<!--$(function() {-->
+  <!--FastClick.attach(document.body)-->
+<!--})-->
+<!--</script>-->
 <script>
   let bid = "<%= info.id %>",
     id = "<%= read.id %>",
     title = "<%= info.title %>",
     inShelf = "<%= inShelf %>",
-    unionid = window.AndroidWebView.grtUid()
+    unionid = JavaScriptInterface.getUid();
   if (!inShelf) {
     $(".add").css({
       "display": "none"
@@ -106,13 +106,13 @@ $(function() {
       "display": "inline-block"
     })
   }
-  $(".read").click(function () {
+  $(".read").tap(function () {
     window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
   })
   chapterClick(bid, title)
 
   function chapterClick(bid, title) {
-    $(".chapter_list").on("click", "li", function () {
+    $(".chapter_list").on("tap", "li", function () {
       let id = $(this).attr("data-id")
       window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
     })
@@ -121,7 +121,7 @@ $(function() {
   add_shelf(bid, unionid)
 
   function add_shelf(id, unionid) {
-    $(".add").click(function () {
+    $(".add").tap(function () {
       httpRequest("/user/shelf", "get", {
         unionid: unionid,
         id: id
@@ -139,7 +139,7 @@ $(function() {
         }
       })
     })
-    $(".remove").click(function () {
+    $(".remove").tap(function () {
       httpRequest("/user/unshelf", "get", {
         unionid: unionid,
         id: id

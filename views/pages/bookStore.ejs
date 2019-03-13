@@ -37,12 +37,12 @@
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/cookie.js"></script>
-<script src="/js/fastclick.js"></script>
-<script>
-  $(function () {
-    FastClick.attach(document.body)
-  })
-</script>
+<!--<script src="/js/fastclick.js"></script>-->
+<!--<script>-->
+  <!--$(function () {-->
+    <!--FastClick.attach(document.body)-->
+  <!--})-->
+<!--</script>-->
 <script>
   $(function () {
     let tag = getCookie("tag_sex")
@@ -52,7 +52,7 @@
       getBookList(1, 2)
     }
     detailClick()
-    $(".tab_container").on("click", "li", function () {
+    $(".tab_container").on("tap", "li", function () {
       $(".tab_container li").removeClass("active")
       $(this).addClass("active")
       let tag_sex = $(this).attr("data-tag_sex");
@@ -63,7 +63,7 @@
   })
 
   function detailClick() {
-    $(".book_list").on("click", "li", function () {
+    $(".book_list").on("tap", "li", function () {
       let id = $(this).attr("data-id");
       window.location.href = "/bookDetail?id=" + id
     })

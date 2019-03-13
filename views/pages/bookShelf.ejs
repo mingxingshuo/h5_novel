@@ -50,18 +50,18 @@
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/http.js"></script>
-<script src="/js/fastclick.js"></script>
-<script>
-$(function() {
-  FastClick.attach(document.body)
-})
-</script>
+<!--<script src="/js/fastclick.js"></script>-->
+<!--<script>-->
+<!--$(function() {-->
+  <!--FastClick.attach(document.body)-->
+<!--})-->
+<!--</script>-->
 <script>
 
-let unionid = window.AndroidWebView.grtUid()
+let unionid = JavaScriptInterface.getUid();
 detailClick(unionid)
 function detailClick(unionid) {
-  $(".book_list").on("click", "li", function() {
+  $(".book_list").on("tap", "li", function() {
     var bid = $(this).attr("data-id"), title = $(this).find("span").text()
     httpRequest("/book/record", "get", {bid: bid, unionid: unionid}, function(res) {
       if(res.data) {
@@ -79,7 +79,7 @@ function detailClick(unionid) {
 }
 </script>
 <script>
-  $(".continue").click(function () {
+  $(".continue").tap(function () {
     window.location.href = "/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>";
   })
 </script>

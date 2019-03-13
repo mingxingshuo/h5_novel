@@ -50,11 +50,11 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/fastclick.js"></script>
+<!--<script src="/js/fastclick.js"></script>-->
 <script>
 $(function() {
-  FastClick.attach(document.body)
-  $(".yijian").click(function() {
+  // FastClick.attach(document.body)
+  $(".yijian").tap(function() {
     console.log(1)
   })
 })
@@ -62,15 +62,15 @@ $(function() {
 <script>
 toPayPage()
 function toPayPage() {
-  $(".chongzhi button").click(function() {
+  $(".chongzhi button").tap(function() {
     window.location.href = "/recharge"
   })
-  $(".record").click(function() {
+  $(".record").tap(function() {
     window.location.href = "/record"
   })
 }
 $(function() {
-  $(".logout").click(function() {
+  $(".logout").tap(function() {
     window.location.href = "/logout"
   })
 })

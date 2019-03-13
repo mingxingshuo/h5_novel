@@ -35,14 +35,14 @@ function getBgColor() {
 
 // 跳转目录
 function toChapters(bid, title) {
-  $(".to-chapters").click(function() {
+  $(".to-chapters").tap(function() {
     window.location.href = "/chapters?bid=" + bid + "&title=" + title;
   })
 }
 
 // 切换章节
 function changeChapter(bid, id, title) {
-  $(".prev_chapter").click(function() {
+  $(".prev_chapter").tap(function() {
     // let data = {
     //   id: (Number(id) - 1),
     //   unionid: "1"
@@ -56,7 +56,7 @@ function changeChapter(bid, id, title) {
     //   }
     // })
   })
-  $(".next_chapter").click(function() {
+  $(".next_chapter").tap(function() {
     // let data = {
     //   id: (Number(id) + 1),
     //   unionid: "1"
@@ -75,7 +75,7 @@ function changeChapter(bid, id, title) {
 
 // 修改背景颜色
 function changeBgColor() {
-  $(".color-setting").on("click", "li", function () {
+  $(".color-setting").on("tap", "li", function () {
     let bgColor = $(this).attr("data-color")
     $("body").css({background: bgColor})
     setCookie("bgColor", bgColor)
@@ -97,14 +97,14 @@ function isBlack(bgColor) {
 function changeFontSize() {
   let fontSize = getCookie("fontSize");
   let fontNum = Number(fontSize.split("rem")[0])
-  $(".font-add").click(function() {
+  $(".font-add").tap(function() {
     if(fontNum <= 0.4) {
       fontNum += 0.02
       $("body .chapter-content").css({"font-size": fontNum + "rem"})
       setCookie("fontSize", fontNum + "rem")
     }
   })
-  $(".font-reduce").click(function() {
+  $(".font-reduce").tap(function() {
     if(fontNum > 0.29) {
       fontNum -= 0.02
       $("body .chapter-content").css({"font-size": fontNum + "rem"})
