@@ -11,7 +11,8 @@
   <meta name="description" content="描述">
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/recharge.css">
-  <title>充值</title>
+    <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
+    <title>充值</title>
   <style>
     body {
       background: rgb(241, 242, 247);
@@ -60,19 +61,14 @@
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
-<!--<script src="/js/fastclick.js"></script>-->
-<!--<script>-->
-<!--$(function() {-->
-  <!--FastClick.attach(document.body)-->
-<!--})-->
-<!--</script>-->
+<script src="/js/jquery.mobile-1.4.5.min.js"></script>
 <script>
 $(function() {
   $(".recharge-list").on("tap", "li", function() {
     $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
     $(this).addClass('selected');
   })
-  $(".submit").tap(function() {
+  $(".submit").on("tap", function() {
     let price = $(".recharge-list li.selected").attr("data-price")
     let info = location.search, redirecturl = ""
     if(info) {
@@ -87,16 +83,4 @@ $(function() {
   })
 })
 </script>
-<script>
-  // 移动端调试
-  // (function () {
-  //   var script = document.createElement('script');
-  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
-  //   document.body.appendChild(script);
-  //   script.onload = function () {
-  //     eruda.init()
-  //   }
-  // })()
-</script>
-
 </html>
