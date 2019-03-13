@@ -102,13 +102,13 @@
       "display": "inline-block"
     })
   }
-  $(".read").on("click", function() {
+  $(".read").on("tap", function() {
     window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
   })
   chapterClick(bid, title)
 
   function chapterClick(bid, title) {
-    $(".chapter_list").on("click", "li", function () {
+    $(".chapter_list").on("tap", "li", function () {
       let id = $(this).attr("data-id")
       console.log("事件监听跳转链接")
       window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
@@ -118,7 +118,7 @@
   add_shelf(bid, unionid)
 
   function add_shelf(id, unionid) {
-    $(".add").on("click", function () {
+    $(".add").on("tap", function () {
       httpRequest("/user/shelf", "get", {
         unionid: unionid,
         id: id
@@ -136,7 +136,7 @@
         }
       })
     })
-    $(".remove").on("click", function () {
+    $(".remove").on("tap", function () {
       httpRequest("/user/unshelf", "get", {
         unionid: unionid,
         id: id
