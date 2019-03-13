@@ -90,7 +90,7 @@
     id = "<%= read.id %>",
     title = "<%= info.title %>",
     inShelf = "<%= inShelf %>",
-    unionid = JavaScriptInterface.getUid() || "1";
+    unionid = JavaScriptInterface.getUid();
   if (!inShelf) {
     $(".add").css({
       "display": "none"
@@ -106,7 +106,7 @@
       "display": "inline-block"
     })
   }
-  $(".read").on("tap",   () {
+  $(".read").on("tap", function() {
     window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
   })
   chapterClick(bid, title)
@@ -114,7 +114,7 @@
   function chapterClick(bid, title) {
     $(".chapter_list").on("tap", "li", function () {
       let id = $(this).attr("data-id")
-      console.log("事件监听跳转链接");
+      console.log("事件监听跳转链接")
       window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
     })
   }
