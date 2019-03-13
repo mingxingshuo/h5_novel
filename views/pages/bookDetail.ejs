@@ -90,7 +90,7 @@
     id = "<%= read.id %>",
     title = "<%= info.title %>",
     inShelf = "<%= inShelf %>",
-    unionid = JavaScriptInterface.getUid();
+    unionid = JavaScriptInterface.getUid() || "1";
   if (!inShelf) {
     $(".add").css({
       "display": "none"

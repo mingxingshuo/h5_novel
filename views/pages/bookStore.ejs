@@ -53,6 +53,7 @@
     }
     detailClick()
     $(".tab_container").on("tap", "li", function () {
+      console.log("sex")
       $(".tab_container li").removeClass("active")
       $(this).addClass("active")
       let tag_sex = $(this).attr("data-tag_sex");
@@ -63,6 +64,7 @@
   })
 
   function detailClick() {
+    console.log("detail")
     $(".book_list").on("tap", "li", function () {
       let id = $(this).attr("data-id");
       window.location.href = "/bookDetail?id=" + id
@@ -113,7 +115,7 @@
     $(".book_list").append(html)
   }
 </script>
-<!-- <script>
+<script>
   // 移动端调试
   (function () {
     var script = document.createElement('script');
@@ -123,6 +125,6 @@
       eruda.init()
     }
   })()
-</script> -->
+</script>
 
 </html>
