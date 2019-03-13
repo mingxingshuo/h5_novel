@@ -54,7 +54,7 @@
 <script>
 $(function() {
   // FastClick.attach(document.body)
-  $(".yijian").tap(function() {
+  $(".yijian").on("tap", function() {
     console.log(1)
   })
 })
@@ -62,15 +62,15 @@ $(function() {
 <script>
 toPayPage()
 function toPayPage() {
-  $(".chongzhi button").tap(function() {
+  $(".chongzhi button").on("tap", function() {
     window.location.href = "/recharge"
   })
-  $(".record").tap(function() {
+  $(".record").on("tap", function() {
     window.location.href = "/record"
   })
 }
 $(function() {
-  $(".logout").tap(function() {
+  $(".logout").on("tap", function() {
     window.location.href = "/logout"
   })
 })
