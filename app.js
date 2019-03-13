@@ -33,7 +33,7 @@ app.use(views(__dirname + '/views', {
 
 
 app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Headers', 'content-type,xfilecategory,xfilename,xfilesize,u_id,device_id');
+  ctx.set('Access-Control-Allow-Headers', 'content-type,xfilecategory,xfilename,xfilesize,u_id,device_id,uid,deviceid');
 	ctx.set('Access-Control-Allow-Origin', '*');
 	ctx.set('Access-Control-Allow-Credentials', 'true');
   ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET,OPTIONS');
@@ -52,7 +52,8 @@ app.use(async (ctx, next) => {
 })
 
 app.use(async (ctx, next) => {
-    console.log(ctx.request.headers.device_id)
+    console.log(ctx.request.headers.deviceid)
+    console.log(ctx.get('deviceid'))
     console.log("----------------------headers--------------------")
     console.log(ctx.request.headers)
     await next()
