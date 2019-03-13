@@ -33,7 +33,8 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/login', async function (ctx, next) {
-    let unionid = ctx.request.body.unionid
+    let unionid = ctx.request.body.u_id
+    let device_id = ctx.request.body.device_id
     let screen_name = ctx.request.body.screen_name
     let gender = ctx.request.body.gender
     let profile_image_url = ctx.request.body.profile_image_url
