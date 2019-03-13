@@ -80,19 +80,20 @@ function detailClick(unionid) {
 </script>
 <script>
   $(".continue").on("tap", function () {
+    console.log(11111)
     window.location.href = "/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>";
   })
 </script>
 <script>
   // 移动端调试
-  // (function () {
-  //   var script = document.createElement('script');
-  //   script.src = "http://eruda.liriliri.io/eruda.min.js";
-  //   document.body.appendChild(script);
-  //   script.onload = function () {
-  //     eruda.init()
-  //   }
-  // })()
+  (function () {
+    var script = document.createElement('script');
+    script.src = "http://eruda.liriliri.io/eruda.min.js";
+    document.body.appendChild(script);
+    script.onload = function () {
+      eruda.init()
+    }
+  })()
 </script>
 
 </html>
