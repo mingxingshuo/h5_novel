@@ -32,7 +32,7 @@ app.use(views(__dirname + '/views', {
 }))
 
 
-/*app.use(async (ctx, next) => {
+app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Headers', 'content-type,xfilecategory,xfilename,xfilesize');
 	ctx.set('Access-Control-Allow-Origin', '*');
 	ctx.set('Access-Control-Allow-Credentials', 'true');
@@ -41,7 +41,7 @@ app.use(views(__dirname + '/views', {
     ctx.response.status = 200
   }
 	await next();
-}); */
+}); 
 
 // logger
 app.use(async (ctx, next) => {
@@ -52,9 +52,8 @@ app.use(async (ctx, next) => {
 })
 
 app.use(async (ctx, next) => {
-    console.log(ctx.request.headers.device_id)
     console.log("----------------------headers--------------------")
-    console.log(ctx.request.headers)
+    console.log(ctx.request.headers.device_id)
     await next()
 })
 
