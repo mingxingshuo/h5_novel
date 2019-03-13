@@ -54,7 +54,7 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
     console.log(ctx.request.headers.device_id)
     console.log("----------------------headers--------------------")
-    console.log(ctx.request.headers.device_id)
+    console.log(ctx.request.headers)
     await next()
 })
 
