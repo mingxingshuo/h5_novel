@@ -22,9 +22,7 @@ onerror(app)
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
-
-//app.use(cors());
-
+app.use(cors());
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
@@ -34,8 +32,8 @@ app.use(views(__dirname + '/views', {
 }))
 
 
-/*app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Headers', 'content-type,xfilecategory,xfilename,xfilesize');
+app.use(async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Headers', 'content-type,xfilecategory,xfilename,xfilesize,u_id,device_id');
 	ctx.set('Access-Control-Allow-Origin', '*');
 	ctx.set('Access-Control-Allow-Credentials', 'true');
   ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET,OPTIONS');
@@ -43,7 +41,7 @@ app.use(views(__dirname + '/views', {
     ctx.response.status = 200
   }
 	await next();
-}); */
+}); 
 
 // logger
 app.use(async (ctx, next) => {
@@ -56,7 +54,7 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
     console.log(ctx.request.headers.device_id)
     console.log("----------------------headers--------------------")
-    console.log(ctx.request.headers)
+    console.log(ctx.request.headers.device_id)
     await next()
 })
 
