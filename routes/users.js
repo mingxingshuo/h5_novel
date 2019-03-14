@@ -15,6 +15,7 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/login', async function (ctx, next) {
+    console.log(ctx.request.body,'---------------------body')
     let uid = ctx.request.body.uid
     let deviceid = ctx.request.body.deviceid
     let screen_name = ctx.request.body.screen_name
