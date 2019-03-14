@@ -49,17 +49,16 @@
   </div>
 </body>
 <script src="/js/rem.js"></script>
-<script src="/js/http.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/http.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
 <script>
 
-let unionid = JavaScriptInterface.getUid();
-detailClick(unionid)
-function detailClick(unionid) {
+detailClick()
+function detailClick() {
   $(".book_list").on("tap", "li", function() {
     var bid = $(this).attr("data-id"), title = $(this).find("span").text()
-    httpRequest("/book/record", "get", {bid: bid, unionid: unionid}, function(res) {
+    httpRequest("/book/record", "get", {bid: bid}, function(res) {
       if(res.data) {
         window.location.href = "/content?bid=" + res.data.bid + "&cid=" + res.data.cid + "&title=" + title;
       } else {
@@ -76,20 +75,8 @@ function detailClick(unionid) {
 </script>
 <script>
   $(".continue").on("tap", function () {
-    console.log(11111)
     window.location.href = "/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>";
   })
-</script>
-<script>
-  // 移动端调试
-  (function () {
-    var script = document.createElement('script');
-    script.src = "http://eruda.liriliri.io/eruda.min.js";
-    document.body.appendChild(script);
-    script.onload = function () {
-      eruda.init()
-    }
-  })()
 </script>
 
 </html>

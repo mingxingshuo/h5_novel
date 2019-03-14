@@ -78,15 +78,14 @@
   </div>
 </body>
 <script src="/js/rem.js"></script>
-<script src="/js/http.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/http.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
 <script>
   let bid = "<%= info.id %>",
     id = "<%= read.id %>",
     title = "<%= info.title %>",
-    inShelf = "<%= inShelf %>",
-    unionid = JavaScriptInterface.getUid();
+    inShelf = "<%= inShelf %>"
   if (!inShelf) {
     $(".add").css({
       "display": "none"
@@ -115,12 +114,11 @@
     })
   }
 
-  add_shelf(bid, unionid)
+  add_shelf(bid)
 
-  function add_shelf(id, unionid) {
+  function add_shelf(data) {
     $(".add").on("tap", function () {
       httpRequest("/user/shelf", "get", {
-        unionid: unionid,
         id: id
       }, function (res) {
         if (res.success) {
@@ -138,7 +136,6 @@
     })
     $(".remove").on("tap", function () {
       httpRequest("/user/unshelf", "get", {
-        unionid: unionid,
         id: id
       }, function (res) {
         if (res.success) {
