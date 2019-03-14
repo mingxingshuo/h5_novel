@@ -1,40 +1,22 @@
 const router = require('koa-router')()
 const UserModel = require('../model/User')
-// var mem = require('../util/mem.js');
+var mem = require('../util/mem');
 
 router.prefix('/user')
 
-// router.get('/', async function (ctx, next) {
-//   let user = await UserModel.find()
-//   ctx.body = {
-//     success: '成功',
-//     data: user
-//   }
-// })
 router.get('/all', async function (ctx, next) {
     let user = await UserModel.find()
     ctx.body = {success: '成功', data: user}
 })
 
 router.get('/', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-
-    let user = await UserModel.findOne({unionid: unionid})
+    let user = await UserModel.findOne({_id: ctx.id})
     ctx.body = {success: '成功', data: user}
-
-
-    // let mem_user = await mem.get("novelUser_" + unionid)
-    // if (mem_user) {
-    //     let user = await UserModel.findOne({unionid: unionid})
-    //     ctx.body = {success: '成功', data: user}
-    // } else {
-    //     ctx.body = {err: "您还没有登陆，请先登录"}
-    // }
 })
 
 router.post('/login', async function (ctx, next) {
-    let unionid = ctx.request.body.u_id
-    let device_id = ctx.request.body.device_id
+    let uid = ctx.request.body.uid
+    let deviceid = ctx.request.body.deviceid
     let screen_name = ctx.request.body.screen_name
     let gender = ctx.request.body.gender
     let profile_image_url = ctx.request.body.profile_image_url
@@ -44,37 +26,48 @@ router.post('/login', async function (ctx, next) {
     } else if (gender == "女") {
         sex = 1
     }
-    if (unionid) {
-        let user = await UserModel.findOneAndUpdate({unionid: unionid}, {
-            unionid: unionid,
+    if (uid) {
+        let user = await UserModel.findOneAndUpdate({uid: uid}, {
+            uid: uid,
+            deviceid: deviceid,
             screen_name: screen_name,
             gender: sex,
             profile_image_url: profile_image_url,
             tag_sex: sex
-        }, {upsert: true})
+        })
         ctx.body = {
             success: '成功',
             data: user
         }
     } else {
+        let user = await UserModel.findOneAndUpdate({device_id: device_id}, {
+            uid: uid,
+            deviceid: deviceid,
+            screen_name: screen_name,
+            gender: sex,
+            profile_image_url: profile_image_url,
+            tag_sex: sex
+        })
         ctx.body = {
-            err: "登陆失败，unionid不能为空"
+            success: '成功',
+            data: user
         }
     }
 })
 
 router.get('/balance', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
+    let id = ctx.request.query.id
     let balance = ctx.request.query.balance
-    let user = await UserModel.findOneAndUpdate({unionid: unionid}, {
+    let user = await UserModel.findOneAndUpdate({_id: id}, {
         balance: balance
     })
-    if(user){
+    await mem.set("uid_" + user.uid, '', 1);
+    if (user) {
         ctx.body = {
             success: '成功',
             data: user
         }
-    }else{
+    } else {
         ctx.body = {
             err: "修改书币失败"
         }
@@ -82,17 +75,10 @@ router.get('/balance', async function (ctx, next) {
 })
 
 router.get('/shelf', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let id = ctx.request.query.id;
-    let user = await UserModel.findOneAndUpdate({
-        unionid: unionid
-    }, {
-        $addToSet: {
-            shelf: id
-        }
-    }, {
-        new: true
-    })
+    let id = ctx.id
+    let bid = ctx.request.query.bid;
+    let user = await UserModel.findOneAndUpdate({_id: id}, {$addToSet: {shelf: bid}}, {new: true})
+    await mem.set("uid_" + id, '', 1);
     if (user) {
         ctx.body = {
             success: '成功',
@@ -106,17 +92,10 @@ router.get('/shelf', async function (ctx, next) {
 })
 
 router.get('/unshelf', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let id = ctx.request.query.id;
-    let user = await UserModel.findOneAndUpdate({
-        unionid: unionid
-    }, {
-        $pull: {
-            shelf: id
-        }
-    }, {
-        new: true
-    })
+    let id = ctx.id;
+    let bid = ctx.request.query.bid;
+    let user = await UserModel.findOneAndUpdate({_id: id}, {$pull: {shelf: bid}}, {new: true})
+    await mem.set("uid_" + id, '', 1);
     if (user) {
         ctx.body = {
             success: '成功',

@@ -1,7 +1,6 @@
 const router = require('koa-router')()
 const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
-const UserModel = require('../model/User')
 const RecordModel = require('../model/Record')
 
 router.prefix('/book')
@@ -29,23 +28,21 @@ router.get('/', async function (ctx, next) {
 })
 
 router.get('/userbooks', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let user = await UserModel.findOne({unionid: unionid})
-    console.log(user, 1111111111111)
+    let user = ctx.user
     let book = await BookModel.find({id: {$in: user.shelf}})
     ctx.body = {success: '成功', data: book}
 })
 
 router.get('/recordbook', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let record = await RecordModel.findOne({unionid: unionid}).sort({updateAt: -1})
+    let u_id = ctx.request.query.u_id
+    let record = await RecordModel.findOne({u_id: u_id}).sort({updateAt: -1})
     ctx.body = {success: '成功', data: record}
 })
 
 router.get('/record', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
+    let u_id = ctx.request.query.u_id
     let bid = ctx.request.query.bid
-    let record = await RecordModel.findOne({unionid: unionid, bid: bid})
+    let record = await RecordModel.findOne({u_id: u_id, bid: bid})
     ctx.body = {success: '成功', data: record}
 })
 

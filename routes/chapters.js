@@ -2,6 +2,7 @@ const router = require('koa-router')()
 const ChapterModel = require('../model/Chapter')
 const UserModel = require('../model/User')
 const RecordModel = require('../model/Record')
+const mem = require('./util/mem')
 
 router.prefix('/chapter')
 var price = 30
@@ -13,22 +14,23 @@ router.get('/all', async function (ctx, next) {
 })
 
 router.get('/', async function (ctx, next) {
+    console.log(ctx.user, '-------------------user')
     let id = ctx.request.query.id
-    let unionid = ctx.request.query.unionid
+    let u_id = ctx.request.query.u_id
     let chapter = await ChapterModel.findOne({id: id})
-    let user = await UserModel.findOne({unionid: unionid})
+    let user = ctx.user
     if (!chapter.isvip) {
-        await RecordModel.findOneAndUpdate({unionid: unionid, bid: chapter.bid}, {
-            unionid: unionid,
+        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
+            u_id: u_id,
             bid: chapter.bid,
             cid: id,
             updateAt: Date.now()
         }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     }
-    if (user.isvip) {
-        await RecordModel.findOneAndUpdate({unionid: unionid, bid: chapter.bid}, {
-            unionid: unionid,
+    if (user && user.isvip) {
+        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
+            u_id: u_id,
             bid: chapter.bid,
             cid: id,
             updateAt: Date.now()
@@ -37,37 +39,35 @@ router.get('/', async function (ctx, next) {
     }
     let pay_chapter = user.pay_chapter.indexOf(id)
     if (pay_chapter != -1) {
-        await RecordModel.findOneAndUpdate({unionid: unionid, bid: chapter.bid}, {
-            unionid: unionid,
+        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
+            u_id: u_id,
+            bid: chapter.bid,
+            cid: id,
+            updateAt: Date.now()
+        }, {upsert: true})
+        return ctx.body = {success: '成功', data: chapter}
+    }
+    if (user && user.balance > price) {
+        await UserModel.findOneAndUpdate({_id: ctx.id}, {
+            $addToSet: {pay_chapter: id},
+            $inc: {balance: -price}
+        })
+        await mem.set("uid_" + user.uid, 1);
+        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
+            u_id: u_id,
             bid: chapter.bid,
             cid: id,
             updateAt: Date.now()
         }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     } else {
-        if (user.balance > price) {
-            await UserModel.findOneAndUpdate({unionid: unionid}, {
-                $addToSet: {pay_chapter: id},
-                $inc: {balance: -price}
-            })
-            await RecordModel.findOneAndUpdate({unionid: unionid, bid: chapter.bid}, {
-                unionid: unionid,
-                bid: chapter.bid,
-                cid: id,
-                updateAt: Date.now()
-            }, {upsert: true})
-            return ctx.body = {success: '成功', data: chapter}
-        } else {
-            // return ctx.body = {err: "您的余额不足，请及时充值"}
-            let book = await BookModel.find({id: chapter.bid})
-            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
-        }
+        let book = await BookModel.find({id: chapter.bid})
+        return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
     }
 })
 
 router.get('/userchapter', async function (ctx, next) {
-    let unionid = ctx.request.query.unionid
-    let user = await UserModel.findOne({unionid: unionid})
+    let user = ctx.user
     let book = await BookModel.find({id: {$in: user.shelf}})
     ctx.body = {success: '成功', data: book}
 })

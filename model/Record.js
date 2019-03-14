@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var DB = require('./DB');
 
 var RecordSchema = new Schema({
-    unionid: String,
+    u_id: String,
     bid: Number,
     cid: Number,
     createAt: {
