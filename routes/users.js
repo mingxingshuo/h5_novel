@@ -35,6 +35,7 @@ router.post('/login', async function (ctx, next) {
             profile_image_url: profile_image_url,
             tag_sex: sex
         })
+        await mem.set("uid_" + user.uid, '', 1);
         ctx.body = {
             success: '成功',
             data: user
@@ -48,6 +49,7 @@ router.post('/login', async function (ctx, next) {
             profile_image_url: profile_image_url,
             tag_sex: sex
         })
+        await mem.set("uid_" + user.deviceid, '', 1);
         ctx.body = {
             success: '成功',
             data: user

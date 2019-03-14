@@ -10,8 +10,8 @@ router.get('/all', async function (ctx, next) {
 })
 
 router.get('/user', async function (ctx, next) {
-    let user = ctx.user
-    let orders = await OrderModel.find({u_id: user._id, status: 1}).sort({updateAt: -1})
+    let id = ctx.id
+    let orders = await OrderModel.find({u_id: id, status: 1}).sort({updateAt: -1})
     ctx.body = {success: '成功', data: orders}
 })
 

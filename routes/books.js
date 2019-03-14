@@ -34,15 +34,15 @@ router.get('/userbooks', async function (ctx, next) {
 })
 
 router.get('/recordbook', async function (ctx, next) {
-    let u_id = ctx.request.query.u_id
-    let record = await RecordModel.findOne({u_id: u_id}).sort({updateAt: -1})
+    let id = ctx.id
+    let record = await RecordModel.findOne({u_id: id}).sort({updateAt: -1})
     ctx.body = {success: '成功', data: record}
 })
 
 router.get('/record', async function (ctx, next) {
-    let u_id = ctx.request.query.u_id
+    let id = ctx.id
     let bid = ctx.request.query.bid
-    let record = await RecordModel.findOne({u_id: u_id, bid: bid})
+    let record = await RecordModel.findOne({u_id: id, bid: bid})
     ctx.body = {success: '成功', data: record}
 })
 
