@@ -14,19 +14,19 @@ async function httpRequest(url) {
 
 router.get('/account', async (ctx, next) => {
   console.log(ctx)
-  let result = await httpRequest("http://localhost:3001/user?unionid=1")
+  let result = await httpRequest("http://localhost:3001/user?_id=" + ctx.id)
   await ctx.render('pages/account', result.data);
 })
 
 router.get('/bookDetail', async (ctx, next) => {
   // 是否添加到书架
-  let data = await httpRequest("http://localhost:3001/user?unionid=1")
+  let data = await httpRequest("http://localhost:3001/user?_id=" + ctx.id)
   let id = ctx.request.query.id, read = {}
   let inShelf = data.data.shelf.indexOf(id) == -1 ? false : true
   // 获取书信息
   let info = await httpRequest("http://localhost:3001/book?id=" + id)
   // 是否有阅读记录
-  let result = await httpRequest("http://localhost:3001/book/record?unionid=1&bid=" + id)
+  let result = await httpRequest("http://localhost:3001/book/record?_id=" + ctx.id + "&bid=" + id)
   if(info && result.data) {
     read = {
       id: result.data.cid,
@@ -43,12 +43,12 @@ router.get('/bookDetail', async (ctx, next) => {
 })
 
 router.get('/bookShelf', async (ctx, next) => {
-  let result = await httpRequest("http://localhost:3001/book/recordbook?unionid=1")
+  let result = await httpRequest("http://localhost:3001/book/recordbook?_id=" + ctx.id)
   let data;
   if(result) {
     data = await httpRequest("http://localhost:3001/book?id=" + result.data.bid)
   }
-  let shelf = await httpRequest("http://localhost:3001/book/userbooks?unionid=1")
+  let shelf = await httpRequest("http://localhost:3001/book/userbooks?_id=" + ctx.id)
   await ctx.render('pages/bookShelf', {result: result.data, data: data.data.book, shelf: shelf.data})
 })
 
@@ -58,7 +58,7 @@ router.get('/bookStore', async (ctx, next) => {
 
 router.get('/content', async (ctx, next) => {
   let id = ctx.request.query.id, isfirst, islast
-  let data = await httpRequest("http://localhost:3001/chapter?unionid=1&id=" + id)
+  let data = await httpRequest("http://localhost:3001/chapter?_id=" + ctx.id + "&id=" + id)
   let result = await httpRequest("http://localhost:3001/book?id=" + ctx.request.query.bid)
   
   if(result.data.first == id) {
