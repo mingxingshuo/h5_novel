@@ -80,11 +80,8 @@ router.get('/shelf', async function (ctx, next) {
     let id = ctx.id
     let bid = ctx.request.query.bid;
     let user = await UserModel.findOneAndUpdate({_id: id}, {$addToSet: {shelf: bid}}, {new: true})
-    if(user.uid){
-        await mem.set("uid_" + id, '', 1);
-    }else{
-        await mem.set("deviceid_" + id, '', 1);
-    }
+    await mem.set("uid_" + id, '', 1);
+    await mem.set("deviceid_" + id, '', 1);
     if (user) {
         ctx.body = {
             success: '成功',
@@ -101,11 +98,8 @@ router.get('/unshelf', async function (ctx, next) {
     let id = ctx.id;
     let bid = ctx.request.query.bid;
     let user = await UserModel.findOneAndUpdate({_id: id}, {$pull: {shelf: bid}}, {new: true})
-    if(user.uid){
-        await mem.set("uid_" + id, '', 1);
-    }else{
-        await mem.set("deviceid_" + id, '', 1);
-    }
+    await mem.set("uid_" + id, '', 1);
+    await mem.set("deviceid_" + id, '', 1);
     if (user) {
         ctx.body = {
             success: '成功',
