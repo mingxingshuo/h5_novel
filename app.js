@@ -14,8 +14,8 @@ const chapters = require('./routes/chapters')
 const order = require('./routes/order')
 const qudao = require('./routes/qudao')
 const pay = require('./routes/pay')
-const UserModel = require('../model/User')
-const mem = require('../util/mem')
+const UserModel = require('./model/User')
+const mem = require('./util/mem')
 
 // error handler
 onerror(app)

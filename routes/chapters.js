@@ -2,7 +2,7 @@ const router = require('koa-router')()
 const ChapterModel = require('../model/Chapter')
 const UserModel = require('../model/User')
 const RecordModel = require('../model/Record')
-const mem = require('./util/mem')
+const mem = require('../util/mem')
 
 router.prefix('/chapter')
 var price = 30
