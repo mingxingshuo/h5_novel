@@ -3,6 +3,7 @@ const http = require('http')
 const request = require('request')
 const UserModel = require('../model/User')
 const BookModel = require('../model/Book')
+const ChapterModel = require('../model/Chapter')
 router.prefix('/')
 
 async function httpRequest(url) {
