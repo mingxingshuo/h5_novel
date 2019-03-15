@@ -7,9 +7,14 @@ const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
 router.prefix('/')
 
-async function httpRequest(url) {
+async function httpRequest(url, id) {
     return new Promise((resolve, reject) => {
-        request.get(url, (err, res, body) => {
+        request.get({
+          url: url,
+          headers: {
+            uid: id
+          }
+        }, (err, res, body) => {
             let data = JSON.parse(body)
             resolve(data)
         })
@@ -17,7 +22,6 @@ async function httpRequest(url) {
 }
 
 router.get('/account', async(ctx, next) => {
-    console.log(ctx)
     let user = await UserModel.findOne({_id: ctx.id})
     await ctx.render('pages/account', user);
 })
@@ -28,7 +32,7 @@ router.get('/bookDetail', async(ctx, next) => {
     let id = ctx.request.query.id, read = {}
     let inShelf = user.shelf.indexOf(id) == -1 ? false : true
     // 获取书信息
-    let info = await httpRequest("http://localhost:3001/book?id=" + id)
+    let info = await httpRequest("http://localhost:3001/book?id=" + id, ctx.id)
     // 是否有阅读记录
     let result = await RecordModel.findOne({u_id: ctx.id, bid: id})
     if (info && result) {
@@ -67,8 +71,8 @@ router.get('/bookStore', async(ctx, next) => {
 
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
-    let data = await httpRequest("http://localhost:3001/chapter?id=" + id)
-    let result = await httpRequest("http://localhost:3001/book?id=" + ctx.request.query.bid)
+    let data = await httpRequest("http://localhost:3001/chapter?id=" + id, ctx.id)
+    let result = await httpRequest("http://localhost:3001/book?id=" + ctx.request.query.bid, ctx.id)
 
     if (result.data.first == id) {
         isfirst = true
