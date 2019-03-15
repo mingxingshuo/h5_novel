@@ -4,6 +4,7 @@ const request = require('request')
 const UserModel = require('../model/User')
 const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
+const RecordModel = require('../model/Record')
 router.prefix('/')
 
 async function httpRequest(url) {
@@ -29,10 +30,10 @@ router.get('/bookDetail', async(ctx, next) => {
     // 获取书信息
     let info = await httpRequest("http://localhost:3001/book?id=" + id)
     // 是否有阅读记录
-    let result = await httpRequest("http://localhost:3001/book/record?bid=" + id)
-    if (info && result.data) {
+    let result = await RecordModel.findOne({u_id: ctx.id, bid: id})
+    if (info && result) {
         read = {
-            id: result.data.cid,
+            id: result.cid,
             hasrecord: true
         }
     } else if (info) {
