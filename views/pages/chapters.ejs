@@ -42,7 +42,7 @@
 <script src="/js/dropload.min.js"></script>
 <script src="/js/http.js"></script>
 <script>
-  $(async function () {
+  $(function () {
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
     let arr = []
@@ -64,7 +64,7 @@
               $.each(result, function (i, el) {
                 html += `
                 <li data-id="${el.id}">
-                  <p>${el.title}</p>
+                  <p>${el.title.slice(0, 15)}</p>
                   <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
                 </li>
               `
