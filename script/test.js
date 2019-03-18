@@ -25,20 +25,20 @@ async function a() {
     await BookModel.findOneAndUpdate({origin_id: 3418}, {image: 'http://novel.oorggt.top/public/uploads/images/20181221/cafc1cec56fe68cfdd6a7a95d3b171cc.jpg'})
 }
 // a()
-async function httpRequest(url) {
-    return new Promise((resolve, reject) => {
-        let option = {
-            url:url,
-            headers:{uid:11}
-        }
-        request.get(option, (err, res, body) => {
-            let data = JSON.parse(body)
-            resolve(data)
-        })
-    })
-}
-
-async function b() {
-    await httpRequest('http://localhost:3001/user')
-}
-b()
+// async function httpRequest(url) {
+//     return new Promise((resolve, reject) => {
+//         let option = {
+//             url:url,
+//             headers:{uid:11}
+//         }
+//         request.get(option, (err, res, body) => {
+//             let data = JSON.parse(body)
+//             resolve(data)
+//         })
+//     })
+// }
+//
+// async function b() {
+//     await httpRequest('http://localhost:3001/user')
+// }
+// b()
