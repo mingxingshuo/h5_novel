@@ -40,8 +40,9 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
 <script src="/js/dropload.min.js"></script>
+<script src="/js/http.js"></script>
 <script>
-  $(function () {
+  $(async function () {
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
     let arr = []
@@ -49,39 +50,39 @@
       url: "/chapter/all?bid=" + id,
       success: function (res) {
         arr = res.data
-      }
-    })
-    $('.book-detail').dropload({
-      scrollArea: window,
-      domDown: {
-        domClass: 'dropload-down',
-        domRefresh: '<div class="dropload-refresh">上拉加载更多</div>',
-        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-        domNoData: '<div class="dropload-noData">到底了</div>'
-      },
-      loadDownFn: function (me) {
-        setTimeout(function () {
-          let html = "", result = arr.splice(0, 20);
-            $.each(result, function (i, el) {
-              html += `
+        $('.book-detail').dropload({
+          scrollArea: window,
+          domDown: {
+            domClass: 'dropload-down',
+            domRefresh: '<div class="dropload-refresh">上拉加载更多</div>',
+            domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+            domNoData: '<div class="dropload-noData">到底了</div>'
+          },
+          loadDownFn: function (me) {
+            setTimeout(function () {
+              let html = "", result = arr.splice(0, 20);
+              $.each(result, function (i, el) {
+                html += `
                 <li data-id="${el.id}">
                   <p>${el.title}</p>
                   <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
                 </li>
               `
-            })
-            $(".chapter_list").append(html)
-            me.resetload();
-            if(result.length < 20) {
-              // 锁定
-              me.lock();
-              // 无数据
-              me.noData();
+              })
+              $(".chapter_list").append(html)
               me.resetload();
-            }
-        }, 500);
+              if(result.length < 20) {
+                // 锁定
+                me.lock();
+                // 无数据
+                me.noData();
+                me.resetload();
+              }
+            }, 500);
+          }
+        });
       }
-    });
+    })
     chapterClick(id, title)
   })
 </script>
