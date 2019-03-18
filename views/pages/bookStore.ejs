@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/bookStore.css">
   <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
+  <link rel="stylesheet" href="/css/dropload.css">
   <title>书城</title>
   <style>
     body {
@@ -39,6 +40,7 @@
 <script src="/js/cookie.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
+<script src="/js/dropload.min.js"></script>
 <script>
   $(function () {
     let tag = getCookie("tag_sex")
@@ -60,7 +62,6 @@
   })
 
   function detailClick() {
-    console.log("detail")
     $(".book_list").on("tap", "li", function () {
       let id = $(this).attr("data-id");
       window.location.href = "/bookDetail?id=" + id

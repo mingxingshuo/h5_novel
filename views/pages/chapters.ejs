@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/chapters.css">
   <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
+  <link rel="stylesheet" href="/css/dropload.css">
   <title>目录</title>
   <style>
     body {
@@ -25,12 +26,12 @@
     <div class="chapter">
       <span class="chapter-title"><%= title %></span>
       <ul class="chapter_list">
-        <% for(let i = 0; i < data.length; i ++) { %>
-          <li data-id="<%= data[i].id %>">
-            <p><%= data[i].title %></p>
-            <span class='<%= data[i].isvip == 0 ? "free" : "pay" %>'><%= data[i].isvip == 0 ? "免费" : "付费" %></span>
-          </li>
-        <% } %>
+        <!--<% for(let i = 0; i < 20; i ++) { %>-->
+          <!--<li data-id="<%= data.result[i].id %>">-->
+            <!--<p><%= data.result[i].title %></p>-->
+            <!--<span class='<%= data.result[i].isvip == 0 ? "free" : "pay" %>'><%= data.result[i].isvip == 0 ? "免费" : "付费" %></span>-->
+          <!--</li>-->
+        <!--<% } %>-->
       </ul>
     </div>
   </div>
@@ -38,10 +39,53 @@
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
+<script src="/js/dropload.min.js"></script>
 <script>
-let id = location.search.split("=")[1].split("&")[0]
-let title = "<%= title %>"
-chapterClick(id, title)
+  $(function () {
+    let id = location.search.split("=")[1].split("&")[0]
+    let title = "<%= title %>"
+    let arr = []
+    $.ajax({
+      url: "/chapter/all?bid=" + id,
+      success: function (res) {
+        arr = res.data
+      }
+    })
+    $('.book-detail').dropload({
+      scrollArea: window,
+      domDown: {
+        domClass: 'dropload-down',
+        domRefresh: '<div class="dropload-refresh">上拉加载更多</div>',
+        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+        domNoData: '<div class="dropload-noData">到底了</div>'
+      },
+      loadDownFn: function (me) {
+        setTimeout(function () {
+          let html = "", result = arr.splice(0, 20);
+            $.each(result, function (i, el) {
+              html += `
+                <li data-id="${el.id}">
+                  <p>${el.title}</p>
+                  <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
+                </li>
+              `
+            })
+            $(".chapter_list").append(html)
+            me.resetload();
+            if(result.length < 20) {
+              // 锁定
+              me.lock();
+              // 无数据
+              me.noData();
+              me.resetload();
+            }
+        }, 500);
+      }
+    });
+    chapterClick(id, title)
+  })
+</script>
+<script>
 function chapterClick(bid, title) {
   $(".chapter_list").on("tap", "li", function () {
     let id = $(this).attr("data-id")
