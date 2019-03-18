@@ -10,14 +10,24 @@ router.prefix('/')
 async function httpRequest(url, id) {
     return new Promise((resolve, reject) => {
         request.get({
-          url: url,
-          headers: {
-            uid: id
-          }
+            url: url,
+            headers: {
+                uid: id
+            }
         }, (err, res, body) => {
             let data = JSON.parse(body)
             resolve(data)
         })
+    })
+}
+
+async function book(id) {
+    let book = await BookModel.findOne({id: id})
+    let chapters = await ChapterModel.find({bid: id}).sort({id: 1})
+    return new Promise((resolve, reject) => {
+        let first = chapters[0].id
+        let last = chapters[chapters.length - 1].id
+        resolve({book: book, first: first, last: last})
     })
 }
 
@@ -32,7 +42,7 @@ router.get('/bookDetail', async(ctx, next) => {
     let id = ctx.request.query.id, read = {}
     let inShelf = user.shelf.indexOf(id) == -1 ? false : true
     // 获取书信息
-    let info = await httpRequest("http://localhost:3001/book?id=" + id, ctx.id)
+    let info = await book(id)
     // 是否有阅读记录
     let result = await RecordModel.findOne({u_id: ctx.id, bid: id})
     if (info && result) {
@@ -42,14 +52,14 @@ router.get('/bookDetail', async(ctx, next) => {
         }
     } else if (info) {
         read = {
-            id: info.data.first,
+            id: info.first,
             hasrecord: false
         }
     }
     let chapters = await ChapterModel.find({bid: id})
     await ctx.render('pages/bookDetail', {
         inShelf: inShelf,
-        info: info.data.book,
+        info: info.book,
         read: read,
         chapters: chapters.slice(0, 10)
     })
@@ -72,14 +82,14 @@ router.get('/bookStore', async(ctx, next) => {
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
     let data = await httpRequest("http://localhost:3001/chapter?id=" + id, ctx.id)
-    let result = await httpRequest("http://localhost:3001/book?id=" + ctx.request.query.bid, ctx.id)
+    let result = await book(ctx.request.query.bid)
 
-    if (result.data.first == id) {
+    if (result.first == id) {
         isfirst = true
     } else {
         isfirst = false
     }
-    if (result.data.last == id) {
+    if (result.last == id) {
         islast = true
     } else {
         islast = false
