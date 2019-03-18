@@ -76,7 +76,6 @@ app.use(async(ctx, next) => {
             }
             await mem.set("deviceid_" + deviceid, user, 24 * 3600);
         }
-        ctx.user = user
         ctx.id = user._id
     }
     await next()

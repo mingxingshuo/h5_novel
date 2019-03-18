@@ -71,7 +71,8 @@ router.get('/bookShelf', async(ctx, next) => {
     if (result) {
         data = await BookModel.findOne({id: result.bid})
     }
-    let shelf = await BookModel.find({id: {$in: ctx.user.shelf}})
+    let user = await UserModel.findOne({_id: ctx.id})
+    let shelf = await BookModel.find({id: {$in: user.shelf}})
     await ctx.render('pages/bookShelf', {result: result, data: data, shelf: shelf})
 })
 

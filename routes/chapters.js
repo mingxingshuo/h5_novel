@@ -15,12 +15,11 @@ router.get('/all', async function (ctx, next) {
 })
 
 router.get('/', async function (ctx, next) {
-    console.log(ctx.user, '-------------------user')
     let id = ctx.request.query.id
     let u_id = ctx.id
     let chapter = await ChapterModel.findOne({id: id})
     let user = ctx.user
-    if(!user.uid){
+    if(!user){
         return ctx.redirect('/needLogin')
     }
     if (!chapter.isvip) {
@@ -71,7 +70,7 @@ router.get('/', async function (ctx, next) {
 })
 
 router.get('/userchapter', async function (ctx, next) {
-    let user = ctx.user
+    let user = await UserModel.findOne({_id: ctx.id})
     let book = await BookModel.find({id: {$in: user.shelf}})
     ctx.body = {success: '成功', data: book}
 })

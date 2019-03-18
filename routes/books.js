@@ -27,7 +27,7 @@ router.get('/', async function (ctx, next) {
 })
 
 router.get('/userbooks', async function (ctx, next) {
-    let user = ctx.user
+    let user = await UserModel.findOne({_id: ctx.id})
     let book = await BookModel.find({id: {$in: user.shelf}})
     ctx.body = {success: '成功', data: book}
 })
