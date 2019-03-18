@@ -20,6 +20,9 @@ router.get('/', async function (ctx, next) {
     let u_id = ctx.id
     let chapter = await ChapterModel.findOne({id: id})
     let user = ctx.user
+    if(!user.uid){
+        return ctx.redirect('/needLogin')
+    }
     if (!chapter.isvip) {
         await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
             u_id: u_id,
