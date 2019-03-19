@@ -46,6 +46,8 @@ router.get('/bookDetail', async(ctx, next) => {
     // 是否有阅读记录
     let result = await RecordModel.findOne({u_id: ctx.id, bid: id})
     console.log(result, "lixin")
+    console.log(ctx.id, "lixin-----ctx.id")
+    console.log(id, "lixin-----id")
     if (info && result) {
         read = {
             id: result.cid,
