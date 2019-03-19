@@ -102,6 +102,7 @@
     })
   }
   $(".read").on("tap", function() {
+    alert(id)
     window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
   })
   chapterClick(bid, title)
