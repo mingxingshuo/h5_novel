@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var DB = require('./DB');
 
 var UserSchema = new Schema({
-    uid: String,
+    unionid: String,
     deviceid: String,
     screen_name: String,
     gender: String,
