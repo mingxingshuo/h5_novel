@@ -19,19 +19,16 @@ router.get('/', async function (ctx, next) {
     let u_id = ctx.id
     let chapter = await ChapterModel.findOne({id: id})
     let user = ctx.user
-    console.log('u_id:'+u_id);
+    console.log('u_id:' + u_id);
     console.log(user);
-    if(!user){
-        return ctx.redirect('/needLogin')
-    }
     //记录阅读记录
     await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
-            u_id: u_id,
-            bid: chapter.bid,
-            cid: id,
-            updateAt: Date.now()
-        }, {upsert: true})
-    
+        u_id: u_id,
+        bid: chapter.bid,
+        cid: id,
+        updateAt: Date.now()
+    }, {upsert: true})
+
     if (!chapter.isvip) {
         await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
             u_id: u_id,
@@ -69,7 +66,11 @@ router.get('/', async function (ctx, next) {
         return ctx.body = {success: '成功', data: chapter}
     } else {
         let book = await BookModel.find({id: chapter.bid})
-        return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
+        if (!user) {
+            return ctx.redirect('/needLogin')
+        } else {
+            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
+        }
     }
 })
 
