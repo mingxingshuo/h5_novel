@@ -46,9 +46,7 @@
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
     let arr = []
-    $.ajax({
-      url: "/chapter/all?bid=" + id,
-      success: function (res) {
+    httpRequest("/chapter/all?bid=" + id, "get", {},function (res) {
         arr = res.data
         $('.book-detail').dropload({
           scrollArea: window,
@@ -81,8 +79,7 @@
             }, 500);
           }
         });
-      }
-    })
+      })
     chapterClick(id, title)
   })
 </script>
