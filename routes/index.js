@@ -6,6 +6,7 @@ const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
 router.prefix('/')
+var price = 30
 
 async function httpRequest(url, id) {
     return new Promise((resolve, reject) => {
