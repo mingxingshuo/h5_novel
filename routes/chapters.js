@@ -21,33 +21,21 @@ router.get('/', async function (ctx, next) {
     let user = ctx.user
     console.log('u_id:' + u_id);
     console.log(user);
+    await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
+        u_id: u_id,
+        bid: chapter.bid,
+        cid: id,
+        updateAt: Date.now()
+    }, {upsert: true})
 
     if (!chapter.isvip) {
-        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
-            u_id: u_id,
-            bid: chapter.bid,
-            cid: id,
-            updateAt: Date.now()
-        }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     }
     if (user && user.isvip) {
-        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
-            u_id: u_id,
-            bid: chapter.bid,
-            cid: id,
-            updateAt: Date.now()
-        }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     }
     let pay_chapter = user.pay_chapter.indexOf(id)
     if (pay_chapter != -1) {
-        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
-            u_id: u_id,
-            bid: chapter.bid,
-            cid: id,
-            updateAt: Date.now()
-        }, {upsert: true})
         return ctx.body = {success: '成功', data: chapter}
     }
     if (user && user.balance > price) {
@@ -55,12 +43,6 @@ router.get('/', async function (ctx, next) {
             $addToSet: {pay_chapter: id},
             $inc: {balance: -price}
         })
-        await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
-            u_id: u_id,
-            bid: chapter.bid,
-            cid: id,
-            updateAt: Date.now()
-        }, {upsert: true})
         await mem.set("uid_" + user._id, 1);
         return ctx.body = {success: '成功', data: chapter}
     } else {

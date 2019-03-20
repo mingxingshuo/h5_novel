@@ -68,13 +68,13 @@ app.use(async(ctx, next) => {
         ctx.id = user._id
     } else if (deviceid) {
         let user = await mem.get("deviceid_" + deviceid);
-        console.log(user,'-------------------user1')
+        console.log(user,'-------------------user11')
         if (!user) {
             user = await UserModel.findOne({deviceid: deviceid})
-            console.log(user,'-------------------user2')
+            console.log(user,'-------------------user12')
             if (!user) {
                 user = await UserModel.create({deviceid: deviceid})
-                console.log(user,'-------------------user3')
+                console.log(user,'-------------------user13')
             }
             await mem.set("deviceid_" + deviceid, user, 24 * 3600);
         }
