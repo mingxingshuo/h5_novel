@@ -19,8 +19,8 @@ router.get('/', async function (ctx, next) {
     let u_id = ctx.id
     let chapter = await ChapterModel.findOne({id: id})
     let user = ctx.user
-    console.log('u_id:' + u_id);
-    console.log(user);
+    console.log(u_id + '--------------------u_id');
+    console.log(user + '--------------------user');
     await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
         u_id: u_id,
         bid: chapter.bid,
