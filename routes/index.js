@@ -111,9 +111,11 @@ router.get('/content', async(ctx, next) => {
     if (user && user.isvip) {
         await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
     }
-    let pay_chapter = user.pay_chapter.indexOf(id)
-    if (pay_chapter != -1) {
-        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+    if (user) {
+        let pay_chapter = user.pay_chapter.indexOf(id)
+        if (pay_chapter != -1) {
+            await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+        }
     }
     if (user && user.balance > price) {
         await UserModel.findOneAndUpdate({_id: ctx.id}, {
