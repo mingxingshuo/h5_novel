@@ -26,7 +26,7 @@ app.use(bodyparser({
 }))
 //app.use(cors());
 app.use(json())
-app.use(logger())
+//app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
@@ -54,8 +54,15 @@ app.use(async(ctx, next) => {
 })
 
 app.use(async(ctx, next) => {
+    console.log('--------url-------------')
+    console.log(ctx.url)
+    console.log('---------header中间件 ---------')
     let uid = ctx.request.headers.uid
     let deviceid = ctx.request.headers.deviceid
+    console.log('------uid------')
+    console.log(uid)
+    console.log('------deviceid------')
+    console.log(deviceid)
     if (uid) {
         let user = await mem.get("uid_" + uid);
         console.log(user,'-------------------user1')
