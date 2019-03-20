@@ -2,85 +2,85 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta content="black" name="apple-mobile-web-app-status-bar-style">
-  <meta content="telephone=no" name="format-detection">
-  <meta name="Keywords" content="关键词">
-  <meta name="description" content="描述">
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/recharge.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="Keywords" content="关键词">
+    <meta name="description" content="描述">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/recharge.css">
     <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
     <title>充值</title>
-  <style>
-    body {
-      background: rgb(241, 242, 247);
-    }
-  </style>
+    <style>
+        body {
+            background: rgb(241, 242, 247);
+        }
+    </style>
 </head>
 
 <body>
-  <div class="recharge">
+<div class="recharge">
     <div class="container">
-      <span class="title">请选择充值⾦额</span>
-      <ul class="recharge-list">
-        <li data-price="30">
-          <p>30元</p>
-          <span>3000书币</span>
-          <span></span>
-        </li>
-        <li data-price="50">
-          <p>50元</p>
-          <span>5000+3000书币</span>
-          <span>多送30元</span>
-        </li>
-        <li data-price="100">
-          <p>100元</p>
-          <span>10000+8000书币</span>
-          <span>多送80元</span>
-        </li>
-        <li data-price="200">
-          <p>200元</p>
-          <span>20000+20000书币</span>
-          <span>多送200元</span>
-        </li>
-        <li data-price="365" class="price365">
-          <p>年费<img src="/img/vip.png" />会员</p>
-          <span>365元</span>
-          <span>每天1元，全年免费看</span>
-        </li>
-      </ul>
-      <div class="submit">提交订单</div>
-      <div class="remarks">
-        <span>书币属虚拟物品，⼀经购买不得退换</span>
-        <span>1元⼈⺠币等于100书币</span>
-      </div>
+        <span class="title">请选择充值⾦额</span>
+        <ul class="recharge-list">
+            <li data-price="30">
+                <p>30元</p>
+                <span>3000书币</span>
+                <span></span>
+            </li>
+            <li data-price="50">
+                <p>50元</p>
+                <span>5000+3000书币</span>
+                <span>多送30元</span>
+            </li>
+            <li data-price="100">
+                <p>100元</p>
+                <span>10000+8000书币</span>
+                <span>多送80元</span>
+            </li>
+            <li data-price="200">
+                <p>200元</p>
+                <span>20000+20000书币</span>
+                <span>多送200元</span>
+            </li>
+            <li data-price="365" class="price365">
+                <p>年费<img src="/img/vip.png"/>会员</p>
+                <span>365元</span>
+                <span>每天1元，全年免费看</span>
+            </li>
+        </ul>
+        <div class="submit">提交订单</div>
+        <div class="remarks">
+            <span>书币属虚拟物品，⼀经购买不得退换</span>
+            <span>1元⼈⺠币等于100书币</span>
+        </div>
     </div>
-  </div>
+</div>
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
 <script>
-$(function() {
-  $(".recharge-list").on("tap", "li", function() {
-    $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
-    $(this).addClass('selected');
-  })
-  $(".submit").on("tap", function() {
-    let price = $(".recharge-list li.selected").attr("data-price")
-    let info = location.search, redirecturl = ""
-    if(info) {
-      let bid = info.split("=")[1].split("&")[0]
-      let id = info.split("=")[2].split("&")[0]
-      let title = info.split("=")[3]
-      redirecturl = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
-    } else {
-      redirecturl = "/account"
-    }
-    window.location.href = "/needPay?price=" + price;
-  })
-})
+    $(function () {
+        $(".recharge-list").on("tap", "li", function () {
+            $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
+            $(this).addClass('selected');
+        })
+        $(".submit").on("tap", function () {
+            let price = $(".recharge-list li.selected").attr("data-price")
+            let info = location.search, redirecturl = ""
+            if (info) {
+                let bid = info.split("=")[1].split("&")[0]
+                let id = info.split("=")[2].split("&")[0]
+                let title = info.split("=")[3]
+                redirecturl = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
+            } else {
+                redirecturl = "/account"
+            }
+            window.location.href = "/needPay?price=" + price + "&redirecturl=" + redirecturl;
+        })
+    })
 </script>
 </html>
