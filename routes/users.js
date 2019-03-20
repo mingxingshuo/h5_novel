@@ -41,7 +41,7 @@ router.post('/login', async function (ctx, next) {
             data: user
         }
     } else {
-        let user = await UserModel.findOneAndUpdate({device_id: device_id}, {
+        let user = await UserModel.findOneAndUpdate({deviceid: deviceid}, {
             deviceid: deviceid,
             screen_name: screen_name,
             gender: sex,
