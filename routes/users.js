@@ -16,7 +16,8 @@ router.get('/', async function (ctx, next) {
 
 router.post('/login', async function (ctx, next) {
     console.log(ctx.request.body,'---------------------body')
-    let uid = ctx.request.body.uid
+    let uid = ctx.id
+    let unionid = ctx.request.body.unionid
     let deviceid = ctx.request.body.deviceid
     let screen_name = ctx.request.body.screen_name
     let gender = ctx.request.body.gender
@@ -29,6 +30,7 @@ router.post('/login', async function (ctx, next) {
     }
     if (uid) {
         let user = await UserModel.findOneAndUpdate({_id: uid}, {
+            unionid:unionid,
             deviceid: deviceid,
             screen_name: screen_name,
             gender: sex,
@@ -42,6 +44,7 @@ router.post('/login', async function (ctx, next) {
         }
     } else {
         let user = await UserModel.findOneAndUpdate({deviceid: deviceid}, {
+            unionid:unionid,
             deviceid: deviceid,
             screen_name: screen_name,
             gender: sex,
