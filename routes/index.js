@@ -126,6 +126,7 @@ router.get('/content', async(ctx, next) => {
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         } else {
             let book = await BookModel.find({id: chapter.bid})
+            console.log(book,'----------------------------book')
             return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
         }
     } else {
