@@ -46,7 +46,7 @@ router.get('/', async function (ctx, next) {
             await mem.set("uid_" + user._id, '', 1);
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         } else {
-            let book = await BookModel.find({id: chapter.bid})
+            let book = await BookModel.findOne({id: chapter.bid})
             return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
         }
     } else {
