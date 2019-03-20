@@ -117,10 +117,10 @@
 
   add_shelf(bid)
 
-  function add_shelf(data) {
+  function add_shelf(bid) {
     $(".add").on("tap", function () {
       httpRequest("/user/shelf", "get", {
-        id: id
+        bid: bid
       }, function (res) {
         if (res.success) {
           $(".add").css({
@@ -137,7 +137,7 @@
     })
     $(".remove").on("tap", function () {
       httpRequest("/user/unshelf", "get", {
-        id: id
+        bid: bid
       }, function (res) {
         if (res.success) {
           $(".remove").css({
