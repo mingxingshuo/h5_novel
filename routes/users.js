@@ -28,22 +28,20 @@ router.post('/login', async function (ctx, next) {
         sex = 1
     }
     if (uid) {
-        let user = await UserModel.findOneAndUpdate({uid: uid}, {
-            uid: uid,
+        let user = await UserModel.findOneAndUpdate({_id: uid}, {
             deviceid: deviceid,
             screen_name: screen_name,
             gender: sex,
             profile_image_url: profile_image_url,
             tag_sex: sex
         })
-        await mem.set("uid_" + user.uid, '', 1);
+        await mem.set("uid_" + user._id, '', 1);
         ctx.body = {
             success: '成功',
             data: user
         }
     } else {
         let user = await UserModel.findOneAndUpdate({device_id: device_id}, {
-            uid: uid,
             deviceid: deviceid,
             screen_name: screen_name,
             gender: sex,
@@ -64,7 +62,7 @@ router.get('/balance', async function (ctx, next) {
     let user = await UserModel.findOneAndUpdate({_id: id}, {
         balance: balance
     })
-    await mem.set("uid_" + user.uid, '', 1);
+    await mem.set("uid_" + user._id, '', 1);
     if (user) {
         ctx.body = {
             success: '成功',
@@ -81,7 +79,7 @@ router.get('/shelf', async function (ctx, next) {
     let id = ctx.id
     let bid = ctx.request.query.bid;
     let user = await UserModel.findOneAndUpdate({_id: id}, {$addToSet: {shelf: bid}}, {new: true})
-    await mem.set("uid_" + user.uid, '', 1);
+    await mem.set("uid_" + user._id, '', 1);
     await mem.set("deviceid_" + user.deviceid, '', 1);
     if (user) {
         ctx.body = {
@@ -99,7 +97,7 @@ router.get('/unshelf', async function (ctx, next) {
     let id = ctx.id;
     let bid = ctx.request.query.bid;
     let user = await UserModel.findOneAndUpdate({_id: id}, {$pull: {shelf: bid}}, {new: true})
-    await mem.set("uid_" + user.uid, '', 1);
+    await mem.set("uid_" + user._id, '', 1);
     await mem.set("deviceid_" + user.deviceid, '', 1);
     if (user) {
         ctx.body = {

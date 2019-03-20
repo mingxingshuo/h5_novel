@@ -58,7 +58,7 @@ app.use(async(ctx, next) => {
         let uid = ctx.request.headers.uid
         let user = await mem.get("uid_" + uid);
         if (!user) {
-            user = await UserModel.findOne({uid: uid})
+            user = await UserModel.findOne({_id: uid})
             if (!user) {
                 user = await UserModel.create({uid: uid})
             }
