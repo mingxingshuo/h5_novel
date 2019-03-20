@@ -58,18 +58,23 @@ app.use(async(ctx, next) => {
     let deviceid = ctx.request.headers.deviceid
     if (uid) {
         let user = await mem.get("uid_" + uid);
+        console.log(user,'-------------------user1')
         if (!user) {
             user = await UserModel.findOne({_id: uid})
+            console.log(user,'-------------------user2')
             await mem.set("uid_" + uid, user, 24 * 3600);
         }
         ctx.user = user
         ctx.id = user._id
     } else if (deviceid) {
         let user = await mem.get("deviceid_" + deviceid);
+        console.log(user,'-------------------user1')
         if (!user) {
             user = await UserModel.findOne({deviceid: deviceid})
+            console.log(user,'-------------------user2')
             if (!user) {
                 user = await UserModel.create({deviceid: deviceid})
+                console.log(user,'-------------------user3')
             }
             await mem.set("deviceid_" + deviceid, user, 24 * 3600);
         }
