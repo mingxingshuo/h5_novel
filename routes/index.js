@@ -106,31 +106,29 @@ router.get('/content', async(ctx, next) => {
         updateAt: Date.now()
     }, {upsert: true})
     if (!chapter.isvip) {
-        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
-    }
-    if (user && user.isvip) {
-        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+        return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
     }
     if (user) {
+        if (user.isvip) {
+            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+        }
         let pay_chapter = user.pay_chapter.indexOf(id)
         if (pay_chapter != -1) {
-            await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         }
-    }
-    if (user && user.balance > price) {
-        await UserModel.findOneAndUpdate({_id: ctx.id}, {
-            $addToSet: {pay_chapter: id},
-            $inc: {balance: -price}
-        })
-        await mem.set("uid_" + user._id, '', 1);
-        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
-    } else {
-        if (!user) {
-            await ctx.redirect('/needLogin')
+        if (user.balance > price) {
+            await UserModel.findOneAndUpdate({_id: ctx.id}, {
+                $addToSet: {pay_chapter: id},
+                $inc: {balance: -price}
+            })
+            await mem.set("uid_" + user._id, '', 1);
+            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         } else {
             let book = await BookModel.find({id: chapter.bid})
-            await ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
+            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
         }
+    } else {
+        return ctx.redirect('/needLogin')
     }
 })
 
