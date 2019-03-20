@@ -54,20 +54,17 @@ app.use(async(ctx, next) => {
 })
 
 app.use(async(ctx, next) => {
-    if (ctx.request.headers.uid) {
-        let uid = ctx.request.headers.uid
+    let uid = ctx.request.headers.uid
+    let deviceid = ctx.request.headers.deviceid
+    if (uid) {
         let user = await mem.get("uid_" + uid);
         if (!user) {
             user = await UserModel.findOne({_id: uid})
-            if (!user) {
-                user = await UserModel.create({uid: uid})
-            }
             await mem.set("uid_" + uid, user, 24 * 3600);
         }
         ctx.user = user
         ctx.id = user._id
-    } else if (ctx.request.headers.deviceid) {
-        let deviceid = ctx.request.headers.deviceid
+    } else if (deviceid) {
         let user = await mem.get("deviceid_" + deviceid);
         if (!user) {
             user = await UserModel.findOne({deviceid: deviceid})
