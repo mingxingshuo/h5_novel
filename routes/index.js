@@ -31,6 +31,46 @@ async function book(id) {
     })
 }
 
+async function chapter() {
+    let id = ctx.request.query.id
+    let u_id = ctx.id
+    let chapter = await ChapterModel.findOne({id: id})
+    let user = ctx.user
+    console.log(u_id + '--------------------u_id');
+    console.log(user + '--------------------user');
+    await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
+        u_id: u_id,
+        bid: chapter.bid,
+        cid: id,
+        updateAt: Date.now()
+    }, {upsert: true})
+    if (!chapter.isvip) {
+        return ctx.body = {success: '成功', data: chapter}
+    }
+    if (user && user.isvip) {
+        return ctx.body = {success: '成功', data: chapter}
+    }
+    let pay_chapter = user.pay_chapter.indexOf(id)
+    if (pay_chapter != -1) {
+        return ctx.body = {success: '成功', data: chapter}
+    }
+    if (user && user.balance > price) {
+        await UserModel.findOneAndUpdate({_id: ctx.id}, {
+            $addToSet: {pay_chapter: id},
+            $inc: {balance: -price}
+        })
+        await mem.set("uid_" + user._id, 1);
+        return ctx.body = {success: '成功', data: chapter}
+    } else {
+        let book = await BookModel.find({id: chapter.bid})
+        if (!user) {
+            return ctx.redirect('/needLogin')
+        } else {
+            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
+        }
+    }
+}
+
 router.get('/account', async(ctx, next) => {
     let user = await UserModel.findOne({_id: ctx.id})
     await ctx.render('pages/account', user);
@@ -85,9 +125,10 @@ router.get('/bookStore', async(ctx, next) => {
 
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
-    let data = await httpRequest("http://localhost:3001/chapter?id=" + id, ctx.id)
+    let u_id = ctx.id
+    let chapter = await ChapterModel.findOne({id: id})
+    let user = ctx.user
     let result = await book(ctx.request.query.bid)
-
     if (result.first == id) {
         isfirst = true
     } else {
@@ -98,7 +139,37 @@ router.get('/content', async(ctx, next) => {
     } else {
         islast = false
     }
-    await ctx.render('pages/content', {data: data.data, isfirst: isfirst, islast: islast})
+    await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
+        u_id: u_id,
+        bid: chapter.bid,
+        cid: id,
+        updateAt: Date.now()
+    }, {upsert: true})
+    if (!chapter.isvip) {
+        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+    }
+    if (user && user.isvip) {
+        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+    }
+    let pay_chapter = user.pay_chapter.indexOf(id)
+    if (pay_chapter != -1) {
+        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+    }
+    if (user && user.balance > price) {
+        await UserModel.findOneAndUpdate({_id: ctx.id}, {
+            $addToSet: {pay_chapter: id},
+            $inc: {balance: -price}
+        })
+        await mem.set("uid_" + user._id, 1);
+        await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+    } else {
+        if (!user) {
+            await ctx.redirect('/needLogin')
+        } else {
+            let book = await BookModel.find({id: chapter.bid})
+            await ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
+        }
+    }
 })
 
 router.get('/chapters', async(ctx, next) => {
