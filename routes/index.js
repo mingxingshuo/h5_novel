@@ -120,7 +120,7 @@ router.get('/content', async(ctx, next) => {
             $addToSet: {pay_chapter: id},
             $inc: {balance: -price}
         })
-        await mem.set("uid_" + user._id, 1);
+        await mem.set("uid_" + user._id, '', 1);
         await ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
     } else {
         if (!user) {

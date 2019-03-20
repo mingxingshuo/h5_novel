@@ -43,7 +43,7 @@ router.get('/', async function (ctx, next) {
             $addToSet: {pay_chapter: id},
             $inc: {balance: -price}
         })
-        await mem.set("uid_" + user._id, 1);
+        await mem.set("uid_" + user._id, '', 1);
         return ctx.body = {success: '成功', data: chapter}
     } else {
         let book = await BookModel.find({id: chapter.bid})
