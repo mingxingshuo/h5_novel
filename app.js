@@ -54,6 +54,8 @@ app.use(async(ctx, next) => {
 })
 
 app.use(async(ctx, next) => {
+    console.log('--------url-------------')
+    console.log(ctx.url)
     console.log('---------header中间件 ---------')
     let uid = ctx.request.headers.uid
     let deviceid = ctx.request.headers.deviceid
