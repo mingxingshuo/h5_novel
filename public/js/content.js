@@ -27,10 +27,10 @@ function getBgColor() {
   let bgColor = getCookie("bgColor");
   alert(2+ bgColor)
   if(bgColor) {
-    $("body").css({background: bgColor})
+    $("body").css({background: bgColor + "!important"})
     isBlack(bgColor)
   } else {
-    $("body").css({background: "eee"})
+    $("body").css({background: "eee" + "!important"})
     setCookie("bgColor", "eee")
   }
 }
@@ -57,7 +57,7 @@ function changeBgColor() {
   $(".color-setting").on("tap", "li", function () {
     let bgColor = $(this).attr("data-color")
     alert(1+ bgColor)
-    $("body").css({background: bgColor})
+    $("body").css({background: bgColor + "!important"})
     setCookie("bgColor", bgColor)
     let bgColor1 = getCookie("bgColor");
     alert(3+ bgColor1)
