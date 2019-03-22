@@ -65,15 +65,19 @@
   float: right;
 }
 
-.logout {
+.box_l {
   width: 2.35rem;
   height: .69rem;
   position: absolute;
   bottom: 1.2rem;
   left: 50%;
   margin-left: -1.175rem;
+  line-height: 2.35rem;
+  text-align: center;
 }
 
-.logout img {
+.btn_l {
   width: 100%;
+  height: 100%;
+  background: #0d71bb;
 }

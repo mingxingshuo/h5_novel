@@ -26,8 +26,8 @@
       <img class="avator" src="/img/avatar.png"
         alt="">
       <div class="user-desc">
-        <span class="user-name">佚名</span>
-        <p class="shubi">书币: <span><%= balance %></span></p>
+        <span class="user-name"><%= isLogin ? user.screen_name : "佚名" %>></span>
+        <p class="shubi">书币: <span><%=  isLogin ? user.balance : 0 %></span></p>
       </div>
     </div>
     <ul class="action">
@@ -44,8 +44,12 @@
         <span class="arrow">></span>
       </li>
     </ul>
-    <div class="logout">
-      <img src="/img/logout.png" alt="" srcset="">
+    <div class="box_l">
+      <% if(!isLogin) { %>
+        <div class="btn_l login">登  录</div>
+      <% } else { %>
+        <div class="btn_l logout">退出登录</div>
+      <% } %>
     </div>
   </div>
 </body>

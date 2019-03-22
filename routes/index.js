@@ -33,8 +33,14 @@ async function book(id) {
 }
 
 router.get('/account', async(ctx, next) => {
+    let isLogin;
+    if(ctx.user) {
+        isLogin = true
+    } else {
+        isLogin = false
+    }
     let user = await UserModel.findOne({_id: ctx.id})
-    await ctx.render('pages/account', user);
+    await ctx.render('pages/account', {user: user, isLogin: isLogin});
 })
 
 router.get('/bookDetail', async(ctx, next) => {
@@ -46,9 +52,6 @@ router.get('/bookDetail', async(ctx, next) => {
     let info = await book(id)
     // 是否有阅读记录
     let result = await RecordModel.findOne({u_id: ctx.id, bid: id})
-    console.log(result, "lixin")
-    console.log(ctx.id, "lixin-----ctx.id")
-    console.log(id, "lixin-----id")
     if (info && result) {
         read = {
             id: result.cid,
@@ -78,11 +81,11 @@ router.get('/bookShelf', async(ctx, next) => {
     let user = await UserModel.findOne({_id: ctx.id})
     let shelf = await BookModel.find({id: {$in: user.shelf}})
     await ctx.render('pages/bookShelf', {result: result, data: data, shelf: shelf})
-})
+});
 
 router.get('/bookStore', async(ctx, next) => {
     await ctx.render('pages/bookStore')
-})
+});
 
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
