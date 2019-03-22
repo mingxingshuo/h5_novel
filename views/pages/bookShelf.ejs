@@ -47,6 +47,11 @@
           <% } %>
         </ul>
       </div>
+      <script>
+        $(".continue").on("tap", function () {
+          window.location.href = "/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>";
+        })
+      </script>
     <% } else {%>
       <div class="no_book">
         <i>书架中暂无图书，请先添加</i>
@@ -79,10 +84,6 @@ function detailClick() {
   })
 }
 </script>
-<script>
-  $(".continue").on("tap", function () {
-    window.location.href = "/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>";
-  })
-</script>
+
 
 </html>
