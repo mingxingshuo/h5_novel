@@ -86,7 +86,7 @@
     id = "<%= read.id %>",
     title = "<%= info.title %>",
     inShelf = "<%= inShelf %>"
-  if (!inShelf) {
+  if (inShelf) {
     $(".add").css({
       "display": "none"
     })
