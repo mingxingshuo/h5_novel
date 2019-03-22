@@ -47,7 +47,7 @@
   color: #fff;
 }
 
-.chongzhi button {
+.action li.chongzhi button {
   float: right;
   width: 1.5rem;
   height: .7rem;
@@ -72,7 +72,7 @@
   bottom: 1.2rem;
   left: 50%;
   margin-left: -1.175rem;
-  line-height: 2.35rem;
+  line-height: .69rem;
   border-radius: .02rem;
 }
 
