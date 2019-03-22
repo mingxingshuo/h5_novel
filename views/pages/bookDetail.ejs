@@ -85,7 +85,7 @@
   let bid = "<%= info.id %>",
     id = "<%= read.id %>",
     title = "<%= info.title %>",
-    inShelf = "<%- inShelf %>"
+    inShelf = <%= inShelf %>
   alert(inShelf === false)
   alert("inShelf" + typeof inShelf)
   if (inShelf) {
