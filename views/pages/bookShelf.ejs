@@ -49,6 +49,7 @@
       </div>
       <script>
         $(".continue").on("tap", function () {
+            alert("/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>")
           window.location.href = "/content?bid=<%- result.bid %>&id=<%- result.cid %>&title=<%- data.title %>";
         })
       </script>
