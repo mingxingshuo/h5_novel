@@ -25,7 +25,6 @@ function getFontSize() {
 // 获取cookie背景颜色
 function getBgColor() {
   let bgColor = getCookie("bgColor");
-  alert(2+ bgColor)
   if(bgColor) {
     $("body").css({background: bgColor + "!important"})
     isBlack(bgColor)
@@ -33,6 +32,7 @@ function getBgColor() {
     $("body").css({background: "eee" + "!important"})
     setCookie("bgColor", "eee")
   }
+  alert($("body").css() + 2)
 }
 
 // 跳转目录
@@ -56,11 +56,9 @@ function changeChapter(bid, id, title) {
 function changeBgColor() {
   $(".color-setting").on("tap", "li", function () {
     let bgColor = $(this).attr("data-color")
-    alert(1+ bgColor)
     $("body").css({background: bgColor + "!important"})
+    alert($("body").css() + 1)
     setCookie("bgColor", bgColor)
-    let bgColor1 = getCookie("bgColor");
-    alert(3+ bgColor1)
     isBlack(bgColor)
   })
 }
