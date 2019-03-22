@@ -85,9 +85,7 @@
   let bid = "<%= info.id %>",
     id = "<%= read.id %>",
     title = "<%= info.title %>",
-    inShelf = <%= inShelf %>
-  alert(inShelf === false)
-  alert("inShelf" + typeof inShelf)
+    inShelf = <%= inShelf %>;
   if (inShelf) {
     $(".add").css({
       "display": "none"
@@ -111,7 +109,6 @@
   function chapterClick(bid, title) {
     $(".chapter_list").on("tap", "li", function () {
       let id = $(this).attr("data-id")
-      console.log("事件监听跳转链接")
       window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
     })
   }

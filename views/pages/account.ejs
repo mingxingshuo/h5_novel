@@ -23,8 +23,7 @@
 <body>
   <div class="account">
     <div class="user-info">
-      <img class="avator" src="/img/avatar.png"
-        alt="">
+      <img class="avator" src="<%= isLogin ? user.profile_image_url: '/img/avatar.png' %>" />
       <div class="user-desc">
         <span class="user-name"><%= isLogin ? user.screen_name : "佚名" %></span>
         <p class="shubi">书币: <span><%=  isLogin ? user.balance : 0 %></span></p>
