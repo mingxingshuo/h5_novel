@@ -26,11 +26,11 @@ function getFontSize() {
 function getBgColor() {
   let bgColor = getCookie("bgColor");
   if(bgColor) {
-    $("body").attr({bgcolor: bgColor})
+    $("body").css({"background-color": bgColor})
     isBlack(bgColor)
   } else {
-    $("body").attr({bgcolor: "eee"})
-    setCookie("bgColor", "eee")
+    $("body").css({"background-color": "#eee"})
+    setCookie("bgColor", "#eee")
   }
 }
 
@@ -55,7 +55,7 @@ function changeChapter(bid, id, title) {
 function changeBgColor() {
   $(".color-setting").on("tap", "li", function () {
     let bgColor = $(this).attr("data-color")
-    $("body").attr({bgcolor: bgColor})
+    $("body").css({"background-color": bgColor})
     setCookie("bgColor", bgColor)
     isBlack(bgColor)
   })
