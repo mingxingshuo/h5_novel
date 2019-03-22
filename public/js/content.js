@@ -59,6 +59,8 @@ function changeBgColor() {
     alert(1+ bgColor)
     $("body").css({background: bgColor})
     setCookie("bgColor", bgColor)
+    let bgColor = getCookie("bgColor");
+    alert(3+ bgColor)
     isBlack(bgColor)
   })
 }
