@@ -47,16 +47,18 @@
   color: #fff;
 }
 
-.action li.chongzhi button {
+.action li.chongzhi div {
   float: right;
   width: 1.5rem;
   height: .7rem;
+  display: inline-block;
   border-radius: .1rem;
   background: #fff;
   border: 0;
   font-size: .36rem;
   font-weight: bold;
   margin-top: -.1rem;
+  line-height: .7rem;
   color: #000;
 }
 
@@ -73,11 +75,11 @@
   left: 50%;
   margin-left: -1.175rem;
   line-height: .69rem;
-  border-radius: .02rem;
 }
 
 .btn_l {
   background: #0d71bb;
+  border-radius: .1rem;
   text-align: center;
   color: #fff;
 }
