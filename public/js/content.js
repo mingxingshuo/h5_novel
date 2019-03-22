@@ -27,6 +27,7 @@ function getBgColor() {
   let bgColor = getCookie("bgColor");
   if(bgColor) {
     $("body").attr({bgcolor: bgColor})
+    console.log($("body")[0])
     isBlack(bgColor)
   } else {
     $("body").attr({bgcolor: "eee"})
