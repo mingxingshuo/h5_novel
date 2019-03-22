@@ -32,6 +32,7 @@ function getBgColor() {
     $("body").css({background: "eee" + "!important"})
     setCookie("bgColor", "eee")
   }
+  alert(11111)
   alert($("body").css() + 2)
 }
 
