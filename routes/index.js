@@ -64,6 +64,7 @@ router.get('/bookDetail', async(ctx, next) => {
         }
     }
     let chapters = await ChapterModel.find({bid: id})
+    console.log("read", read)
     await ctx.render('pages/bookDetail', {
         inShelf: inShelf,
         info: info.book,
