@@ -32,8 +32,7 @@ function getBgColor() {
     $("body").css({background: "eee" + "!important"})
     setCookie("bgColor", "eee")
   }
-  alert(11111)
-  alert($("body").css() + 2)
+  alert($("body").css("background") + 2)
 }
 
 // 跳转目录
@@ -58,7 +57,7 @@ function changeBgColor() {
   $(".color-setting").on("tap", "li", function () {
     let bgColor = $(this).attr("data-color")
     $("body").css({background: bgColor + "!important"})
-    alert($("body").css() + 1)
+    alert($("body").css("background") + 1)
     setCookie("bgColor", bgColor)
     isBlack(bgColor)
   })
