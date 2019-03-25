@@ -21,7 +21,7 @@
 </head>
 
 <body>
-  <div class="loading" style="position: fixed;top: 30%;width: 2rem;left: 50%;margin-left: -1rem;">
+  <div class="loading" style="position: fixed;top: 30%;width: 2rem;left: 50%;margin-left: -1rem;display: block;">
     <img width="100%" src="/img/loading.gif" alt="">
   </div>
   <div class="account">
@@ -66,7 +66,12 @@ $(function() {
 })
 </script>
 <script>
-toPayPage()
+  $(document).ready(function(){
+    $("#a").click(function(){
+      $(".loading").css("display", "none")
+    });
+  });
+  toPayPage()
 function toPayPage() {
   $(".chongzhi div").on("tap", function() {
     window.location.href = "/recharge"
