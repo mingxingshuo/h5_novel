@@ -8,6 +8,7 @@
   flex-direction: row;
   align-items: flex-start;
   padding: .65rem .55rem .77rem;
+  background: #999;
   box-sizing: border-box;
 }
 
