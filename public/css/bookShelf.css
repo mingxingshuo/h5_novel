@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: .65rem .55rem .77rem;
-  background: #999;
+  padding: .65rem .55rem .3rem;
+  background: #eee;
   box-sizing: border-box;
 }
 
