@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/account.css">
   <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
   <script src="/js/rem.js"></script>
+
   <title>我的</title>
   <style>
     body {
@@ -58,6 +59,13 @@
 </body>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
+<script>
+  document.onreadystatechange = function () {
+    if(document.readyState == "complete") {
+      $(".loading").remove()
+    }
+  }
+</script>
 <script>
 $(function() {
   $(".yijian").on("tap", function() {
