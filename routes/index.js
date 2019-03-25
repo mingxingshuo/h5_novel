@@ -5,6 +5,7 @@ const UserModel = require('../model/User')
 const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
+const OrderModel = require('../model/Order')
 router.prefix('/')
 var price = 30
 
