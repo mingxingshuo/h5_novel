@@ -12,7 +12,7 @@
   float: left;
   text-align: center;
   width: 50%;
-  color: #999;
+  color: #b9b9b9;
 }
 
 .tab_container li a {
@@ -55,7 +55,7 @@
 .desc {
   height: 1.32rem;
   line-height: .44rem;
-  color: #999;
+  color: #b9b9b9;
   display: block;
   display: -webkit-box;
   max-width: 100%;
