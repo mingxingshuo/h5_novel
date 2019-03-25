@@ -2,16 +2,6 @@
   width: 100%;
   box-sizing: border-box;
 }
-
-.no_book {
-  height: 3rem;
-  width: 100%;
-  text-align: center;
-  line-height: 3rem;
-  color: #666;
-  font-size: .42rem;
-}
-
 .read-continue {
   width: 100%;
   display: flex;

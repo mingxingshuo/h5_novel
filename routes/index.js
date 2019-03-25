@@ -65,7 +65,6 @@ router.get('/bookDetail', async(ctx, next) => {
         }
     }
     let chapters = await ChapterModel.find({bid: id})
-    console.log("inShelf", inShelf)
     await ctx.render('pages/bookDetail', {
         inShelf: inShelf,
         info: info.book,
@@ -80,8 +79,6 @@ router.get('/bookShelf', async(ctx, next) => {
     if (result) {
         data = await BookModel.findOne({id: result.bid})
     }
-    console.log("result", result)
-    console.log("data", data)
     let user = await UserModel.findOne({_id: ctx.id})
     let shelf = await BookModel.find({id: {$in: user.shelf}})
     // 查询所有书籍
