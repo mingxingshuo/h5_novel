@@ -21,6 +21,9 @@
 </head>
 
 <body>
+  <div class="loading" style="position: fixed;top: 30%;width: 2rem;left: 50%;margin-left: -1rem;">
+    <img width="100%" src="/img/loading.gif" alt="">
+  </div>
   <div class="account">
     <div class="user-info">
       <img class="avator" src="<%= isLogin ? user.profile_image_url: '/img/avatar.png' %>" />
