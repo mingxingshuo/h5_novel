@@ -23,6 +23,9 @@
 </head>
 
 <body>
+<div class="loading" style="position: fixed;width: 100vw;height: 100vh;background: #fff;top: 0;left: 0; z-index:1000;">
+  <img style="width: 50px;position: absolute;top: 30%;left: 50%;margin-left: -25px;" src="/img/loading.gif" alt="">
+</div>
   <div class="book-detail">
     <div class="chapter">
       <span class="chapter-title"><%= title %></span>
@@ -41,6 +44,13 @@
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
 <script src="/js/dropload.min.js"></script>
 <script src="/js/http.js"></script>
+<script>
+  document.onreadystatechange = function () {
+    if(document.readyState == "complete") {
+      $(".loading").remove()
+    }
+  }
+</script>
 <script>
   $(function () {
     let id = location.search.split("=")[1].split("&")[0]

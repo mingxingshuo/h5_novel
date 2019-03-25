@@ -26,6 +26,9 @@
 </head>
 
 <body>
+<div class="loading" style="position: fixed;width: 100vw;height: 100vh;background: #fff;top: 0;left: 0; z-index:1000;">
+    <img style="width: 50px;position: absolute;top: 30%;left: 50%;margin-left: -25px;" src="/img/loading.gif" alt="">
+</div>
 <div class="book_store">
     <% if (result && data ) { %>
         <div class="read-continue">
@@ -79,6 +82,13 @@
     <% } %>
 </div>
 </body>
+<script>
+    document.onreadystatechange = function () {
+        if(document.readyState == "complete") {
+            $(".loading").remove()
+        }
+    }
+</script>
 <script>
 
     detailClick()
