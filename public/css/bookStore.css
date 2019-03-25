@@ -12,6 +12,7 @@
   float: left;
   text-align: center;
   width: 50%;
+  color: #0d0c0c;
 }
 
 .tab_container li a {
@@ -19,7 +20,6 @@
   display: block;
   width: 100%;
   padding: .1rem 0;
-  color: #b2b2b2;
 }
 
 .tab_container li.active {
