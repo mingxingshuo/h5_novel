@@ -85,7 +85,7 @@ router.get('/bookShelf', async(ctx, next) => {
     let user = await UserModel.findOne({_id: ctx.id})
     let shelf = await BookModel.find({id: {$in: user.shelf}})
     // 查询所有书籍
-    let param = {tag_sex: 2, page: 1}
+    let param = {tag_sex: 2}
     let book = await BookModel.findOne(param).limit(1)
     console.log(book)
     await ctx.render('pages/bookShelf', {result: result, data: data, shelf: shelf, book: book})
