@@ -50,7 +50,8 @@
 
 .title {
   font-size: .4rem;
-  margin: .1rem 0 .2rem;
+  margin-bottom: .2rem;
+  padding-top: .2rem;
 }
 
 .desc {
