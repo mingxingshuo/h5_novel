@@ -44,7 +44,7 @@
           <% for(let i = 0; i < shelf.length; i++) { %>
             <li class="book_item" data-id="<%= shelf[i].id %>">
               <div class="book-grid">
-                <img src="<%= data.image %>" alt="" srcset="">
+                <img src="<%= shelf[i].image %>" alt="" srcset="">
                 <span class="title"><%= shelf[i].title %></span>
               </div>
             </li>
