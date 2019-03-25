@@ -2,154 +2,200 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta content="black" name="apple-mobile-web-app-status-bar-style">
-  <meta content="telephone=no" name="format-detection">
-  <meta name="Keywords" content="关键词">
-  <meta name="description" content="描述">
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/bookDetail.css">
-  <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
-  <title>详情</title>
-  <style>
-    body {
-      background: rgb(241, 242, 247);
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="Keywords" content="关键词">
+    <meta name="description" content="描述">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/bookDetail.css">
+    <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
+    <title>详情</title>
+    <style>
+        body {
+            background: rgb(241, 242, 247);
+        }
+        .text-tip {
+            display: block;
+            background:rgba(0,0,0,.7);
+            color: #fff;
+            padding: 10px 10px;
+            line-height: 18px;
+            position: fixed;
+            left: 50%;
+            bottom: 25%;
+            -webkit-transform: translate(-50%);
+            transform: translate(-50%);
+            border-radius: 3px;
+            display: none;
+            z-index: 9999;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
     <!-- 小说详情 -->
     <div class="book_detail">
-      <div class="book-info-container">
-        <!-- <img :src="bookDetail.img" alt=""> -->
-        <img src="<%= info.image %>" alt="" srcset="">
-        <div class="book-info">
+        <div class="book-info-container">
+            <!-- <img :src="bookDetail.img" alt=""> -->
+            <img src="<%= info.image %>" alt="" srcset="">
+            <div class="book-info">
           <span class="title">
             <%= info.title %></span>
-          <span class="type">
+                <span class="type">
             <%= info.type == 1 ? "都市" : "" %> |
             <%= info.zuozhe %>
           </span>
-          <span>
+                <span>
             <span class='<%= info.xstype == 1 ? " blue" : "red" %>'>
               <%= info.xstype == 1 ? "已完结" : "连载中" %></span>
             |
             <%= info.zishu %>万字
           </span>
+            </div>
         </div>
-      </div>
     </div>
     <!-- 加入书架按钮 -->
     <div class="book-btn">
-      <div
-       class="add_shelf add">加入书架</div
+        <div
+                class="add_shelf add">加入书架
+        </div
         >
-      <div
-       class="add_shelf remove">已添加到书架</div
+        <div
+                class="add_shelf remove">已添加到书架
+        </div
         >
-      <div
-       class="read" style="background: #1989fa;color: #fff;display: <%= read.hasrecord ? 'none' : 'inline-block' %>">免费阅读</div
+        <div
+                class="read"
+                style="background: #1989fa;color: #fff;display: <%= read.hasrecord ? 'none' : 'inline-block' %>">免费阅读
+        </div
         >
-      <div
-       class="read" style="background: #1989fa;color: #fff;display: <%= read.hasrecord ? 'inline-block' : 'none' %>">继续阅读</div
+        <div
+                class="read"
+                style="background: #1989fa;color: #fff;display: <%= read.hasrecord ? 'inline-block' : 'none' %>">继续阅读
+        </div
         >
     </div>
     <!-- 小说简介 -->
     <span class="desc">
       <%= info.desc %></span>
     <div class="chapter">
-      <span class="chapter-title">目录</span>
-      <ul class="chapter_list">
-        <% for(let i = 0; i < chapters.length; i ++) { %>
-        <li data-id="<%= chapters[i].id %>">
-          <p>
-            <%= chapters[i].title %>
-          </p>
-          <span class='<%= chapters[i].isvip == 0 ? "free" : "pay" %>'>
+        <span class="chapter-title">目录</span>
+        <ul class="chapter_list">
+            <% for(let i = 0; i < chapters.length; i++) { %>
+                <li data-id="<%= chapters[i].id %>">
+                    <p>
+                        <%= chapters[i].title %>
+                    </p>
+                    <span class='<%= chapters[i].isvip == 0 ? "free" : "pay" %>'>
             <%= chapters[i].isvip == 0 ? "免费" : "付费" %></span>
-        </li>
-        <% } %>
-      </ul>
+                </li>
+            <% } %>
+        </ul>
     </div>
-  </div>
+</div>
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/http.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
 <script>
-  let bid = "<%= info.id %>",
-    id = "<%= read.id %>",
-    title = "<%= info.title %>",
-    inShelf = <%= inShelf %>;
-  if (inShelf) {
-    $(".add").css({
-      "display": "none"
-    })
-    $(".remove").css({
-      "display": "inline-block"
-    })
-  } else {
-    $(".remove").css({
-      "display": "none"
-    })
-    $(".add").css({
-      "display": "inline-block"
-    })
-  }
-  $(".read").on("tap", function() {
-    window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
-  })
-  chapterClick(bid, title)
-
-  function chapterClick(bid, title) {
-    $(".chapter_list").on("tap", "li", function () {
-      let id = $(this).attr("data-id")
-      window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
-    })
-  }
-
-  add_shelf(bid)
-
-  function add_shelf(bid) {
-    $(".add").on("tap", function () {
-      httpRequest("/user/shelf", "get", {
-        bid: bid
-      }, function (res) {
-        if (res.success) {
-          $(".add").css({
+    let bid = "<%= info.id %>",
+        id = "<%= read.id %>",
+        title = "<%= info.title %>",
+        inShelf = <%= inShelf %>;
+    if (inShelf) {
+        $(".add").css({
             "display": "none"
-          })
-          $(".remove").css({
+        })
+        $(".remove").css({
             "display": "inline-block"
-          })
-          alert("已添加到书架")
-        } else {
-          alert(res.err)
-        }
-      })
-    })
-    $(".remove").on("tap", function () {
-      httpRequest("/user/unshelf", "get", {
-        bid: bid
-      }, function (res) {
-        if (res.success) {
-          $(".remove").css({
+        })
+    } else {
+        $(".remove").css({
             "display": "none"
-          })
-          $(".add").css({
+        })
+        $(".add").css({
             "display": "inline-block"
-          })
-          alert("已移出书架")
-        } else {
-          alert(res.err)
-        }
-      })
+        })
+    }
+    $(".read").on("tap", function () {
+        window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
     })
-  }
+    chapterClick(bid, title)
+
+    function chapterClick(bid, title) {
+        $(".chapter_list").on("tap", "li", function () {
+            let id = $(this).attr("data-id")
+            window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
+        })
+    }
+
+    add_shelf(bid)
+
+    function add_shelf(bid) {
+        $(".add").on("tap", function () {
+            httpRequest("/user/shelf", "get", {
+                bid: bid
+            }, function (res) {
+                if (res.success) {
+                    $(".add").css({
+                        "display": "none"
+                    })
+                    $(".remove").css({
+                        "display": "inline-block"
+                    })
+                    textTip('已添加到书架', 2000, function () {
+                        console.log('提示框消失后，执行的回调。时间t与回调函数callBack可传可不传');
+                    });
+                } else {
+                    alert(res.err)
+                }
+            })
+        })
+        $(".remove").on("tap", function () {
+            httpRequest("/user/unshelf", "get", {
+                bid: bid
+            }, function (res) {
+                $(".remove").css({
+                    "display": "none"
+                })
+                $(".add").css({
+                    "display": "inline-block"
+                })
+                textTip('已移出书架', 2000, function () {
+                    console.log('提示框消失后，执行的回调。时间t与回调函数callBack可传可不传');
+                });
+            })
+        })
+    }
+    function textTip(str, t, callBack) {
+        t = t || 2000;
+        var dom = document.createElement("p");
+        dom.setAttribute('class', 'text-tip');
+        document.body.appendChild(dom);
+        var mytip = document.querySelector('.text-tip')
+
+        mytip.style.display="block";
+        mytip.innerHTML = str;
+        var tipHeight = mytip.offsetHeight;
+
+        //文字两行或两行以上
+        if((tipHeight - 20)/18>1){
+            mytip.style.width = "55%";
+        }
+        setTimeout(function () {
+            mytip.style.display="none";
+            mytip.parentNode.removeChild(mytip);
+            if (callBack) {callBack();}
+        }, t);
+    }
+
+
 </script>
 </html>
