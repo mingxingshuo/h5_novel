@@ -12,7 +12,6 @@
   float: left;
   text-align: center;
   width: 50%;
-  color: #b9b9b9;
 }
 
 .tab_container li a {
@@ -20,10 +19,11 @@
   display: block;
   width: 100%;
   padding: .1rem 0;
+  color: #b9b9b9;
 }
 
 .tab_container li.active {
-  color: #ff5625;
+  color: #b2b2b2;
 }
 
 .books_container {
