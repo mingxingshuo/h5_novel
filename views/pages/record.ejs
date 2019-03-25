@@ -30,7 +30,7 @@
             let data = res.data, html = "";
             if(data.length == 0) {
                 html += `
-                    <p>您还没有充值订单</p>
+                    <p style="text-align: center;line-height: 1rem;color: #666;">您还没有充值订单</p>
                 `
             } else {
                 $.each(data, function (i, el) {
