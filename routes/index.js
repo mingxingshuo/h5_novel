@@ -148,12 +148,7 @@ router.get('/chapters', async(ctx, next) => {
 })
 
 router.get('/record', async(ctx, next) => {
-    let id = ctx.id
-    let orders = await OrderModel.find({u_id: id, status: 1}).sort({updateAt: -1})
-    let result = JSON.stringify(orders);
-    console.log(orders, 1111)
-    console.log(result, 22222222)
-    await ctx.render('pages/record', {result: result})
+    await ctx.render('pages/record')
 })
 
 router.get('/recharge', async(ctx, next) => {

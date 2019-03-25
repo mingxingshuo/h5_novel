@@ -18,27 +18,50 @@
 <body>
 <div class="record">
     <ul>
-        <% if (result.length !== 0) { %>
-            <% for(let i = 0; i < result.length; i ++) { %>
-                <li>
-                    <div>
-                        <span class="date"><%= result[i].createAt %></span>
-                        <span class="money">充值<%= result[i].total_fee %>元</span>
-                    </div>
-                    <p class="order_id">订单ID: <span><%= result[i].order_number %></span></p>
-                </li>
-            <% } %>
-        <% } else { %>
-            <li>
-                <p>您还没有充值订单</p>
-            </li>
-        <% } %>
+
     </ul>
 </div>
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/http.js"></script>
 <script src="/js/jquery.mobile-1.4.5.min.js"></script>
-
+<script>
+    httpRequest("/order/user", "get", {}, function (res) {
+        if (res.success) {
+            let data = res.data, html = "";
+            $.each(data, function (i, el) {
+                html += `
+                    <li>
+                        <div>
+                              <span class="date">${formatDate(el.createAt)}</span>
+                              <span class="money">充值${el.total_fee}元</span>
+                        </div>
+                        <p class="order_id">订单ID: <span>${el.order_number}</span></p>
+                     </li>
+                `
+            })
+        }
+    })
+    function formatDate(time) {
+        var date = new Date(time);
+        var year = date.getFullYear(),
+            month = date.getMonth() + 1,
+            day = date.getDate(),
+            hour = date.getHours(),
+            min = date.getMinutes();
+        var newTime =
+            year +
+            "-" +
+            (month < 10 ? "0" + month : month) +
+            "-" +
+            (day < 10 ? "0" + day : day) +
+            " " +
+            (hour < 10 ? "0" + hour : hour) +
+            ":" +
+            (min < 10 ? "0" + min : min);
+        return newTime;
+    }
+</script>
 
 </html>
