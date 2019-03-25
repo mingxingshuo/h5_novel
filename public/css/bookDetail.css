@@ -78,7 +78,9 @@
   font-size: .3rem;
   display: block;
   padding: .69rem 5% .3rem;
-  border-bottom: .02rem solid #999;
+  line-height: .5rem;
+  letter-spacing: 3px;
+  border-bottom: .02rem solid #b9b9b9;
   text-align: left;
   text-indent: 2em;
 }
@@ -96,7 +98,7 @@
 
 .chapter_list li {
   padding: .3rem .5rem;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #b9b9b9;
   font-size: .3rem;
 }
 

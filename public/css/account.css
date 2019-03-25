@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: .77rem .58rem;
+  padding: .3rem .58rem;
   box-sizing: border-box;
   background: rgb(99, 169, 238);
   margin-bottom: .37rem;
@@ -41,27 +41,27 @@
 }
 
 .action li {
-  padding: .3rem .7rem;
+  padding: .3rem .3rem;
   background: rgb(99, 169, 238);
   margin-bottom: .1rem;
   color: #fff;
 }
 
-.action li.chongzhi div {
-  float: right;
-  width: 1.5rem;
-  height: .7rem;
-  display: inline-block;
-  border-radius: .1rem;
-  background: #fff;
-  border: 0;
-  font-size: .36rem;
-  font-weight: bold;
-  line-height: .7rem;
-  margin-top: -.1rem;
-  text-align: center;
-  color: #000;
-}
+/*.action li.chongzhi div {*/
+  /*float: right;*/
+  /*width: 1.5rem;*/
+  /*height: .7rem;*/
+  /*display: inline-block;*/
+  /*border-radius: .1rem;*/
+  /*background: #fff;*/
+  /*border: 0;*/
+  /*font-size: .36rem;*/
+  /*font-weight: bold;*/
+  /*line-height: .7rem;*/
+  /*margin-top: -.1rem;*/
+  /*text-align: center;*/
+  /*color: #000;*/
+/*}*/
 
 .action li span.arrow {
   display: block;
