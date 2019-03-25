@@ -12,25 +12,7 @@
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/account.css">
   <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
-  <script>
-    (function(doc, win) {
-      var docEl = doc.documentElement,
-              resizeEvt = "orientationchange" in window ? "orientationchange" : "resize",
-              recalc = function() {
-                var clientWidth = docEl.clientWidth;
-                if (!clientWidth) return;
-                if (clientWidth >= 640) {
-                  docEl.style.fontSize = "100px";
-                } else {
-                  docEl.style.fontSize = 100 * (clientWidth / 750) + "px";
-                }
-              };
-      if (!doc.addEventListener) return;
-      win.addEventListener(resizeEvt, recalc, false);
-      doc.addEventListener("DOMContentLoaded", recalc, false);
-    })(document, window);
-  </script>
-  <!--<script src="/js/rem.js"></script>-->
+  <script src="/js/rem.js"></script>
   <title>我的</title>
   <style>
     body {
