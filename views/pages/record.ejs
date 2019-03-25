@@ -2,38 +2,39 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta content="black" name="apple-mobile-web-app-status-bar-style">
-  <meta content="telephone=no" name="format-detection">
-  <meta name="Keywords" content="关键词">
-  <meta name="description" content="描述">
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/record.css">
-  <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
-  <title>充值记录</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="Keywords" content="关键词">
+    <meta name="description" content="描述">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/record.css">
+    <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
+    <title>充值记录</title>
 </head>
 
 <body>
-  <div class="record">
+<div class="record">
     <ul>
-      <li>
-        <div>
-          <span class="date">2019-02-22 18:01</span>
-          <span class="money">充值50元</span>
-        </div>
-        <p class="order_id">订单ID: <span>123412342134</span></p>
-      </li>
-      <li>
-        <div>
-          <span class="date">2019-02-22 18:02</span>
-          <span class="money">充值50元</span>
-        </div>
-        <p class="order_id">订单ID: <span>123412342134</span></p>
-      </li>
+        <% if (result.length !== 0) { %>
+            <% for(let i = 0; i < result.length; i ++) { %>
+                <li>
+                    <div>
+                        <span class="date"><%= result[i].createAt %></span>
+                        <span class="money">充值<%= result[i].total_fee %>元</span>
+                    </div>
+                    <p class="order_id">订单ID: <span><%= result[i].order_number %></span></p>
+                </li>
+            <% } %>
+        <% } else { %>
+            <li>
+                <p>您还没有充值订单</p>
+            </li>
+        <% } %>
     </ul>
-  </div>
+</div>
 </body>
 <script src="/js/rem.js"></script>
 <script src="/js/jquery.min.js"></script>
