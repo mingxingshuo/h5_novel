@@ -33,6 +33,7 @@
 .book_item {
   margin-bottom: .16rem;
   overflow: hidden;
+  margin-bottom: .3rem;
 }
 
 .book_item img {
