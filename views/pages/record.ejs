@@ -28,17 +28,23 @@
     httpRequest("/order/user", "get", {}, function (res) {
         if (res.success) {
             let data = res.data, html = "";
-            $.each(data, function (i, el) {
+            if(data.length == 0) {
                 html += `
-                    <li>
-                        <div>
-                              <span class="date">${formatDate(el.createAt)}</span>
-                              <span class="money">充值${el.total_fee}元</span>
-                        </div>
-                        <p class="order_id">订单ID: <span>${el.order_number}</span></p>
-                     </li>
+                    <p>您还没有充值订单</p>
                 `
-            })
+            } else {
+                $.each(data, function (i, el) {
+                    html += `
+                        <li>
+                            <div>
+                                  <span class="date">${formatDate(el.createAt)}</span>
+                                  <span class="money">充值${el.total_fee}元</span>
+                            </div>
+                            <p class="order_id">订单ID: <span>${el.order_number}</span></p>
+                         </li>
+                    `
+                })
+            }
             $(".record ul").append(html)
         }
     })
