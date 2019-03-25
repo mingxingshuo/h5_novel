@@ -17,9 +17,7 @@
 
 <body>
 <div class="record">
-    <ul>
-
-    </ul>
+    <ul></ul>
 </div>
 </body>
 <script src="/js/rem.js"></script>
@@ -41,6 +39,7 @@
                      </li>
                 `
             })
+            $(".record ul").append(html)
         }
     })
     function formatDate(time) {
