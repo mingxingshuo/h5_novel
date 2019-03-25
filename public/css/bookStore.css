@@ -40,7 +40,7 @@
   height: 2.5rem;
   vertical-align: top;
   float: left;
-  box-shadow: 1px 2px #b2b2b2;
+  box-shadow: -1px 1px #b6b6b6;
 }
 
 .book_info {
