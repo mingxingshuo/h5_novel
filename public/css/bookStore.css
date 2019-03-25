@@ -32,7 +32,6 @@
 
 .book_item {
   margin-bottom: .16rem;
-  overflow: hidden;
   margin-bottom: .3rem;
 }
 
@@ -41,7 +40,7 @@
   height: 2.5rem;
   vertical-align: top;
   float: left;
-  box-shadow: 10px 20px #999;
+  box-shadow: 0 1px #999;
 }
 
 .book_info {
