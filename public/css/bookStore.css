@@ -14,7 +14,7 @@
   width: 50%;
 }
 
-.tab_container li a {
+.tab_container li span {
   font-size: .3rem;
   display: block;
   width: 100%;
@@ -30,7 +30,6 @@
 }
 
 .book_item {
-  margin-bottom: .16rem;
   margin-bottom: .3rem;
 }
 
