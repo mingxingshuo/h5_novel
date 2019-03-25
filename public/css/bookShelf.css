@@ -56,6 +56,10 @@
   color: red;
 }
 
+.books_container {
+  padding-top: .4rem;
+}
+
 .book_list {
   margin-right: -2%;
   padding: .3rem;
