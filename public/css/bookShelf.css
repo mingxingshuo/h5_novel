@@ -84,3 +84,8 @@
   font-size: .3rem;
   text-align: left;
 }
+
+.books_container i {
+  text-align: center;
+  color: #b9b9b9;
+}
