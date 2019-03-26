@@ -96,8 +96,8 @@
     function detailClick() {
         $(".book_list").on("tap", "li", function () {
             var bid = $(this).attr("data-id"), title = $(this).find("span").text()
-            alert(bid)
             httpRequest("/book/record", "get", {bid: bid}, function (res) {
+                alert(res.data)
                 if (res.data) {
                     window.location.href = "/content?bid=" + res.data.bid + "&cid=" + res.data.cid + "&title=" + title;
                 } else {
