@@ -51,7 +51,7 @@ router.post('/create', async(ctx, next) => {
 })
 
 router.post('/update', async(ctx, next) => {
-    let id = ctx.request.query.id;
+    let id = ctx.request.body.id;
     var data = {
         name: ctx.request.body.name,
         bookId: ctx.request.body.bookId,
