@@ -51,7 +51,7 @@
     let arr = []
     httpRequest("/chapter/all?bid=" + id, "get", {}, function (res) {
       arr = res.data;
-      let firstArr = arr.slice(0, 20)
+      let firstArr = arr.slice(0, 20), html = "";
       $.each(firstArr, function (i, el) {
         html += `
                 <li data-id="${el.id}">
