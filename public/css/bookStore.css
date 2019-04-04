@@ -48,7 +48,7 @@
 }
 
 .title {
-  font-size: .4rem;
+  /*font-size: .36rem;*/
   margin-bottom: .2rem;
   padding-top: .2rem;
 }
@@ -56,7 +56,7 @@
 .desc {
   height: 1rem;
   line-height: .5rem;
-  color: #b9b9b9;
+  color: #aeaeae;
   display: block;
   display: -webkit-box;
   max-width: 100%;
