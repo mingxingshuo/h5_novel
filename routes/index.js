@@ -84,7 +84,6 @@ router.get('/bookShelf', async(ctx, next) => {
     // 查询所有书籍
     let param = {tag_sex: 2}
     let book = await BookModel.findOne(param).limit(1)
-    console.log(book)
     await ctx.render('pages/bookShelf', {result: result, data: data, shelf: shelf, book: book})
 });
 
