@@ -50,9 +50,10 @@
   $(function () {
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
-    let arr = <%= data %>
-      alert(typeof arr)
-    // arr = JSON.parse(arr)
+    let arr = "<%= data %>";
+    alert(typeof arr)
+    arr = JSON.parse(arr)
+    alert(typeof arr)
     // httpRequest("/chapter/all?bid=" + id, "get", {},function (res) {
     //     arr = res.data
         $('.book-detail').dropload({
