@@ -55,7 +55,7 @@
   $(function () {
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
-    let arr = "<%= data.result %>"
+    let arr = <%- data.result %>
       arr = JSON.parse(arr)
     alert(typeof arr)
     // httpRequest("/chapter/all?bid=" + id, "get", {},function (res) {
