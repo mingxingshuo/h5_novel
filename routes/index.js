@@ -145,7 +145,7 @@ router.get('/content', async(ctx, next) => {
 router.get('/chapters', async(ctx, next) => {
     let result = await ChapterModel.find({bid: ctx.request.query.bid})
     let title = decodeURI(ctx.request.query.title)
-    await ctx.render('pages/chapters', {data: {result: result}, title: title})
+    await ctx.render('pages/chapters', {data: {result: JSON.stringify(result)}, title: title})
 })
 
 router.get('/record', async(ctx, next) => {
