@@ -45,7 +45,7 @@ router.get('/', async function (ctx, next) {
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         } else {
             let book = await BookModel.findOne({id: chapter.bid})
-            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title)
+            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + encodeURIComponent(book.title))
         }
     } else {
         return ctx.redirect('/needLogin')
