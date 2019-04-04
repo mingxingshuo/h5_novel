@@ -11,7 +11,7 @@
   padding: .3rem .58rem;
   box-sizing: border-box;
   background: rgb(99, 169, 238);
-  margin-bottom: .37rem;
+  margin-bottom: .15rem;
 }
 
 .avator {
@@ -43,8 +43,13 @@
 .action li {
   padding: .3rem .3rem;
   background: rgb(99, 169, 238);
-  margin-bottom: .1rem;
+  margin-bottom: .05rem;
   color: #fff;
+}
+
+.action li.chongzhi {
+  margin-bottom: .15rem;
+  padding: .36rem .3rem;
 }
 
 /*.action li.chongzhi div {*/
