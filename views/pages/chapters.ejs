@@ -50,24 +50,7 @@
   $(function () {
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
-    let obj = '<%- data %>'
-    alert(obj, 0)
-
-    result = JSON.parse(obj)
-    let arr = obj.result;
-    let html = "", firstArr = arr.splice(0, 20);
-    alert(arr, 1)
-    alert(firstArr, 2)
-    $.each(firstArr, function (i, el) {
-      alert(el.title)
-      html += `
-        <li data-id="${el.id}">
-          <p>${el.title.slice(0, 15)}</p>
-          <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
-        </li>
-      `
-    })
-    $(".chapter_list").append(html)
+    let page = 1;
     $('.book-detail').dropload({
       scrollArea: window,
       domDown: {
@@ -78,16 +61,8 @@
       },
       loadDownFn: function (me) {
         setTimeout(function () {
-          let html = "", result = arr.splice(0, 20);
-          $.each(result, function (i, el) {
-            html += `
-                <li data-id="${el.id}">
-                  <p>${el.title.slice(0, 15)}</p>
-                  <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
-                </li>
-              `
-          })
-          $(".chapter_list").append(html)
+          page ++ ;
+          getChapters(id, page)
           me.resetload();
           if (result.length < 20) {
             // 锁定
@@ -107,6 +82,21 @@
     $(".chapter_list").on("tap", "li", function () {
       let id = $(this).attr("data-id")
       window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
+    })
+  }
+
+  function getChapters(id, page) {
+    httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
+      let arr = res.data, html = "";
+      $.each(arr, function (i, el) {
+        html += `
+          <li data-id="${el.id}">
+            <p>${el.title.slice(0, 15)}</p>
+            <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
+          </li>
+        `
+      })
+      $(".chapter_list").append(html)
     })
   }
 </script>
