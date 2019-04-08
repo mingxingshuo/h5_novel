@@ -41,10 +41,7 @@ router.get('/account', async(ctx, next) => {
         isLogin = false
     }
     let user = await UserModel.findOne({_id: ctx.id})
-    let result = await UserModel.find();
-    let data = {result: result}
-    data = JSON.stringify(data);
-    await ctx.render('pages/account', {user: user, isLogin: isLogin, result: data});
+    await ctx.render('pages/account', {user: user, isLogin: isLogin});
 })
 
 router.get('/bookDetail', async(ctx, next) => {
@@ -146,9 +143,10 @@ router.get('/content', async(ctx, next) => {
 
 router.get('/chapters', async(ctx, next) => {
     let result = await ChapterModel.find({bid: ctx.request.query.bid});
-    let data = {result: result}
     let title = decodeURI(ctx.request.query.title)
-    await ctx.render('pages/chapters', {data: JSON.stringify(data), title: title})
+    let data = {result: result}
+    data = JSON.stringify(data);
+    await ctx.render('pages/chapters', {data: data, title: title})
 })
 
 router.get('/record', async(ctx, next) => {
