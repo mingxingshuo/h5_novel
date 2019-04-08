@@ -35,20 +35,23 @@ async function book(id) {
 
 router.get('/account', async(ctx, next) => {
     let isLogin;
-    if(ctx.user) {
+    if (ctx.user) {
         isLogin = true
     } else {
         isLogin = false
     }
     let user = await UserModel.findOne({_id: ctx.id})
-    await ctx.render('pages/account', {user: user, isLogin: isLogin});
+    let result = await UserModel.find();
+    let data = {result: result}
+    data = JSON.stringify(data);
+    await ctx.render('pages/account', {user: user, isLogin: isLogin, result: data});
 })
 
 router.get('/bookDetail', async(ctx, next) => {
     // 是否添加到书架
     let user = await UserModel.findOne({_id: ctx.id})
     let id = ctx.request.query.id, read = {}
-    let inShelf = user.shelf.indexOf(id) == -1 ? false : true
+    let inShelf = user.shelf.indexOf(id) === -1 ? false : true;
     // 获取书信息
     let info = await book(id)
     // 是否有阅读记录

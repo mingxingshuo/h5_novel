@@ -50,51 +50,50 @@
   $(function () {
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
-    let arr = []
-    httpRequest("/chapter/all?bid=" + id, "get", {}, function (res) {
-      arr = res.data
-      let html = "", firstArr = arr.splice(0, 20);
-      $.each(firstArr, function (i, el) {
-        html += `
-                    <li data-id="${el.id}">
-                      <p>${el.title.slice(0, 15)}</p>
-                      <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
-                    </li>
-                  `
-      })
-      $(".chapter_list").append(html)
-      $('.book-detail').dropload({
-        scrollArea: window,
-        domDown: {
-          domClass: 'dropload-down',
-          domRefresh: '<div class="dropload-refresh">上拉加载更多</div>',
-          domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-          domNoData: '<div class="dropload-noData">到底了</div>'
-        },
-        loadDownFn: function (me) {
-          setTimeout(function () {
-            let html = "", result = arr.splice(0, 20);
-            $.each(result, function (i, el) {
-              html += `
+    let obj = '<%- result %>'
+    result = JSON.parse(obj)
+    let arr = obj.result;
+    let html = "", firstArr = arr.splice(0, 20);
+    $.each(firstArr, function (i, el) {
+      html += `
+        <li data-id="${el.id}">
+          <p>${el.title.slice(0, 15)}</p>
+          <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
+        </li>
+      `
+    })
+    $(".chapter_list").append(html)
+    $('.book-detail').dropload({
+      scrollArea: window,
+      domDown: {
+        domClass: 'dropload-down',
+        domRefresh: '<div class="dropload-refresh">上拉加载更多</div>',
+        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+        domNoData: '<div class="dropload-noData">到底了</div>'
+      },
+      loadDownFn: function (me) {
+        setTimeout(function () {
+          let html = "", result = arr.splice(0, 20);
+          $.each(result, function (i, el) {
+            html += `
                 <li data-id="${el.id}">
                   <p>${el.title.slice(0, 15)}</p>
                   <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
                 </li>
               `
-            })
-            $(".chapter_list").append(html)
+          })
+          $(".chapter_list").append(html)
+          me.resetload();
+          if (result.length < 20) {
+            // 锁定
+            me.lock();
+            // 无数据
+            me.noData();
             me.resetload();
-            if (result.length < 20) {
-              // 锁定
-              me.lock();
-              // 无数据
-              me.noData();
-              me.resetload();
-            }
-          }, 500);
-        }
-      });
-    })
+          }
+        }, 500);
+      }
+    });
     chapterClick(id, title)
   })
 </script>
