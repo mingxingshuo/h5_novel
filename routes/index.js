@@ -146,6 +146,7 @@ router.get('/chapters', async(ctx, next) => {
     let title = decodeURI(ctx.request.query.title)
     let data = {result: result}
     data = JSON.stringify(data);
+    console.log("data", data)
     await ctx.render('pages/chapters', {data: data, title: title})
 })
 
