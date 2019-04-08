@@ -10,7 +10,8 @@ var price = 30
 
 router.get('/all', async function (ctx, next) {
     let bid = ctx.request.query.bid;
-    let chapter = await ChapterModel.find({bid: bid})
+    let page = ctx.request.query.page;
+    let chapter = await ChapterModel.find({bid: bid}).skip((page-1) * 20).limit(20)
     ctx.body = {success: '成功', data: chapter}
 })
 
