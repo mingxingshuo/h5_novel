@@ -2,6 +2,13 @@ $(function () {
   let id = location.search.split("=")[2].split("&")[0]
   let bid = location.search.split("=")[1].split("&")[0]
   let title = location.search.split("=")[3]
+  document.onreadystatechange = function () {
+    if(document.readyState === "complete") {
+      $(".loading").remove();
+      let url = "/content?bid=" + bid + "&id=" + (Number(id) + 1) + "&title=" + title
+      $("link").after('<link rel="prefetch" href="' + url + '"> ')
+    }
+  };
   title = decodeURIComponent(title)
   getBgColor()
   changeBgColor()

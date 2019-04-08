@@ -35,7 +35,7 @@ async function book(id) {
 
 router.get('/account', async(ctx, next) => {
     let isLogin;
-    if(ctx.user) {
+    if (ctx.user) {
         isLogin = true
     } else {
         isLogin = false
@@ -48,7 +48,7 @@ router.get('/bookDetail', async(ctx, next) => {
     // 是否添加到书架
     let user = await UserModel.findOne({_id: ctx.id})
     let id = ctx.request.query.id, read = {}
-    let inShelf = user.shelf.indexOf(id) == -1 ? false : true
+    let inShelf = user.shelf.indexOf(id) === -1 ? false : true;
     // 获取书信息
     let info = await book(id)
     // 是否有阅读记录
@@ -84,7 +84,6 @@ router.get('/bookShelf', async(ctx, next) => {
     // 查询所有书籍
     let param = {tag_sex: 2}
     let book = await BookModel.findOne(param).limit(1)
-    console.log(book)
     await ctx.render('pages/bookShelf', {result: result, data: data, shelf: shelf, book: book})
 });
 
@@ -143,9 +142,11 @@ router.get('/content', async(ctx, next) => {
 })
 
 router.get('/chapters', async(ctx, next) => {
-    let result = await ChapterModel.find({bid: ctx.request.query.bid})
+    let result = await ChapterModel.find({bid: ctx.request.query.bid});
     let title = decodeURI(ctx.request.query.title)
-    await ctx.render('pages/chapters', {data: {result: JSON.stringify(result)}, title: title})
+    let data = {result: result}
+    data = JSON.stringify(data);
+    await ctx.render('pages/chapters', {data: data, title: title})
 })
 
 router.get('/record', async(ctx, next) => {
