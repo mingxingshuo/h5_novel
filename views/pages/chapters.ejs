@@ -51,6 +51,8 @@
     let id = location.search.split("=")[1].split("&")[0]
     let title = "<%= title %>"
     let obj = '<%- data %>'
+    alert(obj, 0)
+
     result = JSON.parse(obj)
     let arr = obj.result;
     let html = "", firstArr = arr.splice(0, 20);
