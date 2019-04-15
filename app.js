@@ -12,7 +12,7 @@ const users = require('./routes/users')
 const books = require('./routes/books')
 const chapters = require('./routes/chapters')
 const order = require('./routes/order')
-const qudao = require('./routes/qudao')
+const qudao = require('./routes/channel')
 const pay = require('./routes/pay')
 const UserModel = require('./model/User')
 const mem = require('./util/mem')
@@ -56,13 +56,10 @@ app.use(async(ctx, next) => {
 app.use(async(ctx, next) => {
     console.log('--------url-------------')
     console.log(ctx.url)
-    console.log('---------header中间件 ---------')
-    let uid = ctx.request.headers.uid
-    let deviceid = ctx.request.headers.deviceid
+    console.log('---------cookie中间件 ---------')
+    let uid = ctx.cookies.get('uid')
     console.log('------uid------')
     console.log(uid)
-    console.log('------deviceid------')
-    console.log(deviceid)
     if (uid) {
         let user = await mem.get("uid_" + uid);
         if (!user) {
@@ -71,15 +68,9 @@ app.use(async(ctx, next) => {
         }
         ctx.user = user
         ctx.id = user._id
-    } else if (deviceid) {
-        let user = await mem.get("deviceid_" + deviceid);
-        if (!user) {
-            user = await UserModel.findOne({deviceid: deviceid})
-            if (!user) {
-                user = await UserModel.create({deviceid: deviceid})
-            }
-            await mem.set("deviceid_" + deviceid, user, 24 * 3600);
-        }
+    } else {
+        let user = await UserModel.create({})
+        ctx.cookies.set('uid', user._id);
         ctx.id = user._id
     }
     await next()

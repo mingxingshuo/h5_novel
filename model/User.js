@@ -5,7 +5,6 @@ var DB = require('./DB');
 
 var UserSchema = new Schema({
     unionid: String,
-    deviceid: String,
     screen_name: String,
     gender: String,
     profile_image_url: String,
@@ -16,6 +15,7 @@ var UserSchema = new Schema({
     isvip: {type: Number, default: 0}, //用户是否VIP，1是，0不是
     vip_time: Number, //用户购买VIP时间
     balance: {type: Number, default: 0},//余额
+    channel:Number,
     createAt: {
         type: Date,
         default: Date.now

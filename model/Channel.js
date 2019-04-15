@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var DB = require('./DB');
 
-var QudaoSchema = new Schema({
+var ChannelSchema = new Schema({
     name: String,
     bookId: Number,  //书id
     bookName: String, //书名
@@ -23,6 +23,6 @@ var QudaoSchema = new Schema({
     timestamps: {createdAt: 'createAt', updatedAt: 'updateAt'}
 });
 
-var QudaoModel = DB.getDB().model('Qudao', QudaoSchema);
+var ChannelModel = DB.getDB().model('Channel', ChannelSchema);
 
-module.exports = QudaoModel;
+module.exports = ChannelModel;

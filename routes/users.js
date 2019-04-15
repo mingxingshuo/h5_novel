@@ -22,40 +22,26 @@ router.post('/login', async function (ctx, next) {
     let screen_name = ctx.request.body.screen_name
     let gender = ctx.request.body.gender
     let profile_image_url = ctx.request.body.profile_image_url
+    let channel = ctx.request.body.channel
     let sex = 0
     if (gender == "男") {
         sex = 2
     } else if (gender == "女") {
         sex = 1
     }
-    if (uid) {
-        let user = await UserModel.findOneAndUpdate({_id: uid}, {
-            unionid: unionid,
-            deviceid: deviceid,
-            screen_name: screen_name,
-            gender: sex,
-            profile_image_url: profile_image_url,
-            tag_sex: sex
-        })
-        await mem.set("uid_" + user._id, '', 1);
-        ctx.body = {
-            success: '成功',
-            data: user
-        }
-    } else {
-        let user = await UserModel.findOneAndUpdate({deviceid: deviceid}, {
-            unionid: unionid,
-            deviceid: deviceid,
-            screen_name: screen_name,
-            gender: sex,
-            profile_image_url: profile_image_url,
-            tag_sex: sex
-        })
-        await mem.set("deviceid_" + user.deviceid, '', 1);
-        ctx.body = {
-            success: '成功',
-            data: user
-        }
+    let user = await UserModel.findOneAndUpdate({_id: uid}, {
+        unionid: unionid,
+        deviceid: deviceid,
+        screen_name: screen_name,
+        gender: sex,
+        profile_image_url: profile_image_url,
+        tag_sex: sex,
+        channel:channel
+    })
+    await mem.set("uid_" + user._id, '', 1);
+    ctx.body = {
+        success: '成功',
+        data: user
     }
 })
 
