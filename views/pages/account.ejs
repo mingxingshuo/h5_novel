@@ -11,7 +11,7 @@
   <meta name="description" content="描述">
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/account.css">
-  <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
+  <!--<link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">-->
   <script src="/js/rem.js"></script>
 
   <title>我的</title>
@@ -23,9 +23,9 @@
 </head>
 
 <body>
-<!--<div class="loading" style="position: fixed;width: 100vw;height: 100vh;background: #fff;top: 0;left: 0; z-index:1000;">-->
-  <!--<img style="width: 20px;position: absolute;top: 30%;left: 50%;margin-left: -10px;" src="/img/loading.gif" alt="">-->
-<!--</div>-->
+<div class="loading" style="position: fixed;width: 100vw;height: 100vh;background: #fff;top: 0;left: 0; z-index:1000;">
+  <img style="width: 20px;position: absolute;top: 30%;left: 50%;margin-left: -10px;" src="/img/loading.gif" alt="">
+</div>
   <div class="account">
     <div class="user-info">
       <img class="avator" src="<%= isLogin ? user.profile_image_url: '/img/avatar.png' %>" />
@@ -57,19 +57,20 @@
       <% } %>
     </div>
   </div>
+<%- include('footer', {path: 'account'}); %>
 </body>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.mobile-1.4.5.min.js"></script>
-<!--<script>-->
-  <!--document.onreadystatechange = function () {-->
-    <!--if(document.readyState === "complete") {-->
-      <!--$(".loading").remove()-->
-    <!--}-->
-  <!--}-->
-<!--</script>-->
+<!--<script src="/js/jquery.mobile-1.4.5.min.js"></script>-->
+<script>
+  document.onreadystatechange = function () {
+    if(document.readyState === "complete") {
+      $(".loading").remove()
+    }
+  }
+</script>
 <script>
 $(function() {
-  $(".yijian").on("tap", function() {
+  $(".yijian").on("click", function() {
 
   })
 })
@@ -77,18 +78,18 @@ $(function() {
 <script>
 toPayPage()
 function toPayPage() {
-  $(".chongzhi").on("tap", function() {
+  $(".chongzhi").on("click", function() {
     window.location.href = "/recharge"
   })
-  $(".record").on("tap", function() {
+  $(".record").on("click", function() {
     window.location.href = "/record"
   })
 }
 $(function() {
-  $(".logout").on("tap", function() {
+  $(".logout").on("click", function() {
     window.location.href = "/logout"
   })
-  $(".login").on("tap", function() {
+  $(".login").on("click", function() {
     window.location.href = "/needLogin"
   })
 })

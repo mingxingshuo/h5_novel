@@ -3,9 +3,14 @@
 }
 
 .tab_container {
+  width: 100%;
   border-bottom: .01rem solid #e4e4e4;
   overflow: hidden;
   margin-bottom: .15rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgb(241, 243, 248);
 }
 
 .tab_container li {
@@ -26,6 +31,7 @@
 }
 
 .books_container {
+  margin-top: .6rem;
   padding: .36rem;
 }
 

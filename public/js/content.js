@@ -4,7 +4,7 @@ $(function () {
   let title = location.search.split("=")[3]
   document.onreadystatechange = function () {
     if(document.readyState === "complete") {
-      // $(".loading").remove();
+      $(".loading").remove();
       let url = "/content?bid=" + bid + "&id=" + (Number(id) + 1) + "&title=" + title
       $("link").after('<link rel="prefetch" href="' + url + '"> ')
     }
@@ -44,24 +44,24 @@ function getBgColor() {
 
 // 跳转目录
 function toChapters(bid, title) {
-  $(".to-chapters").on("tap", function() {
+  $(".to-chapters").on("click", function() {
     window.location.href = "/chapters?bid=" + bid + "&title=" + title;
   })
 }
 
 // 切换章节
 function changeChapter(bid, id, title) {
-  $(".prev_chapter").on("tap", function() {
+  $(".prev_chapter").on("click", function() {
     window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) - 1) + "&title=" + title
   });
-  $(".next_chapter").on("tap", function() {
+  $(".next_chapter").on("click", function() {
     window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) + 1) + "&title=" + title
   });
 }
 
 // 修改背景颜色
 function changeBgColor() {
-  $(".color-setting").on("tap", "li", function () {
+  $(".color-setting").on("click", "li", function () {
     let bgColor = $(this).attr("data-color")
     $(".detail").css("background-color",bgColor)
     setCookie("bgColor", bgColor)
@@ -83,14 +83,14 @@ function isBlack(bgColor) {
 function changeFontSize() {
   let fontSize = getCookie("fontSize");
   let fontNum = Number(fontSize.split("rem")[0])
-  $(".font-add").on("tap", function() {
+  $(".font-add").on("click", function() {
     if(fontNum <= 0.4) {
       fontNum += 0.02
       $("body .chapter-content").css({"font-size": fontNum + "rem"})
       setCookie("fontSize", fontNum + "rem")
     }
   })
-  $(".font-reduce").on("tap", function() {
+  $(".font-reduce").on("click", function() {
     if(fontNum > 0.29) {
       fontNum -= 0.02
       $("body .chapter-content").css({"font-size": fontNum + "rem"})
