@@ -102,7 +102,7 @@ app.use(async(ctx, next) => {
         ctx.user = user
         ctx.id = user._id
     }
-  
+    next()
 })
 
 // routes
