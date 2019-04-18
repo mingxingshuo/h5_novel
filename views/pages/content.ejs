@@ -52,7 +52,8 @@
 <script>
   $(function () {
     let id, bid;
-    if(!location.search.split("=")[2].split("&")[0]) {
+    str.matches(".*[~!@#$%^&*()_+|<>,.?/:;'\\[\\]{}\"]+.*");
+    if(!location.search.matches(".*[&].*")) {
       id = <%= id %>
       bid = <%= bid %>
     } else {
