@@ -10,7 +10,7 @@ const UserModel = require('../model/User')
 router.prefix('/pay')
 
 router.get('/', async function (ctx, next) {
-    let u_id = ctx.request.query.u_id
+    let u_id = ctx.id
     let appid = "wxd5d2f830fbcd609c"
     let body = "黑牛全本小说"
     let mch_id = "1527118561"
@@ -20,13 +20,9 @@ router.get('/', async function (ctx, next) {
     // let price = ctx.request.query.price
     // let total_fee = parseInt(ctx.request.query.price * 100)
     let price = 0.01
-    let total_fee = parseInt(1)
-    let trade_type = "APP"
-    let data = {
-        u_id: u_id,
-        total_fee: price
-    }
-    let doc = await OrderModel.create(data)
+    let total_fee = 1
+    let trade_type = "MWEB"
+    let doc = await OrderModel.create({u_id: u_id, total_fee: price})
     let out_trade_no = doc.order_number
     let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
     let sign = md5(str)
@@ -45,23 +41,9 @@ router.get('/', async function (ctx, next) {
     let param = builder.buildObject(send_data);
     let result = await req(param)
     console.log(result, '-----------------aaa')
-    var prepay_id = result.xml.prepay_id[0];
-    var h5_nonce_str = rand();
-    let timeStamp = Date.parse(new Date()) / 1000;
-    let str1 = "appid=" + appid + "&noncestr=" + nonce_str + "&package=Sign=WXPay&partnerid=" + mch_id + "&prepayid=" + prepay_id + "&timestamp=" + timeStamp + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
-    console.log(str1)
-    let paySign = md5(str1)
-    ctx.body = {
-        "appid": appid,
-        "timeStamp": timeStamp,
-        "nonceStr": nonce_str,
-        "prepay_id": prepay_id,
-        "signType": "MD5",
-        "paySign": paySign,
-        "str1": str1
-    }
+    let mweb_url = result.xml.mweb_url[0];
+    ctx.redirect(mweb_url)
 })
-
 
 router.post('/back', async function (ctx, next) {
     var buf = "";
