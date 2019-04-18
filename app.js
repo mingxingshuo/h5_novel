@@ -54,27 +54,55 @@ app.use(async(ctx, next) => {
 })
 
 app.use(async(ctx, next) => {
-    console.log('--------url-------------')
-    console.log(ctx.url)
-    console.log('---------cookie中间件 ---------')
-    let uid = ctx.cookies.get('uid')
-    console.log('------uid------')
-    console.log(uid)
-    if (uid) {
-        let user = await mem.get("uid_" + uid);
+    let uid = ctx.cookies.get('novels');
+    //console.log(uid)
+    let query_channel =ctx.query.channel;
+    let channel;
+    if(query_channel){
+        ctx.cookies.set(
+            'channels',query_channel,{
+                path:'/',       // 写cookie所在的路径
+                maxAge: 100*12*30*24*60*60*1000,   // cookie有效时长
+                expires:new Date(Date.now()+100*12*30*24*60*60*1000), // cookie失效时间
+                httpOnly:false,  // 是否只用于http请求中获取
+                overwrite:false  // 是否允许重写
+            }
+        );
+        channel = query_channel
+    }else{
+        channel = ctx.cookies.get('channels');
+    }
+    //console.log(channel)
+    if(!uid){
+        //生成uid，存储渠道号，存储期限无限长
+        var  user = new UserModel({
+            distribution:channel
+        })
+        await user.save();
+        uid = user._id;
+        ctx.cookies.set(
+            'novels',uid,{
+                path:'/',       // 写cookie所在的路径
+                maxAge: 100*12*30*24*60*60*1000,   // cookie有效时长
+                expires:new Date(Date.now()+100*12*30*24*60*60*1000), // cookie失效时间
+                httpOnly:false,  // 是否只用于http请求中获取
+                overwrite:false  // 是否允许重写
+            }
+        );
+        ctx.user = user
+        ctx.id = user._id
+    }else{
+        let user = await mem.get("h5_novel_uid_" + uid);
         if (!user) {
             user = await UserModel.findOne({_id: uid})
-            await mem.set("uid_" + uid, user, 24 * 3600);
+            await mem.set("h5_novel_uid_" + uid, JSON.stringify(user), 10*60);
+        }else{
+            user = JSON.parse(user)
         }
-        ctx.id = user._id
         ctx.user = user
-    } else {
-        let user = await UserModel.create({})
-        ctx.cookies.set('uid', user._id);
-        await mem.set("uid_" + user._id, user, 24 * 3600);
         ctx.id = user._id
     }
-    await next()
+  
 })
 
 // routes

@@ -9,7 +9,7 @@ var UserSchema = new Schema({
     isvip: {type: Number, default: 0}, //用户是否VIP，1是，0不是
     vip_time: Number, //用户购买VIP时间
     balance: {type: Number, default: 0},//余额
-    channel:Number,
+    distribution:String,//渠道key
     createAt: {
         type: Date,
         default: Date.now
