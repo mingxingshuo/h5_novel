@@ -38,6 +38,10 @@ router.get('/content', async(ctx, next) => {
     let chapter = await ChapterModel.findOne({id: id});
     let user = ctx.user;
     let result = await book(ctx.request.query.bid);
+    if(!id) {
+        let content = await ChapterModel.findOne({id: result.first});
+        return ctx.render('pages/content', {data: content, isfirst: true, islast: false});
+    }
     if (result.first == id) {
         isfirst = true
     } else {
