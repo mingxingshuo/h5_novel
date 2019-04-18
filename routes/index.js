@@ -40,8 +40,7 @@ router.get('/content', async(ctx, next) => {
     let result = await book(ctx.request.query.bid);
     if(!id) {
         let content = await ChapterModel.findOne({id: result.first});
-        console.log(content)
-        return ctx.render('pages/content', {data: content, isfirst: true, islast: false});
+        return ctx.render('pages/content', {data: content, isfirst: true, islast: false, id: result.first});
     }
     if (result.first == id) {
         isfirst = true
