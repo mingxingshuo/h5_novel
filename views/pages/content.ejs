@@ -51,8 +51,8 @@
 <!--<script src="/js/content.js"></script>-->
 <script>
   $(function () {
-    let id = location.search.split("=")[2].split("&")[0] + '<%= id %>'
-    let bid = location.search.split("=")[1].split("&")[0]
+    let id = location.search.split("=")[2].split("&")[0] || '<%= id %>'
+    let bid = location.search.split("=")[1].split("&")[0] || '<%= bid %>'
     document.onreadystatechange = function () {
       if(document.readyState === "complete") {
         $(".loading").remove();
