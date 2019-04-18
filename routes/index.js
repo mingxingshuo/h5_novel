@@ -6,6 +6,7 @@ const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
 const OrderModel = require('../model/Order')
+const PayChapterModel = require("../model/PayChapter")
 router.prefix('/')
 var price = 30
 
@@ -120,15 +121,15 @@ router.get('/content', async(ctx, next) => {
         if (user.isvip) {
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         }
-        let pay_chapter = user.pay_chapter.indexOf(id)
-        if (pay_chapter != -1) {
+        let pay_chapter = await PayChapterModel.findOne({u_id: u_id, chapter: id})
+        if (pay_chapter) {
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         }
         if (user.balance > price) {
-            await UserModel.findOneAndUpdate({_id: ctx.id}, {
-                $addToSet: {pay_chapter: id},
+            await UserModel.findOneAndUpdate({_id: u_id}, {
                 $inc: {balance: -price}
             })
+            await PayChapterModel.create({u_id: u_id, chapter: id})
             await mem.set("uid_" + user._id, '', 1);
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         } else {

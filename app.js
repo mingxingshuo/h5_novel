@@ -66,11 +66,12 @@ app.use(async(ctx, next) => {
             user = await UserModel.findOne({_id: uid})
             await mem.set("uid_" + uid, user, 24 * 3600);
         }
-        ctx.user = user
         ctx.id = user._id
+        ctx.user = user
     } else {
         let user = await UserModel.create({})
         ctx.cookies.set('uid', user._id);
+        await mem.set("uid_" + user._id, user, 24 * 3600);
         ctx.id = user._id
     }
     await next()
