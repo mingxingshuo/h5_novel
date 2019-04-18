@@ -17,6 +17,13 @@ const pay = require('./routes/pay')
 const UserModel = require('./model/User')
 const mem = require('./util/mem')
 
+const asyncRedis = require("async-redis");
+const redis_client = asyncRedis.createClient();
+ 
+redis_client.on("error", function (err) {
+    console.log("redis Error " + err);
+});
+
 // error handler
 onerror(app)
 
@@ -102,7 +109,8 @@ app.use(async(ctx, next) => {
         ctx.user = user
         ctx.id = user._id
     }
-    next()
+    await next()
+    await redis_client.pfadd('h5novels_'+channel,uid)
 })
 
 // routes
