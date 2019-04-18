@@ -5,9 +5,8 @@ const UserModel = require('../model/User')
 const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
-const OrderModel = require('../model/Order')
-const PayChapterModel = require("../model/PayChapter")
-const UserShelfModel = require('../model/UserShelf')
+const PayBookModel = require("../model/PayBook")
+
 router.prefix('/')
 var price = 30
 //
@@ -39,6 +38,7 @@ router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
     let u_id = ctx.id
     let chapter = await ChapterModel.findOne({id: id})
+    let book = await BookModel.findOne({id: chapter.bid})
     let user = ctx.user
     let result = await book(ctx.request.query.bid)
     if (result.first == id) {
@@ -60,28 +60,11 @@ router.get('/content', async(ctx, next) => {
     if (!chapter.isvip) {
         return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
     }
-    if (user) {
-        if (user.isvip) {
-            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
-        }
-        let pay_chapter = await PayChapterModel.findOne({u_id: u_id, chapter: id})
-        if (pay_chapter) {
-            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
-        }
-        if (user.balance > price) {
-            await UserModel.findOneAndUpdate({_id: u_id}, {
-                $inc: {balance: -price}
-            })
-            await PayChapterModel.create({u_id: u_id, cid: id})
-            await mem.set("uid_" + user._id, '', 1);
-            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
-        } else {
-            let book = await BookModel.findOne({id: chapter.bid})
-            console.log(encodeURIComponent('/recharge?bid=' + book.id + '&id=' + id + '&title=' + book.title), '----------------------------book')
-            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + encodeURIComponent(book.title))
-        }
-    } else {
-        return ctx.redirect('/needLogin')
+    let pay_book = await PayBookModel.findOne({u_id: u_id, bid: book.id})
+    if (pay_book) {
+        return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+    }else{
+        return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + encodeURIComponent(book.title))
     }
 })
 

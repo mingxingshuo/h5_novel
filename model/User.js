@@ -6,9 +6,6 @@ var DB = require('./DB');
 var UserSchema = new Schema({
     tag_sex: Number,
     shelf: Array,
-    isvip: {type: Number, default: 0}, //用户是否VIP，1是，0不是
-    vip_time: Number, //用户购买VIP时间
-    balance: {type: Number, default: 0},//余额
     distribution:String,//渠道key
     createAt: {
         type: Date,

@@ -2,14 +2,10 @@ var mongoose = require('mongoose');
 //mongoose.set('debug', true); 
 var Schema = mongoose.Schema;
 var DB = require('./DB');
-var autoIncrement = require('mongoose-auto-increment');
-autoIncrement.initialize(DB.getDB());
 
-var OrderSchema = new Schema({
+var PayBookSchema = new Schema({
     u_id: String,
     bid: Number,
-    total_fee:Number,
-    status: {type: Number, default: 0}, //订单是否支付，1是，0不是
     createAt: {
         type: Date,
         default: Date.now
@@ -22,6 +18,6 @@ var OrderSchema = new Schema({
     timestamps: {createdAt: 'createAt', updatedAt: 'updateAt'}
 });
 
-var OrderModel = DB.getDB().model('Order', OrderSchema);
+var PayBookModel = DB.getDB().model('PayBook', PayBookSchema);
 
-module.exports = OrderModel;
+module.exports = PayBookModel;

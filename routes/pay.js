@@ -5,11 +5,12 @@ const xml2js = require("xml2js");
 const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
-const UserModel = require('../model/User')
+const PayBookModel = require("../model/PayBook")
 
 router.prefix('/pay')
 
 router.get('/', async function (ctx, next) {
+    let bid = ctx.request.query.bid
     let u_id = ctx.id
     let appid = "wxd5d2f830fbcd609c"
     let body = "黑牛全本小说"
@@ -22,8 +23,8 @@ router.get('/', async function (ctx, next) {
     let price = 0.01
     let total_fee = 1
     let trade_type = "MWEB"
-    let doc = await OrderModel.create({u_id: u_id, total_fee: price})
-    let out_trade_no = doc.order_number
+    let doc = await OrderModel.create({u_id: u_id, bid: bid})
+    let out_trade_no = doc._id
     let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
     let sign = md5(str)
     let send_data = {
@@ -60,6 +61,7 @@ router.post('/back', async function (ctx, next) {
                 if (data.xml) {
                     balan(data).then(() => {
                         console.log('订单处理成功');
+
                     })
                 } else {
                     console.log('订单返回错误');
@@ -71,27 +73,14 @@ router.post('/back', async function (ctx, next) {
 })
 
 async function balan(data) {
-    let order = await OrderModel.findOneAndUpdate({order_number: data.xml.out_trade_no[0]}, {
+    let order = await OrderModel.findOneAndUpdate({_id: data.xml.out_trade_no[0]}, {
         status: 1,
         updateAt: Date.now()
     }, {new: true})
     if (order.total_fee == 30) {
-        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 3000}})
-    } else if (order.total_fee == 50) {
-        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 8000}})
-    } else if (order.total_fee == 100) {
-        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 18000}})
-    } else if (order.total_fee == 200) {
-        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 40000}})
-    } else if (order.total_fee == 365) {
-        let user = await UserModel.findOne({_id: order.u_id})
-        if (user.isvip) {
-            await UserModel.findOneAndUpdate({_id: order.u_id}, {vip_time: user.vip_time + 365 * 24 * 3600 * 1000})
-        } else {
-            await UserModel.findOneAndUpdate({_id: order.u_id}, {isvip: 1, vip_time: Date.now()})
-        }
+        await PayBookModel.create({u_id: order.u_id, bid: order.bid})
     } else if (order.total_fee == 0.01) {
-        await UserModel.findOneAndUpdate({_id: order.u_id}, {$inc: {balance: 100}})
+        await PayBookModel.create({u_id: order.u_id, bid: order.bid})
     }
 }
 
