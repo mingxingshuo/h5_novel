@@ -1,5 +1,5 @@
 $(function () {
-  let id = location.search.split("=")[2].split("&")[0] || '<%= id %>'
+  let id = location.search.split("=")[2].split("&")[0]
   let bid = location.search.split("=")[1].split("&")[0]
   document.onreadystatechange = function () {
     if(document.readyState === "complete") {
