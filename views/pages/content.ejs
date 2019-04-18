@@ -11,7 +11,6 @@
   <meta name="description" content="描述">
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/content.css">
-  <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
   <script src="/js/rem.js"></script>
   <title>内容</title>
 </head>
@@ -40,7 +39,6 @@
       </div>
       <ul class="btn-wrapper">
         <li class="change-chapter prev_chapter" style='display: <%= isfirst ? "none" : "block" %>'><span>上一章</span></li>
-        <li class="to-chapters"><span>目录</span></li>
         <li class="change-chapter next_chapter" style='display: <%= islast ? "none" : "block" %>'><span>下一章</span></li>
       </ul>
     </div>
@@ -50,8 +48,95 @@
 <script src="/js/jquery.min.js"></script>
 <!--<script src="/js/jquery.mobile-1.4.5.min.js"></script>-->
 <script src="/js/http.js"></script>
-<script src="/js/content.js"></script>
+<!--<script src="/js/content.js"></script>-->
 <script>
+  $(function () {
+    let id = <%= id %> || location.search.split("=")[2].split("&")[0];
+    let bid = <%= bid %> || location.search.split("=")[1].split("&")[0];
+    document.onreadystatechange = function () {
+      if(document.readyState === "complete") {
+        $(".loading").remove();
+      }
+    };
+    getBgColor()
+    changeBgColor()
+    changeChapter(bid, id)
+    getFontSize()
+    changeFontSize()
+  })
 
+  // 获取cookie字体大小
+  function getFontSize() {
+    let fontSize = getCookie("fontSize");
+    if(fontSize) {
+      $("body .chapter-content").css({"font-size": fontSize})
+    } else {
+      $("body .chapter-content").css({"font-size": ".36rem"})
+      setCookie("fontSize", ".36rem")
+    }
+  }
+
+  // 获取cookie背景颜色
+  function getBgColor() {
+    let bgColor = getCookie("bgColor");
+    if(bgColor) {
+      $(".detail").css("background-color",bgColor)
+      console.log($(".detail").attr("background-color"))
+      isBlack(bgColor)
+    } else {
+      $(".detail").css("background-color",bgColor)
+      setCookie("bgColor", "#eee")
+    }
+  }
+
+  // 切换章节
+  function changeChapter(bid, id) {
+    $(".prev_chapter").on("click", function() {
+      window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) - 1)
+    });
+    $(".next_chapter").on("click", function() {
+      window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) + 1)
+    });
+  }
+
+  // 修改背景颜色
+  function changeBgColor() {
+    $(".color-setting").on("click", "li", function () {
+      let bgColor = $(this).attr("data-color")
+      $(".detail").css("background-color",bgColor)
+      setCookie("bgColor", bgColor)
+      isBlack(bgColor)
+    })
+  }
+
+
+  // 是否是黑夜背景
+  function isBlack(bgColor) {
+    if(bgColor == "#2c3e50") {
+      $(".chapter-content, .font-setting, .btn-wrapper").css({color: "#f9f9f9"})
+    } else {
+      $(".chapter-content, .font-setting, .btn-wrapper").css({color: "#000"})
+    }
+  }
+
+  // 修改字体大小
+  function changeFontSize() {
+    let fontSize = getCookie("fontSize");
+    let fontNum = Number(fontSize.split("rem")[0])
+    $(".font-add").on("click", function() {
+      if(fontNum <= 0.4) {
+        fontNum += 0.02
+        $("body .chapter-content").css({"font-size": fontNum + "rem"})
+        setCookie("fontSize", fontNum + "rem")
+      }
+    })
+    $(".font-reduce").on("click", function() {
+      if(fontNum > 0.29) {
+        fontNum -= 0.02
+        $("body .chapter-content").css({"font-size": fontNum + "rem"})
+        setCookie("fontSize", fontNum + "rem")
+      }
+    })
+  }
 </script>
 </html>

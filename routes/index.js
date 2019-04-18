@@ -18,6 +18,10 @@ router.get('/content', async(ctx, next) => {
     let chapters = await ChapterModel.find({bid: id}).sort({id: 1})
     let first = chapters[0].id
     let last = chapters[chapters.length - 1].id
+    if(!id) {
+        let content = await ChapterModel.findOne({id: result.first});
+        return ctx.render('pages/content', {data: content, isfirst: true, islast: false, id: result.first, bid: ctx.request.query.bid});
+    }
     if (first == id) {
         isfirst = true
     } else {
@@ -33,7 +37,7 @@ router.get('/content', async(ctx, next) => {
         bid: chapter.bid,
         cid: id,
         updateAt: Date.now()
-    }, {upsert: true})
+    }, {upsert: true});
     if (!chapter.isvip) {
         return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
     } else {
@@ -44,6 +48,6 @@ router.get('/content', async(ctx, next) => {
             return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id + '&title=' + encodeURIComponent(book.title))
         }
     }
-})
+});
 
 module.exports = router;
