@@ -38,12 +38,12 @@ router.get('/content', async(ctx, next) => {
     let chapter = await ChapterModel.findOne({id: id});
     let user = ctx.user;
     let result = await book(ctx.request.query.bid);
-    if (result.first === id) {
+    if (result.first == id) {
         isfirst = true
     } else {
         isfirst = false
     }
-    if (result.last === id) {
+    if (result.last == id) {
         islast = true
     } else {
         islast = false
