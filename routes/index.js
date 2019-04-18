@@ -10,20 +10,20 @@ const PayChapterModel = require("../model/PayChapter")
 const UserShelfModel = require('../model/UserShelf')
 router.prefix('/')
 var price = 30
-
-async function httpRequest(url, id) {
-    return new Promise((resolve, reject) => {
-        request.get({
-            url: url,
-            headers: {
-                uid: id
-            }
-        }, (err, res, body) => {
-            let data = JSON.parse(body)
-            resolve(data)
-        })
-    })
-}
+//
+// async function httpRequest(url, id) {
+//     return new Promise((resolve, reject) => {
+//         request.get({
+//             url: url,
+//             headers: {
+//                 uid: id
+//             }
+//         }, (err, res, body) => {
+//             let data = JSON.parse(body)
+//             resolve(data)
+//         })
+//     })
+// }
 
 async function book(id) {
     let book = await BookModel.findOne({id: id})
@@ -34,70 +34,6 @@ async function book(id) {
         resolve({book: book, first: first, last: last})
     })
 }
-
-router.get('/account', async(ctx, next) => {
-    let isLogin;
-    if (ctx.user) {
-        isLogin = true
-    } else {
-        isLogin = false
-    }
-    let user = await UserModel.findOne({_id: ctx.id})
-    await ctx.render('pages/account', {user: user, isLogin: isLogin});
-})
-
-router.get('/bookDetail', async(ctx, next) => {
-    // 是否添加到书架
-    let user = await UserModel.findOne({_id: ctx.id})
-    let id = ctx.request.query.id, read = {}
-    let shelf = await UserShelfModel.findOne({u_id: ctx.id, book_id: id})
-    let inShelf = shelf ? false : true;
-    // 获取书信息
-    let info = await book(id)
-    // 是否有阅读记录
-    let result = await RecordModel.findOne({u_id: ctx.id, bid: id})
-    if (info && result) {
-        read = {
-            id: result.cid,
-            hasrecord: true
-        }
-    } else if (info) {
-        read = {
-            id: info.first,
-            hasrecord: false
-        }
-    }
-    let chapters = await ChapterModel.find({bid: id})
-    await ctx.render('pages/bookDetail', {
-        inShelf: inShelf,
-        info: info.book,
-        read: read,
-        chapters: chapters.slice(0, 10)
-    })
-})
-
-router.get('/bookShelf', async(ctx, next) => {
-    let result = await RecordModel.findOne({u_id: ctx.id}).sort({updateAt: -1})
-    let data;
-    if (result) {
-        data = await BookModel.findOne({id: result.bid})
-    }
-    let user = await UserModel.findOne({_id: ctx.id})
-    let shelfs = await UserShelfModel.find({u_id: ctx.id},['bid'])
-    let shelf_arr = [];
-    shelfs.forEach(function (shelf) {
-        shelf_arr.push(shelf.bid)
-    })
-    let myshelf = await BookModel.find({id: {$in: shelf_arr}})
-    // 查询所有书籍
-    let param = {tag_sex: 2}
-    let book = await BookModel.findOne(param).limit(1)
-    await ctx.render('pages/bookShelf', {result: result, data: data, shelf: myshelf, book: book})
-});
-
-router.get('/bookStore', async(ctx, next) => {
-    await ctx.render('pages/bookStore')
-});
 
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
@@ -148,22 +84,5 @@ router.get('/content', async(ctx, next) => {
         return ctx.redirect('/needLogin')
     }
 })
-
-router.get('/chapters', async(ctx, next) => {
-    let result = await ChapterModel.find({bid: ctx.request.query.bid});
-    let title = decodeURI(ctx.request.query.title)
-    let data = {result: result}
-    data = JSON.stringify(data);
-    await ctx.render('pages/chapters', {data: data, title: title})
-})
-
-router.get('/record', async(ctx, next) => {
-    await ctx.render('pages/record')
-})
-
-router.get('/recharge', async(ctx, next) => {
-    await ctx.render('pages/recharge')
-})
-
 
 module.exports = router;
