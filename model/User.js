@@ -4,18 +4,12 @@ var Schema = mongoose.Schema;
 var DB = require('./DB');
 
 var UserSchema = new Schema({
-    unionid: String,
-    screen_name: String,
-    gender: String,
-    profile_image_url: String,
-    action_time: Number,
     tag_sex: Number,
     shelf: Array,
-    pay_chapter: Array,
     isvip: {type: Number, default: 0}, //用户是否VIP，1是，0不是
     vip_time: Number, //用户购买VIP时间
     balance: {type: Number, default: 0},//余额
-    channel:Number,
+    distribution:String,//渠道key
     createAt: {
         type: Date,
         default: Date.now

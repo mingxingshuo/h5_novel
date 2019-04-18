@@ -1,5 +1,6 @@
 const router = require('koa-router')()
 const UserModel = require('../model/User')
+const UserShelfModel = require('../model/UserShelf')
 var mem = require('../util/mem');
 
 router.prefix('/user')
@@ -15,28 +16,17 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/login', async function (ctx, next) {
-    console.log(ctx.request.body, '---------------------body')
     let uid = ctx.id
-    let unionid = ctx.request.body.unionid
-    let deviceid = ctx.request.body.deviceid
-    let screen_name = ctx.request.body.screen_name
-    let gender = ctx.request.body.gender
-    let profile_image_url = ctx.request.body.profile_image_url
     let channel = ctx.request.body.channel
-    let sex = 0
-    if (gender == "男") {
-        sex = 2
-    } else if (gender == "女") {
-        sex = 1
-    }
+    // let sex = 0
+    // if (gender == "男") {
+    //     sex = 2
+    // } else if (gender == "女") {
+    //     sex = 1
+    // }
     let user = await UserModel.findOneAndUpdate({_id: uid}, {
-        unionid: unionid,
-        deviceid: deviceid,
-        screen_name: screen_name,
-        gender: sex,
-        profile_image_url: profile_image_url,
-        tag_sex: sex,
-        channel:channel
+        // tag_sex: sex,
+        channel: channel
     })
     await mem.set("uid_" + user._id, '', 1);
     ctx.body = {
@@ -67,13 +57,12 @@ router.get('/balance', async function (ctx, next) {
 router.get('/shelf', async function (ctx, next) {
     let id = ctx.id
     let bid = ctx.request.query.bid;
-    let user = await UserModel.findOneAndUpdate({_id: id}, {$addToSet: {shelf: bid}}, {new: true})
+    let shelf = await UserShelfModel.create({u_id: id, bid: bid})
     await mem.set("uid_" + user._id, '', 1);
-    await mem.set("deviceid_" + user.deviceid, '', 1);
-    if (user) {
+    if (shelf) {
         ctx.body = {
             success: '成功',
-            data: user
+            data: shelf
         }
     } else {
         ctx.body = {
@@ -85,13 +74,12 @@ router.get('/shelf', async function (ctx, next) {
 router.get('/unshelf', async function (ctx, next) {
     let id = ctx.id;
     let bid = ctx.request.query.bid;
-    let user = await UserModel.findOneAndUpdate({_id: id}, {$pull: {shelf: bid}}, {new: true})
+    let shelf = await UserShelfModel.remove({u_id: id, bid: bid})
     await mem.set("uid_" + user._id, '', 1);
-    await mem.set("deviceid_" + user.deviceid, '', 1);
-    if (user) {
+    if (shelf) {
         ctx.body = {
             success: '成功',
-            data: user
+            data: shelf
         }
     } else {
         ctx.body = {
