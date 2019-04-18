@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var DB = require('./DB');
 
-var PayChapterSchema = new Schema({
+var UserShelfSchema = new Schema({
     u_id: String,
-    cid: Number,
+    bid: Number,
     createAt: {
         type: Date,
         default: Date.now
@@ -18,6 +18,6 @@ var PayChapterSchema = new Schema({
     timestamps: {createdAt: 'createAt', updatedAt: 'updateAt'}
 });
 
-var PayChapterModel = DB.getDB().model('PayChapter', PayChapterSchema);
+var UserShelfModel = DB.getDB().model('UserShelf', UserShelfSchema);
 
-module.exports = PayChapterModel;
+module.exports = UserShelfModel;

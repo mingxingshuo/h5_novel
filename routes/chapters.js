@@ -42,7 +42,7 @@ router.get('/', async function (ctx, next) {
             await UserModel.findOneAndUpdate({_id: u_id}, {
                 $inc: {balance: -price}
             })
-            await PayChapterModel.create({u_id: u_id, chapter: id})
+            await PayChapterModel.create({u_id: u_id, cid: id})
             await mem.set("uid_" + user._id, '', 1);
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         } else {

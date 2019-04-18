@@ -7,6 +7,7 @@ const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
 const OrderModel = require('../model/Order')
 const PayChapterModel = require("../model/PayChapter")
+const UserShelfModel = require('../model/UserShelf')
 router.prefix('/')
 var price = 30
 
@@ -49,7 +50,8 @@ router.get('/bookDetail', async(ctx, next) => {
     // 是否添加到书架
     let user = await UserModel.findOne({_id: ctx.id})
     let id = ctx.request.query.id, read = {}
-    let inShelf = user.shelf.indexOf(id) === -1 ? false : true;
+    let shelf = await UserShelfModel.findOne({u_id: ctx.id, book_id: id})
+    let inShelf = shelf ? false : true;
     // 获取书信息
     let info = await book(id)
     // 是否有阅读记录
@@ -81,11 +83,16 @@ router.get('/bookShelf', async(ctx, next) => {
         data = await BookModel.findOne({id: result.bid})
     }
     let user = await UserModel.findOne({_id: ctx.id})
-    let shelf = await BookModel.find({id: {$in: user.shelf}})
+    let shelfs = await UserShelfModel.find({u_id: ctx.id},['bid'])
+    let shelf_arr = [];
+    shelfs.forEach(function (shelf) {
+        shelf_arr.push(shelf.bid)
+    })
+    let myshelf = await BookModel.find({id: {$in: shelf_arr}})
     // 查询所有书籍
     let param = {tag_sex: 2}
     let book = await BookModel.findOne(param).limit(1)
-    await ctx.render('pages/bookShelf', {result: result, data: data, shelf: shelf, book: book})
+    await ctx.render('pages/bookShelf', {result: result, data: data, shelf: myshelf, book: book})
 });
 
 router.get('/bookStore', async(ctx, next) => {
@@ -129,7 +136,7 @@ router.get('/content', async(ctx, next) => {
             await UserModel.findOneAndUpdate({_id: u_id}, {
                 $inc: {balance: -price}
             })
-            await PayChapterModel.create({u_id: u_id, chapter: id})
+            await PayChapterModel.create({u_id: u_id, cid: id})
             await mem.set("uid_" + user._id, '', 1);
             return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
         } else {
