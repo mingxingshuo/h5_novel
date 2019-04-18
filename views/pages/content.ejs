@@ -52,7 +52,7 @@
 <script>
   $(function () {
     let id, bid;
-    if(<%= id %>) {
+    if(!location.search.split("=")[2].split("&")[0]) {
       id = <%= id %>
       bid = <%= bid %>
     } else {
