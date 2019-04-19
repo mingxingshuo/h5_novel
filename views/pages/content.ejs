@@ -35,7 +35,7 @@
         </ul>
       </div>
       <div class="chapter-content">
-        <% if (imgUrl) {%>
+        <% if (typeof imgUrl !="undefined" && imgUrl) {%>
           <img class="banner-img" src="<%= imgUrl %>" alt="">
         <% } %>
         <%- data.content %>

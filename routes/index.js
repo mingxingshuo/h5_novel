@@ -47,11 +47,11 @@ router.get('/content', async(ctx, next) => {
         updateAt: Date.now()
     }, {upsert: true});
     if (!chapter.isvip) {
-        return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid})
+        return ctx.render('pages/content', {imgUrl: isfirst ? 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg' : '',  data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid})
     } else {
         let pay_book = await PayBookModel.findOne({u_id: u_id, bid: book.id})
         if (pay_book) {
-            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid});
+            return ctx.render('pages/content', {imgUrl: isfirst ? 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg' : '', data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid});
         } else {
             return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id)
         }
