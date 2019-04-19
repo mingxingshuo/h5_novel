@@ -18,7 +18,7 @@ router.get('/content', async(ctx, next) => {
     let last = chapters[chapters.length - 1].id
     if(!id) {
         let content = await ChapterModel.findOne({id: first});
-        return ctx.render('pages/content', {data: content, isfirst: true, islast: false, id: first, bid: ctx.request.query.bid});
+        return ctx.render('pages/content', {imgUrl: "http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg", data: content, isfirst: true, islast: false, id: first, bid: ctx.request.query.bid});
     }
     if (first == id) {
         isfirst = true
