@@ -43,7 +43,7 @@ router.get('/content', async(ctx, next) => {
     } else {
         let pay_book = await PayBookModel.findOne({u_id: u_id, bid: book.id})
         if (pay_book) {
-            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid})
+            return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid});
         } else {
             return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id)
         }

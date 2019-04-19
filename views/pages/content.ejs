@@ -35,6 +35,9 @@
         </ul>
       </div>
       <div class="chapter-content">
+        <% if (imgUrl) {%>
+          <img class="banner-img" src="<%= imgUrl %>" alt="">
+        <% } %>
         <%- data.content %>
       </div>
       <ul class="btn-wrapper">
@@ -48,7 +51,6 @@
 <script src="/js/jquery.min.js"></script>
 <!--<script src="/js/jquery.mobile-1.4.5.min.js"></script>-->
 <script src="/js/http.js"></script>
-<!--<script src="/js/content.js"></script>-->
 <script>
   $(function () {
     let id, bid;
@@ -82,7 +84,6 @@
     let bgColor = getCookie("bgColor");
     if(bgColor) {
       $(".detail").css("background-color",bgColor)
-      console.log($(".detail").attr("background-color"))
       isBlack(bgColor)
     } else {
       $(".detail").css("background-color",bgColor)
