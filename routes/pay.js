@@ -24,8 +24,8 @@ router.get('/', async function (ctx, next) {
     let total_fee = 1
     let trade_type = "MWEB"
     let doc = await OrderModel.create({u_id: u_id, bid: bid})
-    let out_trade_no = doc._id
-    console.log(doc,out_trade_no, '-----------------doc')
+    let out_trade_no = doc._id.toString()
+    console.log(out_trade_no, '-----------------out_trade_no')
     let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
     let sign = md5(str)
     let send_data = {
