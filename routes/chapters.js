@@ -3,7 +3,6 @@ const ChapterModel = require('../model/Chapter')
 const UserModel = require('../model/User')
 const RecordModel = require('../model/Record')
 const BookModel = require("../model/Book")
-const PayBookModel = require("../model/PayBook")
 const mem = require('../util/mem')
 
 router.prefix('/chapter')
