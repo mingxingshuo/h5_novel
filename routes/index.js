@@ -21,9 +21,8 @@ var price = 30
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
     let u_id = ctx.id
-    let chapters = await ChapterModel.find({bid: ctx.request.query.bid}).sort({id: 1})
-    let first = chapters[0].id
-    let last = chapters[chapters.length - 1].id
+    let first = await ChapterModel.findOne({bid: ctx.request.query.bid}).sort({id: 1})
+    let last = await ChapterModel.findOne({bid: ctx.request.query.bid}).sort({id: -1})
     if(!id) {
         let content = await ChapterModel.findOne({id: first});
         return ctx.render('pages/content', {imgUrl: "http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg", data: content, isfirst: true, islast: false, id: first, bid: ctx.request.query.bid});
