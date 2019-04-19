@@ -40,8 +40,9 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
+    console.log(param, '-----------------param')
     let result = await req(param)
-    console.log(result, '-----------------aaa')
+    console.log(result, '-----------------result')
     let mweb_url = result.xml.mweb_url[0];
     ctx.redirect(mweb_url)
 })
