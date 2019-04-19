@@ -13,7 +13,6 @@ var price = 30
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
     let u_id = ctx.id
-    let book = await BookModel.findOne({id: chapter.bid})
     let chapters = await ChapterModel.find({bid: ctx.request.query.bid}).sort({id: 1})
     let first = chapters[0].id
     let last = chapters[chapters.length - 1].id
@@ -32,6 +31,7 @@ router.get('/content', async(ctx, next) => {
         islast = false
     }
     let chapter = await ChapterModel.findOne({id: id})
+    let book = await BookModel.findOne({id: chapter.bid})
     await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
         u_id: u_id,
         bid: chapter.bid,
