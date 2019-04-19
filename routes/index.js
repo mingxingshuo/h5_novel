@@ -78,6 +78,7 @@ router.get('/content', async(ctx, next) => {
             end: {$gte: chapter.id},
             bid: bid
         })
+        console.log(rule,'-------------rule')
         let order = await OrderModel.findOne({rid: rule._id})
         if (!order.status) {
             needpay = true
