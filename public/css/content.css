@@ -122,10 +122,17 @@
 }
 
 .btn-wrapper li.change-chapter span {
-  border: 1px solid #000;
+  border: 1px solid #373e44;
 }
 
 .btn-wrapper li.to-chapters span {
-  border: 1px solid #000;
+  border: 1px solid #373e44;
   font-weight: bold;
+}
+
+.btn-wrapper li.to-chapters img {
+  vertical-align: middle;
+  width: .3rem;
+  height: .3rem;
+  margin-left: .3rem;
 }

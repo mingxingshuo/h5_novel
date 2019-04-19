@@ -44,8 +44,14 @@
         <div class="chapter-text"><%- data.content %></div>
       </div>
       <ul class="btn-wrapper">
-        <li class="change-chapter prev_chapter" style='display: <%= isfirst ? "none" : "block" %>'><span>上一章</span></li>
-        <li class="change-chapter next_chapter" style='display: <%= islast ? "none" : "block" %>'><span>下一章</span></li>
+        <li class="change-chapter prev_chapter" style='display: <%= isfirst ? "none" : "block" %>'>
+          <span>上一章</span>
+          <img src="/img/prev.png" alt="">
+        </li>
+        <li class="change-chapter next_chapter" style='display: <%= islast ? "none" : "block" %>'>
+          <span>下一章</span>
+          <img src="/img/next.png" alt="">
+        </li>
       </ul>
     </div>
   </div>
