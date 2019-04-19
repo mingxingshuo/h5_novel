@@ -1,15 +1,20 @@
 .chapter-container {
-  line-height: 2;
-  /* background: #cfc0a9; */
-  padding: .5rem .2rem;
+   background: #fff;
+  padding: .3rem .2rem;
   text-align: left;
 }
-.chapter-name {
-  font-size: .4rem;
-  color: rgb(255, 162, 62);
-  text-align: center;
-  display: block;
+
+.article-title {
+  line-height: 1.4;
+  font-weight: 400;
+  font-size: .42rem;
 }
+
+.banner-img {
+  width: 100%;
+  margin: .3rem 0;
+}
+
 .setting {
   width: 100%;
   overflow: hidden;
@@ -67,18 +72,25 @@
   font-size: .24rem;
 }
 .chapter-content {
-  margin-top: .5rem;
-  text-indent: 2em;
+  border: .01rem solid #eee;
+  line-height: 1.5;
+  padding: 0 .2rem;
+  font-size: .27rem;
 }
 
-.banner-img {
-  width: 100%;
-  margin: .5rem 0;
+
+.chapter-name {
+  padding-left: .3rem;
+  border-left: .1rem solid red;
+  vertical-align: middle;
+  margin: .3rem 0 .5rem -.2rem;
+  color: rgb(51, 51, 51);
+  font-weight: bold;
+  font-size: .3rem;
 }
 
 .chapter-content p {
-  margin-bottom: .3rem;
-  font-size: .36rem;
+  font-size: .27rem;
 }
 
 /* 按钮列表 */
@@ -87,11 +99,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  margin-top: .5rem;
 }
 
 .btn-wrapper li{
   width: 1.5rem;
-  height: 2rem;
+  height: 1.5rem;
 }
 
 .btn-wrapper li span{

@@ -21,23 +21,26 @@
 </div>
   <div class="detail">
     <div class="chapter-container">
-      <span class="chapter-name"><%= data.title %></span>
-      <div class="setting">
-        <ul class="color-setting">
-          <li data-color="#eee" class="color-huise"></li>
-          <li data-color="#cfc0a9" class="color-shushi"></li>
-          <li data-color="#cfe5bc" class="color-lvse"></li>
-          <li data-color="#2c3e50" class="color-heise"></li>
-        </ul>
-        <ul class="font-setting">
-          <li class="font-add">A+</li>
-          <li class="font-reduce">A-</li>
-        </ul>
-      </div>
+      <% if (typeof imgUrl !="undefined" && imgUrl) {%>
+        <h3 class="article-title">全国名医都束手无策的病人，实习生的他妙手回春!</h3>
+        <img class="banner-img" src="<%= imgUrl %>" alt="">
+      <% } %>
+      <!--<div class="setting">-->
+        <!--<ul class="color-setting">-->
+          <!--<li data-color="#eee" class="color-huise"></li>-->
+          <!--<li data-color="#cfc0a9" class="color-shushi"></li>-->
+          <!--<li data-color="#cfe5bc" class="color-lvse"></li>-->
+          <!--<li data-color="#2c3e50" class="color-heise"></li>-->
+        <!--</ul>-->
+        <!--<ul class="font-setting">-->
+          <!--<li class="font-add">A+</li>-->
+          <!--<li class="font-reduce">A-</li>-->
+        <!--</ul>-->
+      <!--</div>-->
       <div class="chapter-content">
-        <% if (typeof imgUrl !="undefined" && imgUrl) {%>
-          <img class="banner-img" src="<%= imgUrl %>" alt="">
-        <% } %>
+        <div class="chapter-name">
+          <span><%= data.title %></span>
+        </div>
         <%- data.content %>
       </div>
       <ul class="btn-wrapper">
