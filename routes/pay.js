@@ -5,12 +5,13 @@ const xml2js = require("xml2js");
 const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
-const PayBookModel = require("../model/PayBook")
+var BookPayRuleModel = require('../model/BookPayRule');
 
 router.prefix('/pay')
 
 router.get('/', async function (ctx, next) {
     let bid = ctx.request.query.bid
+    let distribution = ctx.request.query.distribution
     let u_id = ctx.id
     let appid = "wxd5d2f830fbcd609c"
     let body = "黑牛全本小说"
@@ -23,9 +24,15 @@ router.get('/', async function (ctx, next) {
     let price = 0.01
     let total_fee = 1
     let trade_type = "MWEB"
-    let doc = await OrderModel.create({u_id: u_id, bid: bid})
+    let rule = BookPayRuleModel.findOne({bid: bid, price: total_fee})
+    let doc = await OrderModel.create({
+        u_id: u_id,
+        bid: bid,
+        rid: rule._id,
+        distribution: distribution,
+        total_fee:total_fee
+    })
     let out_trade_no = doc._id.toString()
-    console.log(out_trade_no, '-----------------out_trade_no')
     let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
     let sign = md5(str)
     let send_data = {
@@ -63,7 +70,6 @@ router.post('/back', async function (ctx, next) {
                 if (data.xml) {
                     balan(data).then(() => {
                         console.log('订单处理成功');
-
                     })
                 } else {
                     console.log('订单返回错误');
@@ -75,15 +81,12 @@ router.post('/back', async function (ctx, next) {
 })
 
 async function balan(data) {
-    let order = await OrderModel.findOneAndUpdate({_id: data.xml.out_trade_no[0]}, {
+    let total_fee = data.xml.total_fee[0]
+    let out_trade_no = data.xml.out_trade_no[0]
+    await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
         status: 1,
         updateAt: Date.now()
-    }, {new: true})
-    if (order.total_fee == 30) {
-        await PayBookModel.create({u_id: order.u_id, bid: order.bid})
-    } else if (order.total_fee == 0.01) {
-        await PayBookModel.create({u_id: order.u_id, bid: order.bid})
-    }
+    })
 }
 
 function rand() {

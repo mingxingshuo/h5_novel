@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 var DB = require('./DB');
 
 var BookPayRuleSchema = new Schema({
-    bid:String,
-    price:Number,
-    start:Number,
-    end:Number
+    bid: Number,
+    price: Number,
+    start: Number,
+    end: Number
 });
 
 var BookPayRuleModel = DB.getDB().model('BookPayRule', BookPayRuleSchema);

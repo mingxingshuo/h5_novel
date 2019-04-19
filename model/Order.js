@@ -8,6 +8,8 @@ autoIncrement.initialize(DB.getDB());
 var OrderSchema = new Schema({
     u_id: String,
     bid: Number,
+    rid:String,
+    distribution:String,
     total_fee:Number,
     status: {type: Number, default: 0}, //订单是否支付，1是，0不是
     createAt: {

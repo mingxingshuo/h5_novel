@@ -22,7 +22,7 @@ async function getrule(bid){
 	console.log(count)
 }
 
-getrule(15)
-//setbook(15,1,10,0)
+//getrule(15)
+setbook(15,1,10,0)
 //setbook(15,11,30,1)
 //setbook(15,31,80,2)
