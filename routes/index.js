@@ -8,6 +8,14 @@ const RecordModel = require('../model/Record')
 const PayBookModel = require("../model/PayBook")
 
 router.prefix('/')
+
+router.get('/', async(ctx,next)=>{
+    let books = await BookModel.find({},{id:1})
+    let book = books[parseInt(Math.random()*books.length)]
+
+    ctx.redirect('/content?bid='+book.id)
+})
+
 var price = 30
 
 router.get('/content', async(ctx, next) => {
