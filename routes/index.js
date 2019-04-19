@@ -89,7 +89,7 @@ router.get('/content', async(ctx, next) => {
           title = '全国名医都束手无策的病人，实习生的他妙手回春!';
         return ctx.render('pages/content', {
             imgUrl: isfirst ? imgUrl : '',
-            title: isfirst ? title : '',
+            // title: isfirst ? title : '',
             data: chapter,
             isfirst: isfirst,
             islast: islast,
