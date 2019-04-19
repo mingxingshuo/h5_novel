@@ -14,7 +14,7 @@ router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
     let u_id = ctx.id
     let book = await BookModel.findOne({id: chapter.bid})
-    let chapters = await ChapterModel.find({bid: id}).sort({id: 1})
+    let chapters = await ChapterModel.find({bid: ctx.request.query.bid}).sort({id: 1})
     let first = chapters[0].id
     let last = chapters[chapters.length - 1].id
     if(!id) {
