@@ -121,6 +121,6 @@
 .btn-wrapper li.change-chapter img {
   vertical-align: middle;
   width: .4rem;
-  margin: 0 .1rem;
+  margin-top: -.05rem;
   display: inline-block;
 }
