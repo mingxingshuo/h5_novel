@@ -43,6 +43,11 @@ router.get('/content', async(ctx, next) => {
     } else if (islast) {
         chapter = last;
     }
+
+    //阅读章节写入cookie
+    set_cookie(ctx,'h5_novels_bid',bid)
+    set_cookie(ctx,'h5_novels_cid',chapter.id)
+    
     // 待定收费逻辑
     if (!chapter.isvip) {
         return ctx.render('pages/content', {imgUrl: isfirst ? 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg' : '',  data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid})
@@ -55,5 +60,17 @@ router.get('/content', async(ctx, next) => {
         }
     }
 });
+
+function set_cookie(ctx,key,value) {
+    ctx.cookies.set(
+        key,value,{
+            path:'/',       // 写cookie所在的路径
+            maxAge: 100*12*30*24*60*60*1000,   // cookie有效时长
+            expires:new Date(Date.now()+100*12*30*24*60*60*1000), // cookie失效时间
+            httpOnly:false,  // 是否只用于http请求中获取
+            overwrite:false  // 是否允许重写
+        }
+    );
+}
 
 module.exports = router;
