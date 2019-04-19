@@ -110,6 +110,7 @@
 .btn-wrapper li{
   width: 1.5rem;
   height: 1.5rem;
+  color: #373e44;
 }
 
 .btn-wrapper li span{
@@ -125,12 +126,7 @@
   border: 1px solid #373e44;
 }
 
-.btn-wrapper li.to-chapters span {
-  border: 1px solid #373e44;
-  font-weight: bold;
-}
-
-.btn-wrapper li.to-chapters img {
+.btn-wrapper li.change-chapter img {
   vertical-align: middle;
   width: .3rem;
   height: .3rem;
