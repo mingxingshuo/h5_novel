@@ -20,39 +20,38 @@ var price = 30
 
 router.get('/content', async(ctx, next) => {
     let id = ctx.request.query.id, isfirst, islast
-    let u_id = ctx.id
-    let first = await ChapterModel.findOne({bid: ctx.request.query.bid}).sort({id: 1})
-    let last = await ChapterModel.findOne({bid: ctx.request.query.bid}).sort({id: -1})
+    let u_id = ctx.id, bid = ctx.request.query.bid, chapter;
+    let first = await ChapterModel.findOne({bid: bid}).sort({id: 1})
+    let last = await ChapterModel.findOne({bid: bid}).sort({id: -1})
     if(!id) {
-        let content = await ChapterModel.findOne({id: first});
-        return ctx.render('pages/content', {imgUrl: "http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg", data: content, isfirst: true, islast: false, id: first, bid: ctx.request.query.bid});
+        id = first.id;
     }
-    if (first == id) {
+    if (first.id == id) {
         isfirst = true
     } else {
         isfirst = false
     }
-    if (last == id) {
+    if (last.id == id) {
         islast = true
     } else {
         islast = false
     }
-    let chapter = await ChapterModel.findOne({id: id})
-    let book = await BookModel.findOne({id: chapter.bid})
-    await RecordModel.findOneAndUpdate({u_id: u_id, bid: chapter.bid}, {
-        u_id: u_id,
-        bid: chapter.bid,
-        cid: id,
-        updateAt: Date.now()
-    }, {upsert: true});
+    if(!isfirst && !islast) {
+        chapter = await ChapterModel.findOne({id: id})
+    } else if(isfirst) {
+        chapter = first;
+    } else if (islast) {
+        chapter = last;
+    }
+    // 待定收费逻辑
     if (!chapter.isvip) {
         return ctx.render('pages/content', {imgUrl: isfirst ? 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg' : '',  data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid})
     } else {
-        let pay_book = await PayBookModel.findOne({u_id: u_id, bid: book.id})
+        let pay_book = await PayBookModel.findOne({u_id: u_id, bid: bid})
         if (pay_book) {
             return ctx.render('pages/content', {imgUrl: isfirst ? 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg' : '', data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid});
         } else {
-            return ctx.redirect('/recharge?bid=' + book.id + '&id=' + id)
+            return ctx.redirect('/recharge?bid=' + bid + '&id=' + id)
         }
     }
 });
