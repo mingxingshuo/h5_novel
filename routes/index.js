@@ -39,7 +39,7 @@ router.get('/content', async(ctx, next) => {
         updateAt: Date.now()
     }, {upsert: true});
     if (!chapter.isvip) {
-        return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast})
+        return ctx.render('pages/content', {data: chapter, isfirst: isfirst, islast: islast, id: id, bid: ctx.request.query.bid})
     } else {
         let pay_book = await PayBookModel.findOne({u_id: u_id, bid: book.id})
         if (pay_book) {
