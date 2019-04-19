@@ -72,7 +72,7 @@
   font-size: .24rem;
 }
 .chapter-content {
-  border: .01rem solid #eee;
+  border: .01rem solid rgb(229, 230, 232);
   line-height: 1.5;
   padding: 0 .2rem;
   font-size: .27rem;
