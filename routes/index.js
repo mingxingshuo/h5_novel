@@ -94,7 +94,7 @@ router.get('/content', async(ctx, next) => {
             isfirst: isfirst,
             islast: islast,
             id: id,
-            bid: ctx.request.query.bid
+            bid: bid
         })
     } else {
         return ctx.redirect('/recharge?bid=' + bid + '&id=' + id)
