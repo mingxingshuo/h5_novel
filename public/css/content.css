@@ -108,22 +108,13 @@
 }
 
 .btn-wrapper li{
-  width: 1.5rem;
+  width: 2rem;
   height: 1.5rem;
   color: #373e44;
-}
-
-.btn-wrapper li span{
-  display: inline-block;
-  width: 1.5rem;
-  height: .5rem;
-  border-radius: .1rem;
-  text-align: center;
-  line-height: .5rem;
-}
-
-.btn-wrapper li.change-chapter span {
   border: 1px solid #373e44;
+  border-radius: .1rem;
+  line-height: 1.5rem;
+  text-align: center;
 }
 
 .btn-wrapper li.change-chapter img {
