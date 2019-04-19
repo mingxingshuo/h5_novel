@@ -89,6 +89,10 @@
   font-size: .3rem;
 }
 
+.chapter-text {
+  text-indent: 2em;
+}
+
 .chapter-content p {
   font-size: .27rem;
 }
