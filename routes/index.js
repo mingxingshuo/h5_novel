@@ -88,8 +88,8 @@ router.get('/content', async(ctx, next) => {
         let imgUrl = 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg',
           title = '全国名医都束手无策的病人，实习生的他妙手回春!';
         return ctx.render('pages/content', {
-            imgUrl: isfirst ? 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg' : '',
-            // title: isfirst ? title : '',
+            imgUrl: isfirst ? imgUrl : '',
+            title: isfirst ? title : '',
             data: chapter,
             isfirst: isfirst,
             islast: islast,
