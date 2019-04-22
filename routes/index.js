@@ -91,12 +91,12 @@ router.get('/content', async(ctx, next) => {
     console.log(vip_chapter, '------------------vip_chapter2')
     if (vip_chapter != -1) {
         let order = await OrderModel.findOne({u_id: u_id, rid: vip_chapter})
-        console.log(order, '------------------order')
         if (!order || !order.status) {
             needpay = true
         }
     }
 
+    console.log(needpay,'---------------------needpay')
     if (!needpay) {
         let imgUrl = 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg',
             title = '全国名医都束手无策的病人，实习生的他妙手回春!';
