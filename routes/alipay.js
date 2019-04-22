@@ -1,55 +1,54 @@
 const router = require('koa-router')()
 const request = require('request')
 const crypto = require("crypto");
+const fs = require('fs');
 const xml2js = require("xml2js");
 const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
-var BookPayRuleModel = require('../model/BookPayRule');
+const BookPayRuleModel = require('../model/BookPayRule');
+const AlipaySdk = require('alipay-sdk').default
+const alipaySdk = new AlipaySdk({
+    appId: 'xxx',
+    privateKey: fs.readFileSync('./private-key.pem', 'ascii'),
+    alipayPublicKey: fs.readFileSync('./public-key.pem', 'ascii'),
+})
 
 router.prefix('/alipay')
 
 router.get('/', async function (ctx, next) {
     let bid = ctx.request.query.bid
     let distribution = ctx.request.query.distribution
-    let u_id = ctx.id
-    let appid = "wxd5d2f830fbcd609c"
-    let body = "黑牛全本小说"
-    let mch_id = "1527118561"
-    let nonce_str = rand()
-    let notify_url = "http://n.tyuss.com/pay/back"
-    let spbill_create_ip = "39.106.138.15"
     let total_fee = ctx.request.query.price
-    // let total_fee = 1
-    let trade_type = "MWEB"
+    let u_id = ctx.id
     let rule = BookPayRuleModel.findOne({bid: bid, price: total_fee})
     let doc = await OrderModel.create({
         u_id: u_id,
         bid: bid,
         rid: rule._id,
         distribution: distribution,
-        total_fee:total_fee,
-        type:2
-    })
-    let out_trade_no = doc._id.toString()
-    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
-    let sign = md5(str)
-    let send_data = {
-        appid: appid,
-        body: body,
-        mch_id: mch_id,
-        nonce_str: nonce_str,
-        notify_url: notify_url,
-        out_trade_no: out_trade_no,
-        spbill_create_ip: spbill_create_ip,
         total_fee: total_fee,
-        trade_type: trade_type,
-        sign: sign
-    }
-    let param = builder.buildObject(send_data);
-    let result = await req(param)
-    let mweb_url = result.xml.mweb_url[0];
-    ctx.redirect(mweb_url)
+        type: 2
+    })
+
+    let result = await alipaySdk.exec("http://n.tyuss.com",{
+        notifyUrl: 'http://n.tyuss.com/alipay/back',
+        appAuthToken: '',
+        // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
+        bizContent: {
+            subject: 'xxx',
+            outTradeNo: doc._id.toString(),
+            totalAmount: total_fee,
+            product_code:'QUICK_WAP_WAY'
+        },
+    },{
+        // 验签
+        validateSign: true,
+        // 打印执行日志
+        log: this.logger,
+    })
+    console.log(result);
+    ctx.redirect("https://openapi.alipay.com/gateway.do")
 })
 
 router.post('/back', async function (ctx, next) {
@@ -78,39 +77,10 @@ router.post('/back', async function (ctx, next) {
 })
 
 async function balan(data) {
-    let total_fee = data.xml.total_fee[0]
     let out_trade_no = data.xml.out_trade_no[0]
     await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
         status: 1,
         updateAt: Date.now()
-    })
-}
-
-function rand() {
-    var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    var rand = '';
-    for (var i = 0; i < 32; i++) {
-        rand += s.substr(parseInt(Math.random() * 36), 1);
-    }
-    return rand;
-}
-
-function md5(str) {
-    let md5 = crypto.createHash('md5');
-    md5.update(str, "utf8");
-    str = md5.digest('hex');
-    let sign = str.toUpperCase();
-    return sign
-}
-
-function req(param) {
-    return new Promise((resolve, reject) => {
-        request.post({url: 'https://api.mch.weixin.qq.com/pay/unifiedorder', body: param}, function (err, res, data) {
-            parser.parseString(data, function (err1, result) {
-                console.log(result, '------------------result')
-                resolve(result)
-            })
-        })
     })
 }
 

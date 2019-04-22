@@ -9,6 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "alipay-sdk": "^3.0.4",
     "async-redis": "^1.1.7",
     "co-mysql": "^1.0.0",
     "debug": "^2.6.3",

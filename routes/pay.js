@@ -5,7 +5,7 @@ const xml2js = require("xml2js");
 const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
-var BookPayRuleModel = require('../model/BookPayRule');
+const BookPayRuleModel = require('../model/BookPayRule');
 
 router.prefix('/pay')
 
@@ -20,7 +20,6 @@ router.get('/', async function (ctx, next) {
     let notify_url = "http://n.tyuss.com/pay/back"
     let spbill_create_ip = "39.106.138.15"
     let total_fee = ctx.request.query.price * 100
-    // let total_fee = 1
     let trade_type = "MWEB"
     let rule = BookPayRuleModel.findOne({bid: bid, price: total_fee})
     let doc = await OrderModel.create({
@@ -80,7 +79,6 @@ router.post('/back', async function (ctx, next) {
 })
 
 async function balan(data) {
-    let total_fee = data.xml.total_fee[0]
     let out_trade_no = data.xml.out_trade_no[0]
     await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
         status: 1,
