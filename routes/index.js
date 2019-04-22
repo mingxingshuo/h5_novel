@@ -81,13 +81,11 @@ router.get('/content', async(ctx, next) => {
             bid: parseInt(bid)
         })
         if (rule) {
-            await mem.set("h5_novel_chapter_" + id, rule._id, 80)
-            console.log(rule.price,'----price')
             if(!rule.price){
-                console.log('aaaaaaaaaaaaaa')
+                await mem.set("h5_novel_chapter_" + id, -1, 80)
                 vip_chapter = -1
             }else{
-                console.log('bbbbbbbbb')
+                await mem.set("h5_novel_chapter_" + id, rule._id, 80)
                 vip_chapter = rule._id
             }
         } else {
