@@ -76,10 +76,11 @@ router.get('/content', async(ctx, next) => {
     console.log(vip_chapter, chapter.id, bid, '------------------vip_chapter1')
     if (!vip_chapter) {
         let rule = await BookPayRuleModel.findOne({
-            start: {$gte: chapter.id},
-            end: {$lte: chapter.id},
-            bid: bid
+            start: {$lte: chapter.id},
+            end: {$gte: chapter.id},
+            bid: parseInt(bid)
         })
+        console.log(rule,'--------------------rule')
         if (rule) {
             await mem.set("h5_novel_chapter_" + id, rule._id, 80)
             vip_chapter = rule._id
