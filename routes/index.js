@@ -8,6 +8,7 @@ const RecordModel = require('../model/Record')
 const OrderModel = require('../model/Order')
 const mem = require("../util/mem")
 var BookPayRuleModel = require('../model/BookPayRule');
+var pro_conf = require('../conf/proj.json');
 
 router.prefix('/')
 
@@ -110,7 +111,7 @@ router.get('/content', async(ctx, next) => {
             bid: bid
         })
     } else {
-        return ctx.redirect('/recharge?bid=' + bid + '&id=' + id)
+        return ctx.redirect(ctx.protocol+'://'+pro_conf.pay_domain+'/recharge?bid=' + bid + '&id=' + id+'&domain='+ctx.hostname)
     }
 });
 

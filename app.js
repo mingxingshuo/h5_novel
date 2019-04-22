@@ -62,13 +62,13 @@ app.use(async(ctx, next) => {
 })
 
 app.use(async(ctx, next) => {
-    let uid = ctx.cookies.get('novels');
+    let uid = ctx.cookies.get('h5_novels');
     //console.log(uid)
     let query_channel =ctx.query.channel;
     let channel;
     if(query_channel){
         ctx.cookies.set(
-            'channels',query_channel,{
+            'h5_channels',query_channel,{
                 path:'/',       // 写cookie所在的路径
                 maxAge: 100*12*30*24*60*60*1000,   // cookie有效时长
                 expires:new Date(Date.now()+100*12*30*24*60*60*1000), // cookie失效时间
@@ -78,7 +78,7 @@ app.use(async(ctx, next) => {
         );
         channel = query_channel
     }else{
-        channel = ctx.cookies.get('channels');
+        channel = ctx.cookies.get('h5_channels');
     }
     //console.log(channel)
     if(!uid){
@@ -89,7 +89,7 @@ app.use(async(ctx, next) => {
         await user.save();
         uid = user._id;
         ctx.cookies.set(
-            'novels',uid,{
+            'h5_novels',uid,{
                 path:'/',       // 写cookie所在的路径
                 maxAge: 100*12*30*24*60*60*1000,   // cookie有效时长
                 expires:new Date(Date.now()+100*12*30*24*60*60*1000), // cookie失效时间
