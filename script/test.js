@@ -2,6 +2,7 @@ const UserModel = require('../model/User')
 const BookModel = require('../model/Book')
 const RecordModel = require('../model/Record')
 const request = require('request')
+var BookPayRuleModel = require('../model/BookPayRule');
 
 
 // async function a() {
@@ -45,9 +46,11 @@ const request = require('request')
 // b()
 
 async function c() {
-    // let user = await UserModel.findOne({_id:"5ca59f9cc823046225233726"})
-    // let user = await RecordModel.findOne({u_id:"5ca59f9cc823046225233726"})
-    let book = await BookModel.update({id:18},{desc:"何生是何小城的父亲，何生在失去第一任妻子之后给何小城又找一个后妈，是一位老师，两人就一起搭伴开了一个培训班，何小城看着培训班的生源很多，爸妈都忙不不过来，于是就回来帮忙，结果这一趟让他发现后妈的秘密。"})
-    console.log(book,'------user')
+    let rule = await BookPayRuleModel.findOne({
+        start: {$lte: 1468},
+        end: {$gte: 1468},
+        bid: 15
+    })
+    console.log(rule,'--------------------rule')
 }
 c()

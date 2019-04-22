@@ -80,7 +80,6 @@ router.get('/content', async(ctx, next) => {
             end: {$gte: chapter.id},
             bid: parseInt(bid)
         })
-        console.log(rule,'--------------------rule')
         if (rule) {
             await mem.set("h5_novel_chapter_" + id, rule._id, 80)
             vip_chapter = rule._id
@@ -92,7 +91,8 @@ router.get('/content', async(ctx, next) => {
     console.log(vip_chapter, '------------------vip_chapter2')
     if (vip_chapter != -1) {
         let order = await OrderModel.findOne({u_id: u_id, rid: vip_chapter})
-        if (!order.status) {
+        console.log(order, '------------------order')
+        if (!order || !order.status) {
             needpay = true
         }
     }
