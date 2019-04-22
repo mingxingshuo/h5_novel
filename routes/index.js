@@ -73,7 +73,7 @@ router.get('/content', async(ctx, next) => {
     let needpay = false;
 
     let vip_chapter = await mem.get("h5_novel_chapter_" + id)
-    console.log(vip_chapter,'------------------vip_chapter1')
+    console.log(vip_chapter,chapter.id,'------------------vip_chapter1')
     if (!vip_chapter) {
         let rule = await BookPayRuleModel.findOne({
             start: {$lte: chapter.id},
