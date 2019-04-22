@@ -7,7 +7,7 @@ const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 var BookPayRuleModel = require('../model/BookPayRule');
 
-router.prefix('/pay')
+router.prefix('/alipay')
 
 router.get('/', async function (ctx, next) {
     let bid = ctx.request.query.bid
@@ -19,7 +19,7 @@ router.get('/', async function (ctx, next) {
     let nonce_str = rand()
     let notify_url = "http://n.tyuss.com/pay/back"
     let spbill_create_ip = "39.106.138.15"
-    let total_fee = ctx.request.query.price * 100
+    let total_fee = ctx.request.query.price
     // let total_fee = 1
     let trade_type = "MWEB"
     let rule = BookPayRuleModel.findOne({bid: bid, price: total_fee})
@@ -29,7 +29,7 @@ router.get('/', async function (ctx, next) {
         rid: rule._id,
         distribution: distribution,
         total_fee:total_fee,
-        type:1
+        type:2
     })
     let out_trade_no = doc._id.toString()
     let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
@@ -47,9 +47,7 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
-    console.log(param, '-----------------param')
     let result = await req(param)
-    console.log(result, '-----------------result')
     let mweb_url = result.xml.mweb_url[0];
     ctx.redirect(mweb_url)
 })

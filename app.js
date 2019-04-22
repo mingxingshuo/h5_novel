@@ -14,6 +14,7 @@ const chapters = require('./routes/chapters')
 const order = require('./routes/order')
 const qudao = require('./routes/channel')
 const pay = require('./routes/pay')
+const alipay = require('./routes/alipay')
 const UserModel = require('./model/User')
 const mem = require('./util/mem')
 
@@ -121,6 +122,7 @@ app.use(chapters.routes(), chapters.allowedMethods())
 app.use(order.routes(), order.allowedMethods())
 app.use(qudao.routes(), qudao.allowedMethods())
 app.use(pay.routes(), pay.allowedMethods())
+app.use(alipay.routes(), alipay.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
