@@ -80,14 +80,9 @@ router.get('/content', async(ctx, next) => {
             end: {$gte: chapter.id},
             bid: parseInt(bid)
         })
-        if (rule) {
-            if(!rule.price){
-                await mem.set("h5_novel_chapter_" + id, -1, 80)
-                vip_chapter = -1
-            }else{
-                await mem.set("h5_novel_chapter_" + id, rule._id, 80)
-                vip_chapter = rule._id
-            }
+        if (rule && rule.price) {
+            await mem.set("h5_novel_chapter_" + id, rule._id, 80)
+            vip_chapter = rule._id
         } else {
             await mem.set("h5_novel_chapter_" + id, -1, 80)
             vip_chapter = -1
@@ -101,7 +96,7 @@ router.get('/content', async(ctx, next) => {
         }
     }
 
-    console.log(needpay,'---------------------needpay')
+    console.log(needpay, '---------------------needpay')
     if (!needpay) {
         let imgUrl = 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg',
             title = '全国名医都束手无策的病人，实习生的他妙手回春!';
