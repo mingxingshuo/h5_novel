@@ -73,11 +73,11 @@ router.get('/content', async(ctx, next) => {
     let needpay = false;
 
     let vip_chapter = await mem.get("h5_novel_chapter_" + id)
-    console.log(vip_chapter,chapter.id,'------------------vip_chapter1')
+    console.log(vip_chapter, chapter.id, bid, '------------------vip_chapter1')
     if (!vip_chapter) {
         let rule = await BookPayRuleModel.findOne({
-            start: {$lte: chapter.id},
-            end: {$gte: chapter.id},
+            start: {$gte: chapter.id},
+            end: {$lte: chapter.id},
             bid: bid
         })
         if (rule) {
@@ -88,7 +88,7 @@ router.get('/content', async(ctx, next) => {
             vip_chapter = -1
         }
     }
-    console.log(vip_chapter,'------------------vip_chapter2')
+    console.log(vip_chapter, '------------------vip_chapter2')
     if (vip_chapter != -1) {
         let order = await OrderModel.findOne({u_id: u_id, rid: vip_chapter})
         if (!order.status) {
