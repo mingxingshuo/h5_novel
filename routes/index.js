@@ -82,9 +82,12 @@ router.get('/content', async(ctx, next) => {
         })
         if (rule) {
             await mem.set("h5_novel_chapter_" + id, rule._id, 80)
+            console.log(rule.price,'----price')
             if(!rule.price){
+                console.log('aaaaaaaaaaaaaa')
                 vip_chapter = -1
             }else{
+                console.log('bbbbbbbbb')
                 vip_chapter = rule._id
             }
         } else {
