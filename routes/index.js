@@ -19,6 +19,10 @@ router.get('/', async(ctx, next) => {
     ctx.redirect('/content?bid=' + book.id)
 })
 
+// router.get('/recharge', async (ctx, next) => {
+//     ctx.render('pages/recharge')
+// });
+
 router.get('/content', async(ctx, next) => {
     //获取阅读章节
 
@@ -115,9 +119,7 @@ router.get('/content', async(ctx, next) => {
     }
 });
 
-router.get('/recharge', async (ctx, next) => {
-    ctx.render('pages/recharge')
-});
+
 
 function set_cookie(ctx, key, value) {
     ctx.cookies.set(
