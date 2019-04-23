@@ -115,6 +115,10 @@ router.get('/content', async(ctx, next) => {
     }
 });
 
+router.get('/recharge', async (req, res, next) => {
+    return ctx.render('pages/recharge')
+});
+
 function set_cookie(ctx, key, value) {
     ctx.cookies.set(
         key, value, {
