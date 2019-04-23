@@ -155,7 +155,8 @@
 
 .dialog-info p {
   font-size: .3rem;
-  letter-spacing: .03rem;
+  letter-spacing: .02rem;
+  line-height: 1.6;
 }
 
 .dialog-btn {
