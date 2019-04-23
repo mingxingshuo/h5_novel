@@ -122,7 +122,7 @@ app.use(chapters.routes(), chapters.allowedMethods())
 app.use(order.routes(), order.allowedMethods())
 app.use(qudao.routes(), qudao.allowedMethods())
 app.use(pay.routes(), pay.allowedMethods())
-app.use(alipay.routes(), alipay.allowedMethods())
+// app.use(alipay.routes(), alipay.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
