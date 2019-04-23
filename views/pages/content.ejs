@@ -84,7 +84,7 @@
         $(".loading").remove();
       }
     };
-    if(<%= needpay %>) {
+    if(<%= needpay %> == true) {
       $("body").css(overflow, 'hidden');
     }
     getBgColor()
