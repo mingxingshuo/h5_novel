@@ -19,10 +19,6 @@ router.get('/', async(ctx, next) => {
     ctx.redirect('/content?bid=' + book.id)
 })
 
-router.get('/recharge', async (ctx, next) => {
-    return ctx.render('pages/recharge')
-});
-
 router.get('/content', async(ctx, next) => {
     //获取阅读章节
 
@@ -102,7 +98,7 @@ router.get('/content', async(ctx, next) => {
     }
 
     console.log(needpay, '---------------------needpay')
-    if (!needpay) {
+
         let imgUrl = 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg',
             title = '全国名医都束手无策的病人，实习生的他妙手回春!';
         return ctx.render('pages/content', {
@@ -112,11 +108,10 @@ router.get('/content', async(ctx, next) => {
             isfirst: isfirst,
             islast: islast,
             id: id,
-            bid: bid
+            bid: bid,
+            needpay: needpay
         })
-    } else {
-        return ctx.redirect(ctx.protocol+'://'+pro_conf.pay_domain+'/recharge?bid=' + bid + '&id=' + id+'&domain='+ctx.hostname)
-    }
+
 });
 
 
