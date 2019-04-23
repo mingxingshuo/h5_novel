@@ -72,7 +72,7 @@ router.get('/content', async(ctx, next) => {
     set_cookie(ctx, 'h5_novels_cid', chapter.id)
 
     let needpay = false;
-
+    let rule_data ;
     let vip_chapter = await mem.get("h5_novel_chapter_" + id)
     console.log(vip_chapter, chapter.id, bid, '------------------vip_chapter1')
     if (!vip_chapter) {
@@ -84,6 +84,7 @@ router.get('/content', async(ctx, next) => {
         if (rule && rule.price) {
             await mem.set("h5_novel_chapter_" + id, rule._id, 80)
             vip_chapter = rule._id
+            rule_data = rule
         } else {
             await mem.set("h5_novel_chapter_" + id, -1, 80)
             vip_chapter = -1
@@ -109,7 +110,8 @@ router.get('/content', async(ctx, next) => {
             islast: islast,
             id: id,
             bid: bid,
-            needpay: needpay
+            needpay: needpay,
+            rule_data : rule_data
         })
 
 });
