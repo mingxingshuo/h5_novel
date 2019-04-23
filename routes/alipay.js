@@ -10,8 +10,8 @@ const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
 const alipaySdk = new AlipaySdk({
     appId: 'xxx',
-    privateKey: fs.readFileSync('./private-key.pem', 'ascii'),
-    alipayPublicKey: fs.readFileSync('./public-key.pem', 'ascii'),
+    // privateKey: fs.readFileSync('./private-key.pem', 'ascii'),
+    // alipayPublicKey: fs.readFileSync('./public-key.pem', 'ascii'),
 })
 
 router.prefix('/alipay')
