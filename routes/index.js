@@ -19,9 +19,9 @@ router.get('/', async(ctx, next) => {
     ctx.redirect('/content?bid=' + book.id)
 })
 
-// router.get('/recharge', async (ctx, next) => {
-//     ctx.render('pages/recharge')
-// });
+router.get('/recharge', async (ctx, next) => {
+    ctx.render('pages/recharge')
+});
 
 router.get('/content', async(ctx, next) => {
     //获取阅读章节
