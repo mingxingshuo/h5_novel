@@ -72,7 +72,6 @@ router.get('/content', async(ctx, next) => {
     set_cookie(ctx, 'h5_novels_cid', chapter.id)
 
     let needpay = false;
-    let rule_data ;
     let vip_chapter = await mem.get("h5_novel_chapter_" + id)
     console.log(vip_chapter, chapter.id, bid, '------------------vip_chapter1')
     if (!vip_chapter) {
@@ -82,9 +81,8 @@ router.get('/content', async(ctx, next) => {
             bid: parseInt(bid)
         })
         if (rule && rule.price) {
-            await mem.set("h5_novel_chapter_" + id, rule._id, 80)
-            vip_chapter = rule._id
-            rule_data = rule
+            await mem.set("h5_novel_chapter_" + id, JSON.stringify(rule), 80)
+            vip_chapter = JSON.stringify(rule)
         } else {
             await mem.set("h5_novel_chapter_" + id, -1, 80)
             vip_chapter = -1
@@ -92,7 +90,7 @@ router.get('/content', async(ctx, next) => {
     }
     console.log(vip_chapter, '------------------vip_chapter2')
     if (vip_chapter != -1) {
-        let order = await OrderModel.findOne({u_id: u_id, rid: vip_chapter})
+        let order = await OrderModel.findOne({u_id: u_id, rid: JSON.parse(vip_chapter)._id})
         if (!order || !order.status) {
             needpay = true
         }
@@ -100,22 +98,21 @@ router.get('/content', async(ctx, next) => {
 
     console.log(needpay, '---------------------needpay')
 
-        let imgUrl = 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg',
-            title = '全国名医都束手无策的病人，实习生的他妙手回春!';
-        return ctx.render('pages/content', {
-            imgUrl: isfirst ? imgUrl : '',
-            title: isfirst ? title : '',
-            data: chapter,
-            isfirst: isfirst,
-            islast: islast,
-            id: id,
-            bid: bid,
-            needpay: needpay,
-            rule_data : rule_data
-        })
+    let imgUrl = 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg',
+        title = '全国名医都束手无策的病人，实习生的他妙手回春!';
+    return ctx.render('pages/content', {
+        imgUrl: isfirst ? imgUrl : '',
+        title: isfirst ? title : '',
+        data: chapter,
+        isfirst: isfirst,
+        islast: islast,
+        id: id,
+        bid: bid,
+        needpay: needpay,
+        rule_data: JSON.parse(vip_chapter)
+    })
 
 });
-
 
 
 function set_cookie(ctx, key, value) {

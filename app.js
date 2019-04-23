@@ -14,7 +14,7 @@ const chapters = require('./routes/chapters')
 const order = require('./routes/order')
 const qudao = require('./routes/channel')
 const pay = require('./routes/pay')
-const alipay = require('./routes/alipay')
+// const alipay = require('./routes/alipay')
 const UserModel = require('./model/User')
 const mem = require('./util/mem')
 
