@@ -135,7 +135,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0 .3rem;
+  padding: 2rem .3rem 0;
   color: #fff;
   box-sizing: border-box;
 }
