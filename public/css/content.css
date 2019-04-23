@@ -137,6 +137,7 @@
   left: 0;
   padding: 0 .3rem;
   margin-top: .3rem;
+  color: #fff;
 }
 
 .recharge-list {
@@ -148,7 +149,7 @@
 .recharge-list li {
   float: left;
   margin-right: 4%;
-  width: 46%;
+  width: 96%;
   box-sizing: border-box;
   border: 1px solid #999;
   height: 2.4rem;
@@ -157,14 +158,6 @@
   align-items: center;
   justify-content: center;
   margin-bottom: .2rem;
-}
-.recharge-list li:last-child {
-  width: 96%;
-}
-
-.recharge-list li.selected {
-  border-color: rgb(248, 159, 27);
-  color: rgb(248, 159, 27);
 }
 
 .recharge-list li > *{
