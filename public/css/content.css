@@ -1,3 +1,7 @@
+html, body {
+  overflow: hidden;
+}
+
 .chapter-container {
    background: #fff;
   padding: .3rem .2rem;
