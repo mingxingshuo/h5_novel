@@ -82,11 +82,11 @@
         $(".loading").remove();
       }
     };
-    <!--if(<%= needpay %>) {-->
-      <!--$("body").css('overflow', 'auto');-->
-    <!--} else {-->
-      <!--$("body").css('overflow', 'hidden');-->
-    <!--}-->
+    if(<%= needpay %>) {
+      $("body").css('overflow', 'auto');
+    } else {
+      $("body").css('overflow', 'hidden');
+    }
     getBgColor()
     changeBgColor()
     changeChapter(bid, id)
