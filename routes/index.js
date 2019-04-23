@@ -115,7 +115,7 @@ router.get('/content', async(ctx, next) => {
     }
 });
 
-router.get('/recharge', async (req, res, next) => {
+router.get('/recharge', async (ctx, next) => {
     return ctx.render('pages/recharge')
 });
 
