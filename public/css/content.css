@@ -141,7 +141,6 @@
   width: 90%;
   background: #fff;
   border-radius: .3rem;
-  font-size: .3rem;
   position: absolute;
   top: 40%;
   left: 5%;
@@ -152,6 +151,11 @@
   border-bottom: .01rem solid #999;
   padding: .3rem 0;
   text-align: center;
+}
+
+.dialog-info p {
+  font-size: .3rem;
+  letter-spacing: .03rem;
 }
 
 .dialog-btn {
