@@ -78,12 +78,15 @@
   $(function () {
     let id, bid;
       id = <%= id %>;
-      bid = <%= bid %>;
+      bid = <%= bid %>
     document.onreadystatechange = function () {
       if(document.readyState === "complete") {
         $(".loading").remove();
       }
     };
+    if(<%= needpay %>) {
+      $("body").css(overflow, 'hidden');
+    }
     getBgColor()
     changeBgColor()
     changeChapter(bid, id)
