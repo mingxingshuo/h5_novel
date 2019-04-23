@@ -20,7 +20,7 @@ router.get('/', async(ctx, next) => {
 })
 
 router.get('/recharge', async (ctx, next) => {
-    ctx.render('pages/recharge')
+    return ctx.render('pages/recharge')
 });
 
 router.get('/content', async(ctx, next) => {
