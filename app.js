@@ -63,6 +63,10 @@ app.use(async(ctx, next) => {
 })
 
 app.use(async(ctx, next) => {
+    if(ctx.url.indexOf('.')!=-1){
+        await next()
+        return 
+    }
     let uid = ctx.cookies.get('h5_novels');
     //console.log(uid)
     let query_channel =ctx.query.channel;
