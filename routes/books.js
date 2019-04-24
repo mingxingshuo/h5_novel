@@ -2,20 +2,6 @@ const router = require('koa-router')()
 const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
-const multer = require('koa-multer');
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        //console.log('destination');
-        cb(null, __dirname + '/../public/uploads/')
-    },
-    filename: function (req, file, cb) {
-        //console.log('filename');
-        var fileFormat = (file.originalname).split(".");
-        cb(null, Date.now() + "." + fileFormat[fileFormat.length - 1]);
-    }
-})
-var upload = multer({storage: storage});
 
 router.prefix('/book')
 
