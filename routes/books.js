@@ -20,18 +20,12 @@ var upload = multer({storage: storage});
 router.prefix('/book')
 
 router.post('/upload', upload.single('imageFile'), async(ctx, next) => {
-    ctx.body = {image: ctx.req.file.filename};
+    ctx.body = {image_url: ctx.req.file.filename};
 });
 
 router.get('/all', async function (ctx, next) {
     let page = ctx.request.query.page || 1
-    let tag_sex = ctx.request.query.tag_sex || 2;
-    let title = new RegExp(ctx.request.query.title);
-    let param = {tag_sex: tag_sex}
-    if (title) {
-        param.title = {$regex: title}
-    }
-    let book = await BookModel.find(param).skip((page - 1) * 10).limit(10)
+    let book = await BookModel.find().skip((page - 1) * 10).limit(10)
     ctx.body = {success: '成功', data: book}
 })
 
@@ -45,16 +39,16 @@ router.get('/', async function (ctx, next) {
 })
 
 router.get('/find', async function (ctx, next) {
-    let bid = ctx.request.query.bid;
-    let book = await BookModel.findOne({id: id})
-    let chapter = await ChapterModel.findOne({bid: bid}).sort({id: 1})
-    ctx.body = {success: '成功', data: {book_tile: book.title, chapter_title: chapter.title, image: book.image}}
+    let id = ctx.request.query.id;
+    let book = await BookModel.findById(id)
+    ctx.body = {success: '成功', data: book}
 })
 
 router.post('/update', async function (ctx, next) {
-    let bid = ctx.request.body.bid;
-    let image = ctx.request.body.image
-    let docs = await BookModel.findByIdAndUpdate(bid, {image: image}, {new: true});
+    let id = ctx.request.body.id
+    let image_url = ctx.request.body.image_url
+    let page_title = ctx.request.body.page_title
+    let docs = await BookModel.findByIdAndUpdate(id, {image_url: image_url, page_title: page_title}, {new: true});
     if (docs) {
         ctx.body = {success: '成功', data: docs}
     } else {
