@@ -19,10 +19,6 @@ var upload = multer({ storage: storage });
 router.prefix('/book')
 
 router.post('/upload', upload.single('imageFile'), async(ctx, next) => {
-    console.log('-----------------------------1---------------------')
-    console.log(ctx.req)
-    console.log('-----------------------------2---------------------')
-    console.log(ctx.req.file)
     ctx.body = {image_url: ctx.req.file.filename};
 });
 
