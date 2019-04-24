@@ -32,9 +32,8 @@ router.get('/all', async function (ctx, next) {
 router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
     let book = await BookModel.findOne({id: id})
-    let chapters = await ChapterModel.find({bid: id}).sort({id: 1})
-    let first = chapters[0].id
-    let last = chapters[chapters.length - 1].id
+    let first = ChapterModel.findOne({bid: bid}).sort({id: 1})
+    let last = ChapterModel.findOne({bid: bid}).sort({id: -1})
     ctx.body = {success: '成功', data: {book: book, first: first, last: last}}
 })
 
