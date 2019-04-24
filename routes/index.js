@@ -98,7 +98,7 @@ router.get('/content', async(ctx, next) => {
 
     console.log(needpay, '---------------------needpay')
 
-    let imgUrl = 'http://novel.jtjsmp.top/images/tuiguang/5e89f49e8ef136e4f7806adfa7a362f1.jpg',
+    let imgUrl = 'http://h.tyuss.com/uploads/1556099769441.jpg',
         title = '全国名医都束手无策的病人，实习生的他妙手回春!';
     return ctx.render('pages/content', {
         imgUrl: isfirst ? imgUrl : '',
