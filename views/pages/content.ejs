@@ -88,9 +88,9 @@
       }
     };
     if(<%= needpay %>) {
-      $("body").css('overflow', 'hidden');
+      $("body").css({'overflow': 'hidden', position: 'fixed'});
     } else {
-      $("body").css('overflow', 'auto');
+      $("body").css({'overflow': 'auto', position: 'relative'});
     }
     getBgColor()
     changeBgColor()
