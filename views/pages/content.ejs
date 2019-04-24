@@ -126,10 +126,10 @@
   function getBgColor() {
     let bgColor = getCookie("bgColor");
     if(bgColor) {
-      $(".detail").css("background-color",bgColor)
+      $(".media").css("background-color",bgColor)
       isBlack(bgColor)
     } else {
-      $(".detail").css("background-color",bgColor)
+      $(".media").css("background-color",bgColor)
       setCookie("bgColor", "#eee")
     }
   }
@@ -138,7 +138,7 @@
   function changeBgColor() {
     $(".color-setting").on("click", "li", function () {
       let bgColor = $(this).attr("data-color")
-      $(".detail").css("background-color",bgColor)
+      $(".media").css("background-color",bgColor)
       setCookie("bgColor", bgColor)
       isBlack(bgColor)
     })
