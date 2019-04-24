@@ -45,7 +45,7 @@ app.use(views(__dirname + '/views', {
 
 app.use(async(ctx, next) => {
     ctx.set('Access-Control-Allow-Headers', 'content-type,xfilecategory,xfilename,xfilesize,u_id,device_id,uid,deviceid,X-Requested-With');
-    ctx.set('Access-Control-Allow-Origin', '*');
+    ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000');
     ctx.set('Access-Control-Allow-Credentials', 'true');
     ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET,OPTIONS');
     if (ctx.request.method == "OPTIONS") {
