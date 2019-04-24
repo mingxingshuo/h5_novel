@@ -15,6 +15,9 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/create', async(ctx, next) => {
+    console.log('11111111111111111111111111111111')
+    console.log(ctx.request.body)
+    console.log('11111111111111111111111111111111')
     let bid = ctx.request.body.bid
     let start = ctx.request.body.start
     let end = ctx.request.body.end
