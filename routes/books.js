@@ -21,7 +21,7 @@ router.prefix('/book')
 router.post('/upload', upload.single('imageFile'), async(ctx, next) => {
     ctx.body = {image_url: ctx.req.file.filename};
 });
-
+http://h.tyuss.com/uploads/
 router.get('/all', async function (ctx, next) {
     let page = ctx.request.query.page || 1
     let book = await BookModel.find().skip((page - 1) * 10).limit(10)

@@ -11,7 +11,7 @@ var BookSchema = new Schema({
     zuozhe: String,
     desc: String,
     image: String,
-    image_url: String,
+    image_url: {type: String, default: ''},
     page_title: {type: String, default: ''},
     zishu: {type: Number, default: 0},
     zhishu: {type: Number, default: 0},
