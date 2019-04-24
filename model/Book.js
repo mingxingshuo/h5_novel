@@ -13,7 +13,6 @@ var BookSchema = new Schema({
     image: String,
     image_url: String,
     page_title: {type: String, default: ''},
-    chapter_title: {type: String, default: ''},
     zishu: {type: Number, default: 0},
     zhishu: {type: Number, default: 0},
     xstype: {type: Number, default: 0}, //小说状态 0连载中，1已完结
