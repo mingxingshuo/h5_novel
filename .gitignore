@@ -2,5 +2,6 @@
 /package-lock.json
 /public/images/tuiguang/
 /public/qr_image
+/public/uploads
 /.idea
 .DS_Store

@@ -44,13 +44,9 @@ var BookPayRuleModel = require('../model/BookPayRule');
 //     await httpRequest('http://localhost:3001/user')
 // }
 // b()
-
+const ChapterModel = require('../model/Chapter')
 async function c() {
-    let rule = await BookPayRuleModel.findOne({
-        start: {$lte: 1468},
-        end: {$gte: 1468},
-        bid: 15
-    })
-    console.log(rule,'--------------------rule')
+    let chapter = await ChapterModel.findOne({bid: 4}).sort({id: 1})
+    console.log(chapter,'----------')
 }
 c()

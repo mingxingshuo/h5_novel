@@ -24,8 +24,8 @@ router.post('/create', async(ctx, next) => {
     let bid = ctx.request.body.bid
     let start = ctx.request.body.start
     let end = ctx.request.body.end
-    let starts = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(start-1).limit(1)
-    let ends = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(end-1).limit(1)
+    let starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1)
+    let ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1)
     let data = {
         bid: ctx.request.body.bid,
         price: ctx.request.body.price,
@@ -45,8 +45,8 @@ router.post('/update', async(ctx, next) => {
     let bid = ctx.request.body.bid
     let start = ctx.request.body.start
     let end = ctx.request.body.end
-    let starts = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(start-1).limit(1)
-    let ends = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(end-1).limit(1)
+    let starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1)
+    let ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1)
     let data = {
         bid: ctx.request.body.bid,
         price: ctx.request.body.price,
