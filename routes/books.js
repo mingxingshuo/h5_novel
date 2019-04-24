@@ -20,7 +20,7 @@ var upload = multer({ storage: storage });
 router.prefix('/book')
 
 router.post('/upload', upload.single('imageFile'), async(ctx, next) => {
-    ctx.body = {image_url: ctx.req.file.filename};
+    ctx.body = {image_url: ctx.request.file.filename};
 });
 
 router.get('/all', async function (ctx, next) {
