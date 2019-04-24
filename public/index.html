@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="baidu_union_verify" content="168b4316ca391d58838d3900e1fa849f">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
@@ -8,7 +9,6 @@
     <meta content="telephone=no" name="format-detection">
     <meta name="Keywords" content="关键词">
     <meta name="description" content="描述">
-    <meta name="baidu_union_verify" content="06112a4dbe54eb1f11ef357ad3d0c4a0">
     <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
     <title>付费小说</title>
     <style>
@@ -20,26 +20,7 @@
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    首页
   </body>
-  <script src="/js/jquery.min.js"></script>
-  <script>
-    $.ajax({
-      url:"http://localhost:3001/chapter?id=1570&unionid=1",
-      type:"get",
-      success: function(res) {
-        $("#app").append(res.data.content)
-      }
-    })
-  </script>
-  <script>
-    // 移动端调试
-    // (function () {
-    //   var script = document.createElement('script');
-    //   script.src = "http://eruda.liriliri.io/eruda.min.js";
-    //   document.body.appendChild(script);
-    //   script.onload = function () {
-    //     eruda.init()
-    //   }
-    // })()
-  </script>
+  
 </html>
