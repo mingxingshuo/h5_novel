@@ -41,7 +41,7 @@ app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
-}))
+}));
 
 
 app.use(async(ctx, next) => {
