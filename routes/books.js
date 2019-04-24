@@ -6,12 +6,15 @@ const multer = require('koa-multer');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log('destination');
+        // console.log('destination');
         cb(null, __dirname+'/../public/uploads/')
     },
     filename: function (req, file, cb) {
         console.log('filename');
+        console.log(req, 'req')
+        console.log(file, 'file')
         var fileFormat = (file.originalname).split(".");
+        console.log('fileFormat', fileFormat);
         cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
     }
 })
@@ -21,7 +24,7 @@ router.prefix('/book')
 
 router.post('/upload', upload.single('imageFile'), async(ctx, next) => {
     console.log(ctx.request, 1111)
-    ctx.body = {image_url: ctx.request.file.filename};
+    // ctx.body = {image_url: ctx.request.file.filename};
 });
 
 router.get('/all', async function (ctx, next) {
