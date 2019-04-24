@@ -10,11 +10,7 @@ var storage = multer.diskStorage({
         cb(null, __dirname+'/../public/uploads/')
     },
     filename: function (req, file, cb) {
-        console.log('filename');
-        console.log(req, 'req')
-        console.log(file, 'file')
         var fileFormat = (file.originalname).split(".");
-        console.log('fileFormat', fileFormat);
         cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
     }
 })
@@ -23,8 +19,11 @@ var upload = multer({ storage: storage });
 router.prefix('/book')
 
 router.post('/upload', upload.single('imageFile'), async(ctx, next) => {
-    console.log(ctx.request, 1111)
-    // ctx.body = {image_url: ctx.request.file.filename};
+    console.log('-----------------------------1---------------------')
+    console.log(ctx.req)
+    console.log('-----------------------------2---------------------')
+    console.log(ctx.req.file)
+    ctx.body = {image_url: ctx.req.file.filename};
 });
 
 router.get('/all', async function (ctx, next) {
