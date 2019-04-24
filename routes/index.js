@@ -12,7 +12,7 @@ var pro_conf = require('../conf/proj.json');
 
 router.prefix('/')
 
-router.get('/tuiguang', async(ctx, next) => {
+router.get('/', async(ctx, next) => {
     let books = await BookModel.find({}, {id: 1})
     let book = books[parseInt(Math.random() * books.length)]
 
