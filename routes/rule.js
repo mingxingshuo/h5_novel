@@ -1,4 +1,5 @@
 const router = require('koa-router')()
+const ChapterModel = require('../model/Chapter')
 const RuleModel = require('../model/BookPayRule')
 
 router.prefix('/rule')
@@ -20,11 +21,16 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/create', async(ctx, next) => {
+    let bid = ctx.request.body.bid
+    let start = ctx.request.body.start
+    let end = ctx.request.body.end
+    let starts = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(start-1).limit(1)
+    let ends = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(end-1).limit(1)
     let data = {
         bid: ctx.request.body.bid,
         price: ctx.request.body.price,
-        start: ctx.request.body.start,
-        end: ctx.request.body.end
+        start: starts,
+        end: ends
     }
     let docs = await RuleModel.create(data);
     if (docs) {
@@ -36,11 +42,16 @@ router.post('/create', async(ctx, next) => {
 
 router.post('/update', async(ctx, next) => {
     let id = ctx.request.body.id;
-    var data = {
+    let bid = ctx.request.body.bid
+    let start = ctx.request.body.start
+    let end = ctx.request.body.end
+    let starts = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(start-1).limit(1)
+    let ends = await ChapterModel.find({bid:bid},{id:1}).sort({id: 1}).skip(end-1).limit(1)
+    let data = {
         bid: ctx.request.body.bid,
         price: ctx.request.body.price,
-        start: ctx.request.body.start,
-        end: ctx.request.body.end
+        start: starts,
+        end: ends
     }
     var docs = await RuleModel.findByIdAndUpdate(id, data, {new: true});
     if (docs) {
