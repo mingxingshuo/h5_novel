@@ -4,9 +4,13 @@ var Schema = mongoose.Schema;
 var DB = require('./DB');
 
 var DistributionSchema = new Schema({
-    adzone:{//接入广告配置
-    	key:String
-    },
+    title:String,//广告位名称
+    adzones:[//接入广告配置
+    	{
+            platform:String,//广告平台
+            script:String
+        }
+    ],
     official:{//公众号配置
     	image:String,
     	name : String
