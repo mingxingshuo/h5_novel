@@ -33,7 +33,7 @@ onerror(app)
 app.use(bodyparser({
     enableTypes: ['json', 'form', 'text']
 }))
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(cors());
 app.use(json())
 //app.use(logger())
