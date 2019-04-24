@@ -55,7 +55,7 @@
         </li>
       </ul>
     </div>
-    <% if (!needpay) {%>
+    <% if (needpay) {%>
       <div class="dialog-wrapper">
         <div class="dialog">
           <div class="dialog-info">
@@ -87,15 +87,10 @@
         $(".loading").remove();
       }
     };
-    <!--if(<%= needpay %>) {-->
-      <!--$("body").css({'overflow': 'hidden', position: 'fixed'});-->
-    <!--} else {-->
-      <!--$("body").css({'overflow': 'auto', position: 'relative'});-->
-    <!--}-->
     if(<%= needpay %>) {
-      $("body").css({'overflow': 'auto', position: 'relative'});
-    } else {
       $("body").css({'overflow': 'hidden', position: 'fixed'});
+    } else {
+      $("body").css({'overflow': 'auto', position: 'relative'});
     }
     getBgColor()
     changeBgColor()
