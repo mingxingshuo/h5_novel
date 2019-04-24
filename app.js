@@ -16,6 +16,7 @@ const qudao = require('./routes/channel')
 const pay = require('./routes/pay')
 // const alipay = require('./routes/alipay')
 const rule = require('./routes/rule')
+const info = require('./routes/info')
 const UserModel = require('./model/User')
 const mem = require('./util/mem')
 
@@ -129,6 +130,7 @@ app.use(qudao.routes(), qudao.allowedMethods())
 app.use(pay.routes(), pay.allowedMethods())
 // app.use(alipay.routes(), alipay.allowedMethods())
 app.use(rule.routes(), rule.allowedMethods())
+app.use(info.routes(), info.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

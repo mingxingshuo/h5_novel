@@ -2,26 +2,8 @@ const router = require('koa-router')()
 const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
-const multer = require('koa-multer');
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        //console.log('destination');
-        cb(null, __dirname + '/../public/uploads/')
-    },
-    filename: function (req, file, cb) {
-        //console.log('filename');
-        var fileFormat = (file.originalname).split(".");
-        cb(null, Date.now() + "." + fileFormat[fileFormat.length - 1]);
-    }
-})
-var upload = multer({storage: storage});
 
 router.prefix('/book')
-
-router.post('/upload', upload.single('imageFile'), async(ctx, next) => {
-    ctx.body = {image: ctx.req.file.filename};
-});
 
 router.get('/all', async function (ctx, next) {
     let page = ctx.request.query.page || 1
@@ -42,24 +24,6 @@ router.get('/', async function (ctx, next) {
     let first = chapters[0].id
     let last = chapters[chapters.length - 1].id
     ctx.body = {success: '成功', data: {book: book, first: first, last: last}}
-})
-
-router.get('/find', async function (ctx, next) {
-    let bid = ctx.request.query.bid;
-    let book = await BookModel.findOne({id: id})
-    let chapter = await ChapterModel.findOne({bid: bid}).sort({id: 1})
-    ctx.body = {success: '成功', data: {book_tile: book.title, chapter_title: chapter.title, image: book.image}}
-})
-
-router.post('/update', async function (ctx, next) {
-    let bid = ctx.request.body.bid;
-    let image = ctx.request.body.image
-    let docs = await BookModel.findByIdAndUpdate(bid, {image: image}, {new: true});
-    if (docs) {
-        ctx.body = {success: '成功', data: docs}
-    } else {
-        ctx.body = {err: '修改失败，请检查输入是否有误'}
-    }
 })
 
 router.get('/userbooks', async function (ctx, next) {
