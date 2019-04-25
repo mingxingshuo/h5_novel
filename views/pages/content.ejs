@@ -39,7 +39,12 @@
         <!--</ul>-->
       <!--</div>-->
 
-      <div id="sogou_wap_1028619" class="adzone"></div>
+
+      <!--   搜狗广告位  -->
+      <!-- <div id="sogou_wap_1028619" class="adzone"></div> -->
+
+      <!--   豆盟广告位  -->
+      <div class="adzone doumeng"></div>
 
       <div class="chapter-content">
         <div class="chapter-name">
@@ -79,7 +84,6 @@
 </body>
 <script src="/js/cookie.js"></script>
 <script src="/js/jquery.min.js"></script>
-<script src="/js/http.js"></script>
 <script>
   $(function () {
     let id, bid;
@@ -179,12 +183,19 @@
 </script>
 
 <!--  广告  -->
+
+<!--  搜狗广告代码  -->
+<!-- 
 <script>
   var sogou_div = document.getElementById("sogou_wap_1028619"); 
   window.sogou_un = window.sogou_un || [];
   window.sogou_un.push({id: "1028619",ele:sogou_div});
 </script>
-<script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script>
+<script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script> -->
 
+<script type="text/javascript" src="/js/doumeng.js"></script>
+<script type="text/javascript">
+  setelm($('.doumeng'))
+</script>
 
 </html>
