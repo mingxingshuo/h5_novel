@@ -186,24 +186,48 @@
 <script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script>
 
 <script type="text/javascript" src="/js/doumeng.js"></script>
+<script type="text/javascript" src="/js/sougou.js"></script>
+
 <script type="text/javascript">
+  var $arrs=[]
+
+  //头部广告
   var $adzone1= $('<div class="adzone doumeng"></div>')
   $('.chapter-content').before($adzone1)
-  setelm($adzone1)
+  $arrs.push($adzone1)
+
+  //尾部广告
   var $adzone2= $('<div class="adzone doumeng"></div>')
   $('.chapter-content').after($adzone2)
-  setelm($adzone2)
+  $arrs.push($adzone2)
+
+  //文章页面中广告
   var ps = $('.chapter-text').find('p')
-  var adcount = ps.length/15
+  var adcount = ps.length/15 //15个P标签展示一个广告
   adcount += ps.length%15>8?0:-1
   for (var i = 0; i < adcount; i++) {
     var $adzone= $('<div class="adzone doumeng"></div>')
     $(ps[15*(i+1)]).after($adzone)
-  //var sogou_div = document.getElementById("sogou_wap_1028619"); 
-  window.sogou_un = window.sogou_un || [];
-  window.sogou_un.push({id: "1028619",ele:$adzone[0]});
-    //setelm($adzone)
+    $arrs.push($adzone)
+    //var sogou_div = document.getElementById("sogou_wap_1028619");
   }
+
+  var key = getCookie('h5_channels')
+  setAdzone($arrs,key)
+
+  function setAdzone($arrs,key){
+    var platforms =[sougou,doumeng];
+    for (var i = 0; i < $arrs.length; i++) {
+      var $elm = $arrs[i]
+      var platform = randomP(platforms);
+      platform.setelm($elm)
+    }
+  }
+
+  function randomP(arr){
+    return arr[parseInt(Math.random()*arr.length)]
+  }
+
 </script>
 
 </html>
