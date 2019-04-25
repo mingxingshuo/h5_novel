@@ -97,11 +97,15 @@
     } else {
       $("body").css({'overflow': 'auto', position: 'relative'});
     }
+    changeChapter(bid, id)
+
+    /*
     getBgColor()
     changeBgColor()
-    changeChapter(bid, id)
     getFontSize()
     changeFontSize()
+    */
+
   })
 
   // 切换章节
@@ -184,7 +188,6 @@
 
 <!--  搜狗广告代码  -->
 <script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script>
-
 <script type="text/javascript" src="/js/doumeng.js"></script>
 <script type="text/javascript" src="/js/sougou.js"></script>
 
@@ -216,12 +219,17 @@
   var key = getCookie('h5_channels')
   setAdzone($arrs,key)
 
+  // 加载广告
   function setAdzone($arrs,key){
     var platforms =[sougou,doumeng];
     for (var i = 0; i < $arrs.length; i++) {
-      var $elm = $arrs[i]
-      var platform = randomP(platforms);
-      platform.setelm($elm)
+      function(i) {
+        setTimeout(function(){
+          var $elm = $arrs[i]
+          var platform = randomP(platforms);
+          platform.setelm($elm)
+        },i*1000)
+      }(i)
     }
   }
 
