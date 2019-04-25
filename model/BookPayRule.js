@@ -7,7 +7,9 @@ var BookPayRuleSchema = new Schema({
     bid: Number,
     price: Number,
     start: Number,
-    end: Number
+    end: Number,
+    start_index:Number,
+    end_index:Number
 });
 
 var BookPayRuleModel = DB.getDB().model('BookPayRule', BookPayRuleSchema);
