@@ -20,7 +20,6 @@ redis_client.on("error", function (err) {
 router.prefix('/')
 
 router.get('/build', async(ctx, next) => {
-    console.log(11111)
     return ctx.render('build/index')
 })
 
@@ -111,12 +110,14 @@ router.get('/content', async(ctx, next) => {
     statics(ctx)
 
     console.log(needpay, '---------------------needpay')
-
-    let imgUrl = 'http://h.tyuss.com/uploads/1556099769441.jpg',
-        title = '全国名医都束手无策的病人，实习生的他妙手回春!';
+    // 第一章标题图片
+    let firstChapter = await BookModel.findOne({id: id});
+    console.log('-----------------firstChapter-----------------------')
+    console.log(firstChapter)
+    console.log('-----------------firstChapter-----------------------')
     return ctx.render('pages/content', {
-        imgUrl: isfirst ? imgUrl : '',
-        title: isfirst ? title : '',
+        imgUrl: isfirst ? firstChapter.image_url : '',
+        title: isfirst ? firstChapter.page_title : '',
         data: chapter,
         isfirst: isfirst,
         islast: islast,
