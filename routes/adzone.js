@@ -5,7 +5,7 @@ const crypto = require('crypto');
 router.prefix('/adzone')
 module.exports = router
 
-router.get('/doumeng',async (ctx,next)=>{
+router.get('/doumeng:item.js',async (ctx,next)=>{
 	console.log('-----访问-----')
 	let accountId = '74658c19d9fb0c28f78ceb5f9df6f086';
 	let secret ='d9fb0c28f78ceb5f';
@@ -17,5 +17,10 @@ router.get('/doumeng',async (ctx,next)=>{
 	let sign = md5.update(accountId+adSpaceKey+secret).digest('hex');
 	url += '&sign='+sign
 	let body = await rp(url)
-	ctx.body = body
+	body = JSON.parse(body)
+	if(body.code == "200"){
+		ctx.body = 'jsonp_'+ctx.params.item+'('+JSON.stringify(body.result)+')'
+	}else{
+		ctx.body = 'jsonp_'+ctx.params.item+'("")'
+	}
 })
