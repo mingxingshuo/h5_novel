@@ -10,12 +10,18 @@ const mem = require("../util/mem")
 var BookPayRuleModel = require('../model/BookPayRule');
 var pro_conf = require('../conf/proj.json');
 
+const asyncRedis = require("async-redis");
+const redis_client = asyncRedis.createClient();
+ 
+redis_client.on("error", function (err) {
+    console.log("redis Error " + err);
+});
+
 router.prefix('/')
 
 router.get('/', async(ctx, next) => {
     let books = await BookModel.find({}, {id: 1})
     let book = books[parseInt(Math.random() * books.length)]
-
     ctx.redirect('/content?bid=' + book.id)
 })
 
@@ -96,6 +102,8 @@ router.get('/content', async(ctx, next) => {
         }
     }
 
+    statics(ctx)
+
     console.log(needpay, '---------------------needpay')
 
     let imgUrl = 'http://h.tyuss.com/uploads/1556099769441.jpg',
@@ -113,6 +121,18 @@ router.get('/content', async(ctx, next) => {
     })
 
 });
+
+async function statics(ctx){
+   /*
+    await redis_client.incr('h5novelsChannelsPv_'+ctx.channel)
+    await redis_client.pfadd('h5novelsChannelsUv_'+ctx.channel,ctx.id)
+    await redis_client.incr('h5novelsBooksPv_'+ctx.request.query.bid)
+    await redis_client.pfadd('h5novelsBooksUv_'+ctx.request.query.bid,ctx.id)
+    */
+    
+    await redis_client.incr('h5novelsCBPv_'+ctx.channel+'_'+ctx.request.query.bid)
+    await redis_client.pfadd('h5novelsCBUv_'+ctx.channel+'_'+ctx.request.query.bid,ctx.id)
+}
 
 
 function set_cookie(ctx, key, value) {
