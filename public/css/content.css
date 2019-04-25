@@ -96,12 +96,11 @@ html, body {
 }
 
 .chapter-text {
-  text-indent: 2em;
-  line-height: 1.5;
+  line-height: 1.8;
 }
 
 .chapter-content p {
-  font-size: .32rem;
+  font-size: .33rem;
 }
 
 /* 按钮列表 */
