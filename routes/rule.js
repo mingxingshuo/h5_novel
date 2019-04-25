@@ -7,8 +7,9 @@ router.prefix('/rule')
 router.get('/', async function (ctx, next) {
     let id = ctx.request.query.id;
     let rule = await RuleModel.find({bid: id})
+    let chapter_count = await ChapterModel.count({bid: id})
     if (rule) {
-        ctx.body = {success: '成功', data: rule}
+        ctx.body = {success: '成功', data: rule,chapter_count:chapter_count}
     } else {
         ctx.body = {err: "查找失败"}
     }
@@ -29,7 +30,9 @@ router.post('/create', async(ctx, next) => {
         bid: ctx.request.body.bid,
         price: ctx.request.body.price,
         start: starts,
-        end: ends
+        end: ends,
+        start_index : start,
+        end_index :end
     }
     console.log(data, '11111111111111111111111111111111111111111------------')
     let docs = await RuleModel.create(data);
