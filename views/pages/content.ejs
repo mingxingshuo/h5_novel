@@ -43,9 +43,7 @@
       <!--   搜狗广告位  -->
       <!-- <div id="sogou_wap_1028619" class="adzone"></div> -->
 
-      <!--   豆盟广告位  -->
-      <div class="adzone doumeng"></div>
-
+      
       <div class="chapter-content">
         <div class="chapter-name">
           <span><%= data.title %></span>
@@ -195,7 +193,20 @@
 
 <script type="text/javascript" src="/js/doumeng.js"></script>
 <script type="text/javascript">
-  setelm($('.doumeng'))
+  var $adzone1= $('<div class="adzone doumeng"></div>')
+  $('.chapter-content').before($adzone1)
+  setelm($adzone1)
+  var $adzone2= $('<div class="adzone doumeng"></div>')
+  $('.chapter-content').after($adzone2)
+  setelm($adzone2)
+  var ps = $('.chapter-text').find('p')
+  var adcount = ps.length/15
+  adcount += ps.length%15>7?0:-1
+  for (var i = 0; i < adcount; i++) {
+    var $adzone= $('<div class="adzone doumeng"></div>')
+    $(ps[15*(i+1)]).after($adzone)
+    setelm($adzone)
+  }
 </script>
 
 </html>
