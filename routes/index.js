@@ -19,6 +19,12 @@ redis_client.on("error", function (err) {
 
 router.prefix('/')
 
+router.get('/build', async(ctx, next) => {
+    console.log(11111)
+    return ctx.render('build/index')
+})
+
+
 router.get('/', async(ctx, next) => {
     let books = await BookModel.find({}, {id: 1})
     let book = books[parseInt(Math.random() * books.length)]
