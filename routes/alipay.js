@@ -20,7 +20,7 @@ router.get('/', async function (ctx, next) {
     let bid = ctx.request.query.bid
     let distribution = ctx.request.query.distribution
     let total_fee = ctx.request.query.price
-    let u_id = ctx.id
+    let u_id = 'xxx'
     let rule = BookPayRuleModel.findOne({bid: bid, price: total_fee})
     let doc = await OrderModel.create({
         u_id: u_id,
@@ -33,12 +33,14 @@ router.get('/', async function (ctx, next) {
     try {
         let result = await alipaySdk.exec("alipay.trade.wap.pay", {
             notifyUrl: 'http://www.rrtvz.com/alipay/back',
+            returnUrl:'http://www.rrtvz.com/content?bid=5',
             // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
             bizContent: {
                 subject: '黑牛全本小说',
                 outTradeNo: doc._id.toString(),
                 totalAmount: total_fee,
-                productCode: 'QUICK_WAP_WAY'
+                productCode: 'QUICK_WAP_WAY',
+                quitUrl:'http://www.rrtvz.com/content?bid=5'
             },
         }, {
             // 验签
