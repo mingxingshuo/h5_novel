@@ -8,11 +8,11 @@ const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
-// const alipaySdk = new AlipaySdk({
-//     appId: 'xxx',
-//     privateKey: fs.readFileSync('./private-key.pem', 'ascii'),
-//     alipayPublicKey: fs.readFileSync('./public-key.pem', 'ascii'),
-// })
+const alipaySdk = new AlipaySdk({
+    appId: '2019042264267313',
+    privateKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv61yM5HfhCRhKtaBXcFYXG9kBq7AeiBWiTQi7r6GCeEJONj6E9e9n3Gke3olDYfahfJAPH99QYBZpkUDOayfZYKv8h9WaDJPffi3GXdvmc5GOD0SCasxfp1Ry8lSZd+3WHN6McHR6oaI2G+3yP5imULxCrFzR49Jz/d/IcP5w1ze1AwKyGncm1B19ozEwGoDLv649ExELdglgQ6gyr4Ja/vegbN1Ko6jSI4pSHDu+GYKvEqL1cxcRY3Z8Cr/RFRsSg18sBDgW4v8oIBJV3fPES2Ss+xb0QHpBCi8/qguzNQLsbFc3OtwqM2NnLNUp8JNqkvpXYlWOOexaEb0KTX2gQIDAQAB",
+    alipayPublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgkp9tIWG6mj5cG1LYhTW9dtElpoagnizP2iOCipk6/TL1Tde2JC+6Ux7zYjwsPrYwuM8kNBN9nBpFn3nbhSGRPHFCZj0g+9ZlZ94ZndJ87P5w8DKBXiPIz/KlbGcci/EUMkuTIy/mF7L3l+orssga7KzmY4xOM8Sk5hlQiJdVwfH3oJrGuiWwX31nIvK2vJ9/LNdhl4UDH5bLTBHdOiQwoLn/epM6719Y4lHjQE0AWYdx+94j1hsAzXb2jHFSu3quJrESDecJTsSULnraQ0u8e013rGgEze7ZS/7PHXJnfwj21YIWWP23iVLJaAXagZnWGEDfub41btxZN/vdcczswIDAQAB',
+})
 
 router.prefix('/alipay')
 
