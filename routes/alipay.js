@@ -9,7 +9,7 @@ const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
 const alipaySdk = new AlipaySdk({
-    appId: '2016123456789012',
+    appId: 2016123456789012,
     privateKey: fs.readFileSync('./conf/private-key.pem', 'ascii'),
     alipayPublicKey: fs.readFileSync('./conf/public-key.pem', 'ascii'),
 });
