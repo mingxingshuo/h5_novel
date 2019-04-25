@@ -13,7 +13,7 @@ html, body {
 .article-title {
   line-height: 1.4;
   font-weight: 400;
-  font-size: .42rem;
+  font-size: .44rem;
 }
 
 .banner-img {
@@ -92,7 +92,7 @@ html, body {
   margin: .3rem 0 .5rem -.2rem;
   color: rgb(51, 51, 51);
   font-weight: bold;
-  font-size: .35rem;
+  font-size: .37rem;
 }
 
 .chapter-text {
@@ -100,7 +100,7 @@ html, body {
 }
 
 .chapter-content p {
-  font-size: .33rem;
+  font-size: .35rem;
 }
 
 /* 按钮列表 */
