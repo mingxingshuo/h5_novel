@@ -37,7 +37,7 @@ router.get('/', async function (ctx, next) {
         type: 2
     })
 
-    let result = await alipaySdk.exec("alipay.system.oauth.token", {
+    let result = await alipaySdk.exec("alipay.trade.close", {
         notifyUrl: 'http://p.tyuss.com/alipay/back',
         appAuthToken: '',
         // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
