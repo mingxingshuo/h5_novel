@@ -29,6 +29,7 @@ router.post('/create', async(ctx, next) => {
         start: starts,
         end: ends
     }
+    console.log(data, '11111111111111111111111111111111111111111------------')
     let docs = await RuleModel.create(data);
     if (docs) {
         ctx.body = {success: '成功', data: docs}
