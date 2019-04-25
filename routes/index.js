@@ -19,7 +19,7 @@ redis_client.on("error", function (err) {
 
 router.prefix('/')
 
-router.get('/build', async(ctx, next) => {
+router.all('/build/*', async(ctx, next) => {
     return ctx.render('build/index')
 })
 
