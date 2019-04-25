@@ -9,7 +9,8 @@ var NovelStaticsSchema = new Schema({
     date:Number,
     uv:Number,
     pv:Number,
-    deposit:Number
+    deposit:Number,
+    type:String
 });
 
 var NovelStaticModel = DB.getDB().model('NovelStatic', NovelStaticSchema);
