@@ -5,10 +5,13 @@ const crypto = require('crypto');
 router.prefix('/adzone')
 module.exports = router
 
-router.get('/doumeng:item.js',async (ctx,next)=>{
-	console.log('-----访问-----')
+router.get('/:key/doumeng:item.js',async (ctx,next)=>{
+	
 	let accountId = '74658c19d9fb0c28f78ceb5f9df6f086';
 	let secret ='d9fb0c28f78ceb5f';
+
+	// adSpaceKey 有待从Distribution 表里取出
+
 	let adSpaceKey = 'd60b63a746984b7ec0210492eddb3b79';
 	let md5 = crypto.createHash('md5');
 
@@ -19,8 +22,16 @@ router.get('/doumeng:item.js',async (ctx,next)=>{
 	let body = await rp(url)
 	body = JSON.parse(body)
 	if(body.code == "200"){
-		ctx.body = 'jsonp_'+ctx.params.item+'('+JSON.stringify(body.result)+')'
+		ctx.body = 'jsonp_doumeng_'+ctx.params.item+'('+JSON.stringify(body.result)+')'
 	}else{
-		ctx.body = 'jsonp_'+ctx.params.item+'("")'
+		ctx.body = 'jsonp_doumeng_'+ctx.params.item+'("")'
 	}
+})
+
+
+router.get('/:key/sougou:item.js',async (ctx,next)=>{
+	
+	// sougou_id 有待从Distribution 表里取出
+	let sougou_id = '1028619'
+	ctx.body = 'jsonp_sougou_'+ctx.params.item+'('+sougou_id+')'
 })
