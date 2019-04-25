@@ -92,7 +92,7 @@ html, body {
   margin: .3rem 0 .5rem -.2rem;
   color: rgb(51, 51, 51);
   font-weight: bold;
-  font-size: .3rem;
+  font-size: .35rem;
 }
 
 .chapter-text {
@@ -101,7 +101,7 @@ html, body {
 }
 
 .chapter-content p {
-  font-size: .27rem;
+  font-size: .32rem;
 }
 
 /* 按钮列表 */
