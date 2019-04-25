@@ -11,7 +11,9 @@ async function setbook(bid,start,end,price) {
 		bid:bid,
 		start:starts[0].id,
 		end: ends[0].id,
-		price : price
+		price : price,
+		start_index : start,
+		end_index :end
 	})
 }
 
@@ -23,6 +25,6 @@ async function getrule(bid){
 }
 
 //getrule(15)
-setbook(15,1,10,0)
-//setbook(15,11,30,1)
-//setbook(15,31,80,2)
+//setbook(4,1,10,0)
+//setbook(4,11,30,0.5)
+//setbook(4,31,80,1)
