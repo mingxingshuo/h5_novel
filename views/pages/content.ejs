@@ -223,13 +223,13 @@
   function setAdzone($arrs,key){
     var platforms =[sougou,doumeng];
     for (var i = 0; i < $arrs.length; i++) {
-      function(i) {
+      (function(i) {
         setTimeout(function(){
           var $elm = $arrs[i]
           var platform = randomP(platforms);
           platform.setelm($elm)
         },i*1000)
-      }(i)
+      })(i)
     }
   }
 
