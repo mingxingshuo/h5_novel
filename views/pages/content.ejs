@@ -203,7 +203,7 @@
 
   //文章页面中广告
   var ps = $('.chapter-text').find('p')
-  var adcount = ps.length/15 //15个P标签展示一个广告
+  var adcount = parseInt(ps.length/15) //15个P标签展示一个广告
   adcount += ps.length%15>8?0:-1
   for (var i = 0; i < adcount; i++) {
     var $adzone= $('<div class="adzone doumeng"></div>')
