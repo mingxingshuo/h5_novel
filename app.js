@@ -60,6 +60,9 @@ app.use(async(ctx, next) => {
     if(ctx.url.indexOf('.')!=-1){
         await next()
         return 
+    }else if(ctx.url.indexOf('/pay')!=-1||ctx.url.indexOf('/alipay')){
+        await next()
+        return
     }
     let uid = ctx.cookies.get('h5_novels');
     //console.log(uid)
