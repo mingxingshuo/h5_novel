@@ -13,6 +13,7 @@ const alipaySdk = new AlipaySdk({
     privateKey: fs.readFileSync('./conf/private-key.pem', 'ascii'),
     alipayPublicKey: fs.readFileSync('./conf/public-key.pem', 'ascii'),
 });
+console.log(alipaySdk,'--------------------')
 // const alipaySdk = new AlipaySdk({
 //     appId: '2019042264267313',
 //     alipayPublicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuqP0/bBb8ca8RUaDVSmtd5wfwM0zw2+UOMJ+FyCkttekb8sXXzhieFk8mHK+zaAIPWH2x6U3R6+R1dDqap01Y+M0aJxw+zOxCQLzOr2SVLKrniiPn2YlUsXD0S0yCtLRBKRM7CjLGwCatG2kKFFYC7QbkJaABDT/vKvHZqdv+e2lWWtu7340UPXqJW6yf8F5dxEMQbm40a4iEf0dthJ0cUWmOY8eAwM6vPVnffDkTRhcjLbtu48eqgvl4v8804DM5ecR/ckXhzEP+Yj0a2EHokQiPNtiegGrHS66LoLPUWLvk3pXew+33KG5gtVBtgVbzLve0KvN+dTsy7VJ9HmrwQIDAQAB",
@@ -41,7 +42,7 @@ router.get('/', async function (ctx, next) {
         appAuthToken: '',
         // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
         bizContent: {
-            subject: '黑牛全本小说',
+            Subject: '黑牛全本小说',
             outTradeNo: doc._id.toString(),
             totalAmount: total_fee,
             productCode: 'QUICK_WAP_WAY'
