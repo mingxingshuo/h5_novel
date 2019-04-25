@@ -22,7 +22,9 @@ router.post('/create', async(ctx, next) => {
     let start = ctx.request.body.start
     let end = ctx.request.body.end
     let starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1)
+    starts = starts.id
     let ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1)
+    ends = ends.id
     let data = {
         bid: ctx.request.body.bid,
         price: ctx.request.body.price,
