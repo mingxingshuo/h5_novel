@@ -50,7 +50,7 @@ router.get('/', async function (ctx, next) {
             // 验签
             validateSign: true,
             // 打印执行日志
-            // log: this.logger,
+            log: this.logger,
         })
         console.log(result, '-------------------result');
     } catch (err) {
