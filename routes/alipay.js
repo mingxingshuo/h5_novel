@@ -31,8 +31,8 @@ router.get('/', async function (ctx, next) {
         type: 2
     })
 
-    let result = await alipaySdk.exec("http://n.tyuss.com", {
-        notifyUrl: 'http://n.tyuss.com/alipay/back',
+    let result = await alipaySdk.exec("http://www.tyuss.com", {
+        notifyUrl: 'http://www.tyuss.com/alipay/back',
         appAuthToken: '',
         // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
         bizContent: {
