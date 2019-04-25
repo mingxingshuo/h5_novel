@@ -6,7 +6,7 @@ html, body {
 }
 
 .chapter-container {
-   background: #fff;
+   /*background: #fff;*/
   padding: .3rem .2rem;
   text-align: left;
 }
@@ -79,7 +79,7 @@ html, body {
   font-size: .24rem;
 }
 .chapter-content {
-  border: .01rem solid rgb(229, 230, 232);
+  border: .01rem solid #fff;
   line-height: 1.5;
   padding: 0 .2rem;
   font-size: .27rem;
