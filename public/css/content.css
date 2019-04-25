@@ -172,3 +172,8 @@ html, body {
   text-align: center;
   line-height: 1rem;
 }
+
+.adzone {
+  width: 100%;
+  display: block;
+}

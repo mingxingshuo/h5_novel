@@ -17,9 +17,11 @@
 </head>
 
 <body>
+<!--
 <div class="loading" style="position: fixed;width: 100vw;height: 100vh;background: #fff;top: 0;left: 0; z-index:1000;">
   <img style="width: 20px;position: absolute;top: 30%;left: 50%;margin-left: -10px;" src="/img/loading.gif" alt="">
 </div>
+ -->
   <div class="detail">
     <div class="chapter-container">
       <% if (typeof imgUrl !="undefined" && imgUrl) {%>
@@ -38,10 +40,6 @@
           <!--<li class="font-reduce">A-</li>-->
         <!--</ul>-->
       <!--</div>-->
-
-
-      <!--   搜狗广告位  -->
-      <div id="sogou_wap_1028619" class="adzone"></div>
 
       
       <div class="chapter-content">
@@ -87,11 +85,13 @@
     let id, bid;
       id = <%= id %>;
       bid = <%= bid %>
+    /*
     document.onreadystatechange = function () {
       if(document.readyState === "complete") {
         $(".loading").remove();
       }
     };
+    */
     if(<%= needpay %>) {
       $("body").css({'overflow': 'hidden', position: 'fixed'});
     } else {
@@ -188,6 +188,7 @@
 <script type="text/javascript" src="/js/doumeng.js"></script>
 <script type="text/javascript" src="/js/sougou.js"></script>
 
+
 <script type="text/javascript">
   var $arrs=[]
 
@@ -203,7 +204,7 @@
 
   //文章页面中广告
   var ps = $('.chapter-text').find('p')
-  var adcount = ps.length/15 //15个P标签展示一个广告
+  var adcount = parseInt(ps.length/15) //15个P标签展示一个广告
   adcount += ps.length%15>8?0:-1
   for (var i = 0; i < adcount; i++) {
     var $adzone= $('<div class="adzone doumeng"></div>')
