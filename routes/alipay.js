@@ -9,7 +9,7 @@ const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
 const alipaySdk = new AlipaySdk({
-    appId: '2016123456789012',
+    appId: 2016123456789012,
     privateKey: fs.readFileSync('./conf/private-key.pem', 'ascii'),
     alipayPublicKey: fs.readFileSync('./conf/public-key.pem', 'ascii'),
 });
@@ -41,7 +41,7 @@ router.get('/', async function (ctx, next) {
             notifyUrl: 'http://p.tyuss.com/alipay/back',
             // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
             bizContent: {
-                subject: '黑牛全本小说',
+                subject: 'xxx',
                 outTradeNo: doc._id.toString(),
                 totalAmount: total_fee,
                 productCode: 'QUICK_WAP_WAY'
