@@ -44,7 +44,7 @@ router.get('/', async function (ctx, next) {
             subject: '黑牛全本小说',
             outTradeNo: doc._id.toString(),
             totalAmount: total_fee,
-            product_code: 'QUICK_WAP_WAY'
+            productCode: 'QUICK_WAP_WAY'
         },
     }, {
         // 验签
