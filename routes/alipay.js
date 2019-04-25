@@ -31,6 +31,7 @@ router.get('/', async function (ctx, next) {
         type: 2
     })
 
+    console.log(doc,'-------------------doc')
     let result = await alipaySdk.exec("http://www.tyuss.com", {
         notifyUrl: 'http://www.tyuss.com/alipay/back',
         appAuthToken: '',
@@ -47,7 +48,7 @@ router.get('/', async function (ctx, next) {
         // 打印执行日志
         log: this.logger,
     })
-    console.log(result);
+    console.log(result,'-------------------result');
     ctx.redirect("https://openapi.alipay.com/gateway.do")
 })
 
