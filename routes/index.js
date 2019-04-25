@@ -110,11 +110,9 @@ router.get('/content', async(ctx, next) => {
     statics(ctx)
 
     console.log(needpay, '---------------------needpay')
+
     // 第一章标题图片
     let firstChapter = await BookModel.findOne({id: bid});
-    console.log('-----------------firstChapter-----------------------')
-    console.log(firstChapter)
-    console.log('-----------------firstChapter-----------------------')
     return ctx.render('pages/content', {
         imgUrl: isfirst ? firstChapter.image_url : '',
         title: isfirst ? firstChapter.page_title : '',
