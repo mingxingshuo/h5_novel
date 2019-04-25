@@ -136,7 +136,7 @@ async function statics(ctx){
     */
     
     await redis_client.incr('h5novelsCBPv_'+ctx.channel+'_'+ctx.request.query.bid)
-    await redis_client.pfadd('h5novelsCBUv_'+ctx.channel+'_'+ctx.request.query.bid,ctx.id)
+    await redis_client.pfadd('h5novelsCBUv_'+ctx.channel+'_'+ctx.request.query.bid,ctx.id.toString())
 }
 
 
