@@ -58,19 +58,19 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/back', async function (ctx, next) {
-    if (req.request.body.trade_status == 'TRADE_SUCCESS') {
-        balan(data).then(() => {
+    if (ctx.request.body) {
+        balan(ctx.request.body).then(() => {
             console.log('订单处理成功');
         })
     } else {
         console.log('订单返回错误');
     }
-    ctx.body = {}
+    ctx.body = ''
 })
 
 async function balan(data) {
-    let out_trade_no = data.xml.out_trade_no[0]
-    let trade_status = data.xml.trade_status[0]
+    let out_trade_no = data.out_trade_no
+    let trade_status = data.trade_status
     if (trade_status == "TRADE_SUCCESS") {
         await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
             status: 1,
