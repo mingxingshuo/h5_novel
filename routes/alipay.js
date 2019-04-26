@@ -19,28 +19,34 @@ const alipaySdk = new AlipaySdk({
 router.prefix('/alipay')
 
 router.get('/', async function (ctx, next) {
-    let bid = ctx.request.query.bid
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
-    let total_fee = ctx.request.query.price
     let uid = ctx.request.query.uid
+    let back_url= ctx.request.query.back
+    let rule = await mem.get("h5_novel_rule_" + rid);
+    if(rule) {
+        rule = JSON.parse(rule)
+    }else{
+        rule = await BookPayRuleModel.findById(rid)
+        await mem.set("h5_novel_rule_" + rid, JSON.stringify(rule), 90)
+    }
     let doc = await OrderModel.create({
         u_id: uid,
-        bid: bid,
+        bid: rule.bid,
         rid: rid,
         distribution: distribution,
-        total_fee: total_fee,
+        total_fee: rule.total_fee,
         type: 2
     })
     const formData = new AliPayForm();
     formData.addField('notifyUrl', 'http://p.rrtvz.com/alipay/back');
-    formData.addField('returnUrl', 'http://p.rrtvz.com/alipay/success?rid=' + rid);
+    formData.addField('returnUrl', 'http://p.rrtvz.com/alipay/success?back=' + back_url);
     formData.addField('bizContent', {
         outTradeNo: doc._id.toString(),
         productCode: 'FAST_INSTANT_TRADE_PAY',//QUICK_WAP_WAY
         totalAmount: total_fee,
         subject: '黑牛全本小说',
-        quitUrl: 'http://p.rrtvz.com/alipay/fail?rid=' + rid
+        quitUrl: 'http://p.rrtvz.com/alipay/fail?back=' + back_url
     });
 
     let result = await alipaySdk.pageExec("alipay.trade.wap.pay",
@@ -88,15 +94,13 @@ async function balan(data) {
 }
 
 router.get('/success', async function (ctx, next) {
-    let rid = ctx.request.query.rid
-    let rule = await BookPayRuleModel.findById(rid)
-    return ctx.redirect('http://www.tyuss.com/content?bid=' + rule.bid + '&id=' + rule.start)
+    let url = ctx.request.query.back
+    return ctx.redirect(url)
 })
 
 router.get('/fail', async function (ctx, next) {
-    let rid = ctx.request.query.rid
-    let rule = await BookPayRuleModel.findById(rid)
-    return ctx.redirect('http://www.tyuss.com/content?bid=' + rule.bid + '&id=' + rule.start)
+    let url = ctx.request.query.back
+    return ctx.redirect(url)
 })
 
 module.exports = router
