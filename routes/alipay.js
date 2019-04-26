@@ -10,8 +10,8 @@ const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
 const alipaySdk = new AlipaySdk({
     appId: 2019042264267313,
-    privateKey: 'MIIEpAIBAAKCAQEA57BLTttxETFe4HqHxENUCZXLoGYsJB47Ms1YaQV9Y2kVgEdAz0a6Ig8b887POTDPQSCz8CtqWZD6mmYjb4hTn8aG4Ru8mNSwwbdkkG8W43MSSyJerIYtGCTY33krq4OZFxnPBh79VF+xnk7qUXgzqBZVJ45aws4mmexSV5Y6R2lvlGf9mBus54y38GE8/2F3xop5H0joodw637/5LD2xcZ+/WUNdICNV7tNSQXFZISLiGUP9sSMVeGNhdCgS/bXMZAfTPR8bpBF5aitaRuA+ZjUakGkdNLYC8m9RjK7KTh5Ss4PEZO9bdDoXaw2mJaJvwvTXTtkSOWmLWeAZNWIJYQIDAQABAoIBAHcgdUhBmpxNd0wSlHY8bBxVkhKSFkYn6SZQ4RF2yibwJCcF+/PXmOLkQ+oTPwdX6mjBSOPHXvJYkhILTFMPlHfFmxppqYonag7gneuJwwoF47UQIf+xKcSNRZl58xNIIdH36jNqgbT9UxVj3CUxmdXmTbh+AHrDhqOEGD6Ctsp6GETz5zyULmQQXCQz9pO8baYVqyetUxKYjMCS+06YiXkcMIBSiJUok53NSm/ABgx9h+OgrdDDl5THWWuUKjHyUXzX8qs3pENRY1de1f9xy+erwj3F7jmAjcVsnO7bPyosO+U1Xm8DosEX1FMji4RZDbXNhgL3S3BT+ARq/n6+uUUCgYEA/dXzLVvqvHJTi4cok+PTKJQ1raiyWjz1NJ0/U5kfhn/9yQf4JJ1oxDR5FAxdVNjGjT4nihPAGo9c+yNb4fWe5JkCkuu/MlQdot2Ylv9C8NZ8SkGN4BsMad/NPsToh6Ysac0MHmIobyvR5PHA0D0mLc8+En+YbT7xGM2YUcvxzv8CgYEA6aoA6Q8PpiIqfJgj7BA0rPi0ZxR1yrFsZ4RhDxJJgj65IPTOaJCTvfpvVK3mMza3PFTKMbyhZyqUvsy9eFRmCpJILY0+wvJ68K9d4lO33hAGSi1KgYwGB6v4aW/lsnO2NgutEQdL+wnbBEx+S6BS2lf4pwKNsuwGeRA4KuP2h58CgYEAz7PTyhfeWdjK1+7+mxTe4eN0kObrGb+rfSP2f3daPnpYtbiZqYxL/9BYCrmbXSQMQ+LKA8fpd1I76RujwZ90JuW1H3db+diub2gXxeaVZfB7v18osmovnCqPDX+eLfEhgmlQM0RqhZ07oLTY6ww+Q1nDFuvlU+8e5QbGTpgtAw0CgYEAtka79xKcroiwhAla3Ge378cDU/YN/VRysD4ASPWHCmdLm33dFozR871M483UadchEZtDL5Fqh0QcTMsCcr/D6jM6wu4QK5tkdCUZI9kS8dOmVG8IVA6bFZj9a6KymIbTeU2acFI031xM0gmp6+zhNRqzCfVf/FdKpV4Vsr+qLRkCgYAkkI8FqqaZ5ET/OuKxKApRvtjWRMUDrSGapbgj9UEGUBi7+qbxUMCUmLLwhhGWU03GvwZUfIYeNm3QzTrjGrv/ZMXW6i9G6FOz/Nu7+FBNdOO1Nsamtny3fSJ7eoP4LFXHD8CSHiRnF78/xDQyp6IrJVKBqeJ5wOn6ydLTPntlrA==',
-    alipayPublicKey: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA57BLTttxETFe4HqHxENUCZXLoGYsJB47Ms1YaQV9Y2kVgEdAz0a6Ig8b887POTDPQSCz8CtqWZD6mmYjb4hTn8aG4Ru8mNSwwbdkkG8W43MSSyJerIYtGCTY33krq4OZFxnPBh79VF+xnk7qUXgzqBZVJ45aws4mmexSV5Y6R2lvlGf9mBus54y38GE8/2F3xop5H0joodw637/5LD2xcZ+/WUNdICNV7tNSQXFZISLiGUP9sSMVeGNhdCgS/bXMZAfTPR8bpBF5aitaRuA+ZjUakGkdNLYC8m9RjK7KTh5Ss4PEZO9bdDoXaw2mJaJvwvTXTtkSOWmLWeAZNWIJYQIDAQAB',
+    privateKey: fs.readFileSync('./conf/private-key.pem', 'ascii'),
+    alipayPublicKey: fs.readFileSync('./conf/public-key.pem', 'ascii'),
 });
 
 router.prefix('/alipay')
@@ -32,8 +32,8 @@ router.get('/', async function (ctx, next) {
     })
     try {
         let result = await alipaySdk.exec("alipay.trade.wap.pay", {
-            notifyUrl: encodeURIComponent('http://p.rrtvz.com/alipay/back'),
-            returnUrl:encodeURIComponent('http://p.rrtvz.com/alipay/content'),
+            notifyUrl: 'http://p.rrtvz.com/alipay/back',
+            returnUrl: 'http://p.rrtvz.com/alipay/content',
             appAuthToken: '',
             // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
             bizContent: {
@@ -41,7 +41,7 @@ router.get('/', async function (ctx, next) {
                 outTradeNo: doc._id.toString(),
                 totalAmount: total_fee,
                 productCode: 'QUICK_WAP_WAY',
-                quitUrl:encodeURIComponent('http://p.rrtvz.com/alipay/content')
+                quitUrl: 'http://p.rrtvz.com/alipay/content'
             },
         }, {
             // 验签
@@ -51,7 +51,7 @@ router.get('/', async function (ctx, next) {
         })
         console.log(result, '-------------------result');
     } catch (err) {
-        console.log(err,'-----------------------err')
+        console.log(err, '-----------------------err')
     }
     // ctx.redirect("https://openapi.alipay.com/gateway.do")
 })
