@@ -5,12 +5,11 @@ var DB = require('./DB');
 
 var DistributionSchema = new Schema({
     title:String,//广告位名称
-    adzones:[//接入广告配置
-    	{
+    adzones:Object,//接入广告配置
+    /*code:{
             platform:String,//广告平台
-            script:String
-        }
-    ],
+            adkey:String
+    }*/
     official:{//公众号配置
     	image:String,
     	name : String
