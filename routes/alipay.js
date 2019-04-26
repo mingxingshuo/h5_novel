@@ -8,6 +8,8 @@ const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
+const AliPayForm = require('alipay-sdk/lib/form').default
+
 const alipaySdk = new AlipaySdk({
     appId: '2019042264267313',
     privateKey: fs.readFileSync('./conf/private-key.pem', 'ascii'),
@@ -30,30 +32,24 @@ router.get('/', async function (ctx, next) {
         total_fee: total_fee,
         type: 2
     })
-    try {
-        let result = await alipaySdk.exec("alipay.trade.wap.pay", {
-            notifyUrl: 'http://p.rrtvz.com/alipay/back',
-            returnUrl:'http://p.rrtvz.com/alipay/content',
-            // appAuthToken: '',
-            // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
-            bizContent: {
-                outTradeNo: doc._id.toString(),
-                productCode: 'QUICK_WAP_WAY',
-                quitUrl:'http://p.rrtvz.com/alipay/content',
-                subject: 'xxx',
-                totalAmount: total_fee
-            },
-        }, {
-            // 验签
-            validateSign: true,
-            // 打印执行日志
-            log: this.logger,
+        const formData = new AliPayForm();
+        formData.addField('notifyUrl', 'http://p.rrtvz.com/alipay/back');
+        formData.addField('returnUrl','http://p.rrtvz.com/alipay/success');
+        formData.addField('bizContent', {
+          outTradeNo: doc._id.toString(),
+          productCode: 'FAST_INSTANT_TRADE_PAY',//QUICK_WAP_WAY
+          totalAmount: total_fee,
+          subject: '黑牛全本小说',
+          quitUrl:'http://p.rrtvz.com/alipay/fail'
+        });
+
+        let reslut = await alipaySdk.pageExec("alipay.trade.wap.pay", 
+        {
+            formData:formData
         })
-        console.log(result, '-------------------result');
-    } catch (err) {
-        console.log(err,'-----------------------err')
-    }
-    // ctx.redirect("https://openapi.alipay.com/gateway.do")
+        console.log('------reslut-----')
+        console.log(reslut)
+        return ctx.render('pay/index',{content:reslut})  
 })
 
 router.post('/back', async function (ctx, next) {
