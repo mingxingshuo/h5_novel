@@ -41,13 +41,13 @@ router.get('/', async function (ctx, next) {
     })
     const formData = new AliPayForm();
     formData.addField('notifyUrl', 'http://p.rrtvz.com/alipay/back');
-    formData.addField('returnUrl', 'http://p.rrtvz.com/alipay/success?back=' + encodeURIComponent(back_url));
+    formData.addField('returnUrl', 'http://p.rrtvz.com/alipay/success?back=' + encodeURIComponent(encodeURIComponent(back_url)));
     formData.addField('bizContent', {
         outTradeNo: doc._id.toString(),
         productCode: 'FAST_INSTANT_TRADE_PAY',//QUICK_WAP_WAY
         totalAmount: rule.price,
         subject: '黑牛全本小说',
-        quitUrl: 'http://p.rrtvz.com/alipay/fail?back=' + encodeURIComponent(back_url)
+        quitUrl: 'http://p.rrtvz.com/alipay/fail?back=' + encodeURIComponent(encodeURIComponent(back_url))
     });
 
     let result = await alipaySdk.pageExec("alipay.trade.wap.pay",
