@@ -38,9 +38,9 @@ router.get('/', async function (ctx, next) {
             // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
             bizContent: {
                 subject: encodeURIComponent('黑牛全本小说'),
-                outTradeNo: doc._id.toString(),
+                outTradeNo: doc._id,
                 totalAmount: total_fee,
-                productCode: 'QUICK_WAP_WAY',
+                // productCode: 'QUICK_WAP_WAY',
                 quitUrl: 'http://p.rrtvz.com/alipay/content'
             },
         }, {
