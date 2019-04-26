@@ -58,7 +58,6 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/back', async function (ctx, next) {
-    console.log(ctx.body, '---------------data1')
     var buf = "";
     ctx.req.setEncoding('utf8');
     ctx.req.on('data', function (chunk) {
@@ -66,6 +65,7 @@ router.post('/back', async function (ctx, next) {
     });
     ctx.req.on('end', function () {
         buf = buf.replace('undefined', '');
+        console.log(buf,'---------------buf')
         parser.parseString(buf, function (err, data) {
             console.log(data, '---------------data')
             if (err) {
