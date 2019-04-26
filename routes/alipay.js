@@ -37,7 +37,7 @@ router.get('/', async function (ctx, next) {
             appAuthToken: '',
             // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
             bizContent: {
-                subject: '黑牛全本小说',
+                subject: encodeURIComponent('黑牛全本小说'),
                 outTradeNo: doc._id.toString(),
                 totalAmount: total_fee,
                 productCode: 'QUICK_WAP_WAY',
