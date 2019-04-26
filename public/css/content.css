@@ -177,3 +177,59 @@ html, body {
   width: 100%;
   display: block;
 }
+
+.footer-message-nourl {
+  padding: 20px 10px 40px;
+  margin: 0 auto;
+  position: relative;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.footer-message-nourl p {
+  margin-top: 6px;
+  line-height: 29px;
+  text-align: center;
+}
+
+.btn-color {
+  color: #3c76ff;
+}
+
+.left-line {
+  margin-right: 5px;
+}
+
+.line {
+  width: 45px;
+  border: 2px solid #3c76ff;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.right-line {
+  margin-left: 5px;
+}
+.font-red {
+  color: red;
+}
+
+#foo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.copy-btn {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  padding: 0 5px;
+  color: #f00;
+  font-size: 18px;
+  background: #eee;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
