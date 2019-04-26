@@ -64,4 +64,43 @@ router.get('/delete', async(ctx, next) => {
     }
 })
 
+router.get('/adzones', async function (ctx, next) {
+    let id = ctx.request.query.id;
+    let distribution = await DistributionModel.findOne({id: id})
+    let data = {
+        _id: distribution._id,
+        title : distribution.title
+    }
+    data.keys = ['doumeng','sougou']
+    data.list=[]
+    for(key in distribution.adzones){
+        data.list.push({
+            key : key,
+            platform : distribution.adzones[key].platform,
+            adkey : distribution.adzones[key].adkey
+        })
+    }
+    ctx.body = {success: '成功', data: data}
+})
+
+router.post('/update/adzones', async function (ctx, next) {
+    let id = ctx.request.body.id
+    let adzone_list = ctx.request.body.adzone_list
+    let adzones = {}
+    for (var i = 0; i < adzone_list.length; i++) {
+        let adzone_item = adzone_list[i]
+        adzones[adzone_item.key] = {
+            platform : adzone_item.platform,
+            adkey : adzone_item.adkey
+        }
+    }
+    let docs = await DistributionModel.findByIdAndUpdate(id, {adzones:adzones}, {new: true});
+    if (docs) {
+        ctx.body = {success: '成功', data: docs}
+    } else {
+        ctx.body = {err: '修改失败，请检查输入是否有误'}
+    }
+})
+
+
 module.exports = router
