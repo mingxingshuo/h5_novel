@@ -8,8 +8,11 @@ const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
+const AliPayForm = require('alipay-sdk/lib/form').default
+const mem = require("../util/mem")
+
 const alipaySdk = new AlipaySdk({
-    appId: 2019042264267313,
+    appId: '2019042264267313',
     privateKey: fs.readFileSync('./conf/private-key.pem', 'ascii'),
     alipayPublicKey: fs.readFileSync('./conf/public-key.pem', 'ascii'),
 });
@@ -17,80 +20,68 @@ const alipaySdk = new AlipaySdk({
 router.prefix('/alipay')
 
 router.get('/', async function (ctx, next) {
-    let bid = ctx.request.query.bid
+    let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
-    let total_fee = ctx.request.query.price
-    let u_id = 'xxx'
-    let rule = BookPayRuleModel.findOne({bid: bid, price: total_fee})
+    let uid = ctx.request.query.uid
+    let back_url = ctx.request.query.back
+    let rule = await mem.get("h5_novel_rule_" + rid);
+    if (rule) {
+        rule = JSON.parse(rule)
+    } else {
+        rule = await BookPayRuleModel.findById(rid)
+        await mem.set("h5_novel_rule_" + rid, JSON.stringify(rule), 90)
+    }
     let doc = await OrderModel.create({
-        u_id: u_id,
-        bid: bid,
-        rid: rule._id,
+        u_id: uid,
+        bid: rule.bid,
+        rid: rid,
         distribution: distribution,
-        total_fee: total_fee,
+        total_fee: rule.price,
         type: 2
     })
-    try {
-        let result = await alipaySdk.exec("alipay.trade.wap.pay", {
-            notifyUrl: 'http://p.rrtvz.com/alipay/back',
-            returnUrl:'http://p.rrtvz.com/alipay/content',
-            appAuthToken: '',
-            // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
-            bizContent: {
-                subject: encodeURIComponent('黑牛全本小说'),
-                outTradeNo: doc._id.toString(),
-                totalAmount: total_fee,
-                productCode: 'QUICK_WAP_WAY',
-                quitUrl:'http://p.rrtvz.com/alipay/content'
-            },
-        }, {
-            // 验签
-            validateSign: true,
-            // 打印执行日志
-            log: this.logger,
+    const formData = new AliPayForm();
+    formData.addField('notifyUrl', 'http://p.rrtvz.com/alipay/back');
+    formData.addField('returnUrl', 'http://p.rrtvz.com/alipay/success?back=' + back_url);
+    formData.addField('bizContent', {
+        outTradeNo: doc._id.toString(),
+        productCode: 'FAST_INSTANT_TRADE_PAY',//QUICK_WAP_WAY
+        totalAmount: rule.price,
+        subject: '黑牛全本小说',
+        quitUrl: 'http://p.rrtvz.com/alipay/fail?back=' + back_url
+    });
+
+    let result = await alipaySdk.pageExec("alipay.trade.wap.pay",
+        {
+            formData: formData
         })
-        console.log(result, '-------------------result');
-    } catch (err) {
-        console.log(err,'-----------------------err')
-    }
-    // ctx.redirect("https://openapi.alipay.com/gateway.do")
+    return ctx.render('pay/index', {content: result})
 })
 
 router.post('/back', async function (ctx, next) {
-    console.log('-----------------------')
-    var buf = "";
-    ctx.req.setEncoding('utf8');
-    ctx.req.on('data', function (chunk) {
-        buf += chunk;
-    });
-    ctx.req.on('end', function () {
-        buf = buf.replace('undefined', '');
-        parser.parseString(buf, function (err, data) {
-            if (err) {
-                console.log(err, ' 订单返回错误');
-            } else {
-                if (data.xml) {
-                    balan(data).then(() => {
-                        console.log('订单处理成功');
-                    })
-                } else {
-                    console.log('订单返回错误');
-                }
-            }
-        });
-    });
-    ctx.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+    if (ctx.request.body) {
+        let out_trade_no = ctx.request.body.out_trade_no
+        let trade_status = ctx.request.body.trade_status
+        if (trade_status == "TRADE_SUCCESS") {
+            await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
+                status: 1,
+                updateAt: Date.now()
+            })
+            console.log('订单处理成功');
+        }
+    } else {
+        console.log('订单返回错误');
+    }
+    ctx.body = ''
 })
 
-async function balan(data) {
-    let out_trade_no = data.xml.out_trade_no[0]
-    let trade_status = data.xml.trade_status[0]
-    if (trade_status == "TRADE_SUCCESS") {
-        await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
-            status: 1,
-            updateAt: Date.now()
-        })
-    }
-}
+router.get('/success', async function (ctx, next) {
+    let url = decodeURIComponent(ctx.request.query.back)
+    return ctx.redirect(url)
+})
+
+router.get('/fail', async function (ctx, next) {
+    let url = decodeURIComponent(ctx.request.query.back)
+    return ctx.redirect(url)
+})
 
 module.exports = router

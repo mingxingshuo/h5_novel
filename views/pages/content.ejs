@@ -76,7 +76,7 @@
             <p>可以阅读<%=rule_data.end-rule_data.start+1 %>章精彩内容</p>
           </div>
           <div class="dialog-btn">
-            <a href="">确定</a>
+            <span>确定</span>
           </div>
         </div>
       </div>
@@ -90,10 +90,24 @@
 <script src="/js/cookie.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script>
+//判断是否是微信浏览器的函数
+function isWeiXin(){
+  //window.navigator.userAgent属性包含了浏览器类型、版本、操作系统类型、浏览器引擎类型等信息，这个属性可以用来判断浏览器类型
+  var ua = window.navigator.userAgent.toLowerCase();
+  //通过正则表达式匹配ua中是否含有MicroMessenger字符串
+  if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+  return true;
+  }else{
+  return false;
+  }
+}
+
   $(function () {
-    let id, bid;
+    let id, bid, pay_domain;
       id = <%= id %>;
-      bid = <%= bid %>
+      bid = <%= bid %>;
+      pay_domain = '<%= pay_domain %>';
+    let rid = '<%= rule_data._id %>';
     /*
     document.onreadystatechange = function () {
       if(document.readyState === "complete") {
@@ -103,6 +117,15 @@
     */
     if(<%= needpay %>) {
       $("body").css({'overflow': 'hidden', position: 'fixed'});
+      $(".dialog-btn").click(payhref)
+      function payhref(){
+        if(!isWeiXin()){
+          var pay_url = location.protocol+'//'+pay_domain+'/alipay?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
+          location.href = pay_url
+        }else{
+          //微信js 支付
+        }
+      }
     } else {
       $("body").css({'overflow': 'auto', position: 'relative'});
     }

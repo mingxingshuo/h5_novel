@@ -122,7 +122,8 @@ router.get('/content', async(ctx, next) => {
         id: id,
         bid: bid,
         needpay: needpay,
-        rule_data: JSON.parse(vip_chapter)
+        rule_data: JSON.parse(vip_chapter),
+        pay_domain : pro_conf.pay_domain
     })
 
 });

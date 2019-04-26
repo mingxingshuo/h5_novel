@@ -8,7 +8,10 @@ router.prefix('/adzone')
 module.exports = router
 
 router.get('/:key/doumeng:item.js',async (ctx,next)=>{
-	
+	if(ctx.params.key=='main'){
+		ctx.body = 'jsonp_doumeng_'+ctx.params.item+'("")'
+		return
+	}
 	let accountId = '74658c19d9fb0c28f78ceb5f9df6f086';
 	let secret ='d9fb0c28f78ceb5f';
 
@@ -36,6 +39,10 @@ router.get('/:key/doumeng:item.js',async (ctx,next)=>{
 
 
 router.get('/:key/sougou:item.js',async (ctx,next)=>{
+	if(ctx.params.key=='main'){
+		ctx.body = 'jsonp_sougou_'+ctx.params.item+'("")'
+		return
+	}
 	let dis = await get_dis(ctx.params.key)
 	if(!dis || !dis.adzones.sougou || !dis.adzones.sougou.adkey){
 		ctx.body = 'jsonp_sougou_'+ctx.params.item+'("")'
