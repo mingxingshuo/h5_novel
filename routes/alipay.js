@@ -23,11 +23,11 @@ router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
     let uid = ctx.request.query.uid
-    let back_url= ctx.request.query.back
+    let back_url = ctx.request.query.back
     let rule = await mem.get("h5_novel_rule_" + rid);
-    if(rule) {
+    if (rule) {
         rule = JSON.parse(rule)
-    }else{
+    } else {
         rule = await BookPayRuleModel.findById(rid)
         await mem.set("h5_novel_rule_" + rid, JSON.stringify(rule), 90)
     }
@@ -58,34 +58,14 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/back', async function (ctx, next) {
-    console.log(ctx.request.body)
-
-    var buf = "";
-    ctx.req.setEncoding('utf8');
-    ctx.req.on('data', function (chunk) {
-        buf += chunk;
-        console.log(buf,'---------------buf1')
-    });
-    ctx.req.on('end', function () {
-        console.log(buf,'---------------buf2')
-        buf = buf.replace('undefined', '');
-        console.log(buf,'---------------buf3')
-        parser.parseString(buf, function (err, data) {
-            console.log(data, '---------------data')
-            if (err) {
-                console.log(err, ' 订单返回错误');
-            } else {
-                if (data.xml) {
-                    balan(data).then(() => {
-                        console.log('订单处理成功');
-                    })
-                } else {
-                    console.log('订单返回错误');
-                }
-            }
-        });
-    });
-    ctx.body = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+    if (req.request.body.trade_status == 'TRADE_SUCCESS') {
+        balan(data).then(() => {
+            console.log('订单处理成功');
+        })
+    } else {
+        console.log('订单返回错误');
+    }
+    ctx.body = {}
 })
 
 async function balan(data) {
