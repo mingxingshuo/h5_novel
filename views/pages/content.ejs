@@ -227,10 +227,28 @@ function isWeiXin(){
 
 <!--  广告  -->
 
-<!--  搜狗广告代码  -->
-<script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script>
-<script type="text/javascript" src="/js/doumeng.js"></script>
-<script type="text/javascript" src="/js/sougou.js"></script>
+<% if (dis && dis.adzones) {%>
+    <% for(key in dis.adzones){%>
+      <% if (key == 'doumeng') { %>
+        <!--  豆盟 -->
+        <script type="text/javascript" src="/js/doumeng.js"></script>
+      <% }else if(key == 'sougou'){ %>
+      <!--  搜狗广告代码  -->
+        <script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script>
+        <script type="text/javascript">
+          var sougou={}
+          sougou.setelm = function($e,key){
+            $e.attr('id','sogou_wap_<%= dis.adzones[key].adkey%>')
+            window.sogou_un = window.sogou_un || [];
+            window.sogou_un.push({id: '<%= dis.adzones[key].adkey%>',ele:$e[0]});
+          }
+        </script>
+        <!-- <script type="text/javascript" src="/js/sougou.js"></script> -->
+      <%}%>
+    <%}%>
+<% }%>
+
+
 
 
 <script type="text/javascript">
@@ -262,7 +280,15 @@ function isWeiXin(){
 
   // 加载广告
   function setAdzone($arrs,key){
-    var platforms =[sougou,doumeng];
+     var platforms =[];
+    <% if (dis && dis.adzones) {%>
+    <% for(key in dis.adzones){%>
+        platforms.push(<%= key%>)
+      <%}%>
+    <%}%>
+   if(platforms.length==0){
+    return
+   }
     for (var i = 0; i < $arrs.length; i++) {
       (function(i) {
         setTimeout(function(){

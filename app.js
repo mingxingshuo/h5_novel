@@ -114,6 +114,7 @@ app.use(async(ctx, next) => {
         );
         ctx.user = user
         ctx.id = user._id
+        ctx.channel = channel
     }else{
         let user = await mem.get("h5_novel_uid_" + uid);
         if (!user) {
@@ -124,6 +125,7 @@ app.use(async(ctx, next) => {
         }
         ctx.user = user
         ctx.id = user._id
+        ctx.channel = channel
     }
     await next()
 })

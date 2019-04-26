@@ -8,6 +8,7 @@ const RecordModel = require('../model/Record')
 const OrderModel = require('../model/Order')
 const mem = require("../util/mem")
 var BookPayRuleModel = require('../model/BookPayRule');
+var DistributionModel = require('../model/Distribution');
 var pro_conf = require('../conf/proj.json');
 
 const asyncRedis = require("async-redis");
@@ -100,6 +101,9 @@ router.get('/content', async(ctx, next) => {
         }
     }
     console.log(vip_chapter, '------------------vip_chapter2')
+
+    //缓存
+
     if (vip_chapter != -1) {
         let order = await OrderModel.findOne({u_id: u_id, rid: JSON.parse(vip_chapter)._id})
         if (!order || !order.status) {
@@ -107,6 +111,9 @@ router.get('/content', async(ctx, next) => {
         }
     }
 
+    let dis = await get_dis(ctx.channel)
+    console.log(ctx.channel)
+    console.log(dis)
     statics(ctx)
 
     console.log(needpay, '---------------------needpay')
@@ -123,7 +130,8 @@ router.get('/content', async(ctx, next) => {
         bid: bid,
         needpay: needpay,
         rule_data: JSON.parse(vip_chapter),
-        pay_domain : pro_conf.pay_domain
+        pay_domain : pro_conf.pay_domain,
+        dis : dis
     })
 
 });
@@ -138,6 +146,20 @@ async function statics(ctx){
     
     await redis_client.incr('h5novelsCBPv_'+ctx.channel+'_'+ctx.request.query.bid)
     await redis_client.pfadd('h5novelsCBUv_'+ctx.channel+'_'+ctx.request.query.bid,ctx.id.toString())
+}
+
+async function get_dis(key) {
+    if(!key || key=='undefined'){
+        return null;
+    }
+    let dis = await mem.get("h5_novel_adzone_dis_" + key);
+    if (dis) {
+        dis = JSON.parse(dis)
+    } else {
+        dis = await DistributionModel.findOne({_id:key})
+        await mem.set("h5_novel_adzone_dis_" + key, JSON.stringify(dis), 60*60)
+    }
+    return dis
 }
 
 
