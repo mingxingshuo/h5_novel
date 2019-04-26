@@ -43,17 +43,14 @@ router.get('/', async function (ctx, next) {
         quitUrl: 'http://p.rrtvz.com/alipay/fail?rid=' + rid
     });
 
-    let reslut = await alipaySdk.pageExec("alipay.trade.wap.pay",
+    let result = await alipaySdk.pageExec("alipay.trade.wap.pay",
         {
             formData: formData
         })
-    console.log('------reslut-----')
-    console.log(reslut)
-    return ctx.render('pay/index', {content: reslut})
+    return ctx.render('pay/index', {content: result})
 })
 
 router.post('/back', async function (ctx, next) {
-    console.log('-----------------------')
     var buf = "";
     ctx.req.setEncoding('utf8');
     ctx.req.on('data', function (chunk) {
@@ -80,7 +77,6 @@ router.post('/back', async function (ctx, next) {
 })
 
 async function balan(data) {
-    console.logA(data, '---------------data')
     let out_trade_no = data.xml.out_trade_no[0]
     let trade_status = data.xml.trade_status[0]
     if (trade_status == "TRADE_SUCCESS") {

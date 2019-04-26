@@ -46,7 +46,14 @@ var BookPayRuleModel = require('../model/BookPayRule');
 // b()
 const ChapterModel = require('../model/Chapter')
 async function c() {
-    let chapter = await ChapterModel.findOne({bid: 4}).sort({id: 1})
+    let chapter = await BookPayRuleModel.create({
+        bid: 1,
+        price: 1,
+        start: 1,
+        end: 1,
+        start_index:1,
+        end_index:1
+    })
     console.log(chapter,'----------')
 }
 c()
