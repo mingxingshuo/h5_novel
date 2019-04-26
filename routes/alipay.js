@@ -33,14 +33,14 @@ router.get('/', async function (ctx, next) {
     try {
         let result = await alipaySdk.exec("alipay.trade.wap.pay", {
             notifyUrl: 'http://www.rrtvz.com/alipay/back',
-            returnUrl:'http://www.rrtvz.com/content?bid=5',
+            returnUrl:'http://www.rrtvz.com/alipay/back',
             // sdk 会自动把 bizContent 参数转换为字符串，不需要自己调用 JSON.stringify
             bizContent: {
                 subject: '黑牛全本小说',
                 outTradeNo: doc._id.toString(),
                 totalAmount: total_fee,
                 productCode: 'QUICK_WAP_WAY',
-                quitUrl:'http://www.rrtvz.com/content?bid=5'
+                quitUrl:'http://www.rrtvz.com/alipay/back'
             },
         }, {
             // 验签
