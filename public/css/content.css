@@ -192,24 +192,6 @@ html, body {
   text-align: center;
 }
 
-.btn-color {
-  color: #3c76ff;
-}
-
-.left-line {
-  margin-right: 5px;
-}
-
-.line {
-  width: 45px;
-  border: 2px solid #3c76ff;
-  display: inline-flex;
-  vertical-align: middle;
-}
-
-.right-line {
-  margin-left: 5px;
-}
 .font-red {
   color: red;
 }
@@ -222,14 +204,5 @@ html, body {
 }
 
 .copy-btn {
-  display: inline-block;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  padding: 0 5px;
-  color: #f00;
-  font-size: 18px;
-  background: #eee;
-  border: 1px solid #000;
-  border-radius: 5px;
+  width: 100%;
 }
