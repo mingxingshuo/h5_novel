@@ -60,7 +60,7 @@ app.use(async(ctx, next) => {
     if(ctx.url.indexOf('.')!=-1){
         await next()
         return 
-    }else if(ctx.url.indexOf('/pay')!=-1||ctx.url.indexOf('/alipay')){
+    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1){
         await next()
         return
     }
@@ -81,6 +81,18 @@ app.use(async(ctx, next) => {
         channel = query_channel
     }else{
         channel = ctx.cookies.get('h5_channels');
+    }
+    if(!channel){
+        ctx.cookies.set(
+            'h5_channels','main',{
+                path:'/',       // 写cookie所在的路径
+                maxAge: 100*12*30*24*60*60*1000,   // cookie有效时长
+                expires:new Date(Date.now()+100*12*30*24*60*60*1000), // cookie失效时间
+                httpOnly:false,  // 是否只用于http请求中获取
+                overwrite:false  // 是否允许重写
+            }
+        );
+        channel = 'main'
     }
     //console.log(channel)
     if(!uid){
