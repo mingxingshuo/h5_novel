@@ -59,25 +59,20 @@ router.get('/', async function (ctx, next) {
 
 router.post('/back', async function (ctx, next) {
     if (ctx.request.body) {
-        balan(ctx.request.body).then(() => {
+        let out_trade_no = ctx.request.body.out_trade_no
+        let trade_status = ctx.request.body.trade_status
+        if (trade_status == "TRADE_SUCCESS") {
+            await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
+                status: 1,
+                updateAt: Date.now()
+            })
             console.log('订单处理成功');
-        })
+        }
     } else {
         console.log('订单返回错误');
     }
     ctx.body = ''
 })
-
-async function balan(data) {
-    let out_trade_no = data.out_trade_no
-    let trade_status = data.trade_status
-    if (trade_status == "TRADE_SUCCESS") {
-        await OrderModel.findOneAndUpdate({_id: out_trade_no}, {
-            status: 1,
-            updateAt: Date.now()
-        })
-    }
-}
 
 router.get('/success', async function (ctx, next) {
     let url = ctx.request.query.back
