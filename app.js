@@ -16,6 +16,7 @@ const pay = require('./routes/pay')
 const adzone = require('./routes/adzone')
 const alipay = require('./routes/alipay')
 const rule = require('./routes/rule')
+const distribution = require('./routes/distribution')
 const UserModel = require('./model/User')
 const mem = require('./util/mem')
 
@@ -137,6 +138,7 @@ app.use(pay.routes(), pay.allowedMethods())
 app.use(adzone.routes(), adzone.allowedMethods())
 app.use(alipay.routes(), alipay.allowedMethods())
 app.use(rule.routes(), rule.allowedMethods())
+app.use(distribution.routes(), distribution.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
