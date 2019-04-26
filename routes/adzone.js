@@ -8,7 +8,7 @@ router.prefix('/adzone')
 module.exports = router
 
 router.get('/:key/doumeng:item.js',async (ctx,next)=>{
-	if(key=='main'){
+	if(ctx.params.key=='main'){
 		ctx.body = 'jsonp_doumeng_'+ctx.params.item+'("")'
 		return
 	}
@@ -39,7 +39,7 @@ router.get('/:key/doumeng:item.js',async (ctx,next)=>{
 
 
 router.get('/:key/sougou:item.js',async (ctx,next)=>{
-	if(key=='main'){
+	if(ctx.params.key=='main'){
 		ctx.body = 'jsonp_sougou_'+ctx.params.item+'("")'
 		return
 	}
