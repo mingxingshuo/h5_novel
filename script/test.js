@@ -44,16 +44,8 @@ var BookPayRuleModel = require('../model/BookPayRule');
 //     await httpRequest('http://localhost:3001/user')
 // }
 // b()
-const ChapterModel = require('../model/Chapter')
 async function c() {
-    let chapter = await BookPayRuleModel.create({
-        bid: 1,
-        price: 1,
-        start: 1,
-        end: 1,
-        start_index:1,
-        end_index:1
-    })
-    console.log(chapter,'----------')
+    let rule = await BookPayRuleModel.findById('5cc2b62db1434822a750a475')
+    console.log(rule,'-------------')
 }
 c()

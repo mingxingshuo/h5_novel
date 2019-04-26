@@ -36,7 +36,7 @@ router.get('/', async function (ctx, next) {
         bid: rule.bid,
         rid: rid,
         distribution: distribution,
-        total_fee: rule.total_fee,
+        total_fee: rule.price,
         type: 2
     })
     const formData = new AliPayForm();
