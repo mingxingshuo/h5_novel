@@ -45,7 +45,7 @@ router.get('/', async function (ctx, next) {
     formData.addField('bizContent', {
         outTradeNo: doc._id.toString(),
         productCode: 'FAST_INSTANT_TRADE_PAY',//QUICK_WAP_WAY
-        totalAmount: total_fee,
+        totalAmount: rule.price,
         subject: '黑牛全本小说',
         quitUrl: 'http://p.rrtvz.com/alipay/fail?back=' + back_url
     });
