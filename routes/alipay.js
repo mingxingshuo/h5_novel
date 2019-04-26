@@ -75,12 +75,12 @@ router.post('/back', async function (ctx, next) {
 })
 
 router.get('/success', async function (ctx, next) {
-    let url = ctx.request.query.back
+    let url = decodeURIComponent(ctx.request.query.back)
     return ctx.redirect(url)
 })
 
 router.get('/fail', async function (ctx, next) {
-    let url = ctx.request.query.back
+    let url = decodeURIComponent(ctx.request.query.back)
     return ctx.redirect(url)
 })
 
