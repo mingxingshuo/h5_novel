@@ -125,11 +125,18 @@ function isWeiXin(){
     };
     */
     if(<%= needpay %>) {
+
+      //打印跳转
+      var pay_url = location.protocol+'//'+pay_domain+'/alipay?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
+       console.log(pay_url)
+
+
       $("body").css({'overflow': 'hidden', position: 'fixed'});
       $(".dialog-btn").click(payhref)
       function payhref(){
         if(!isWeiXin()){
           var pay_url = location.protocol+'//'+pay_domain+'/alipay?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
+          console.log(pay_url)
           location.href = pay_url
         }else{
           //微信js 支付
