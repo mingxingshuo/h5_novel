@@ -18,7 +18,7 @@ router.get('/:key/doumeng:item.js',async (ctx,next)=>{
 		ctx.body = 'jsonp_doumeng_'+ctx.params.item+'("")'
 		return
 	}
-	let adSpaceKey = dis.doumeng.adkey;
+	let adSpaceKey = dis.adzones.doumeng.adkey;
 	let md5 = crypto.createHash('md5');
 
 	let url = 'https://openapi.clotfun.online/openApi/advertisementAccess?accountId='
