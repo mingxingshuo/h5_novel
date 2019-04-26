@@ -47,7 +47,7 @@ router.get('/', async function (ctx, next) {
         productCode: 'FAST_INSTANT_TRADE_PAY',//QUICK_WAP_WAY
         totalAmount: rule.price,
         subject: '黑牛全本小说',
-        quitUrl: 'http://p.rrtvz.com/alipay/fail?back=' + encodeURIComponent(back_url
+        quitUrl: 'http://p.rrtvz.com/alipay/fail?back=' + encodeURIComponent(back_url)
     });
 
     let result = await alipaySdk.pageExec("alipay.trade.wap.pay",
