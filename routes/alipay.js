@@ -40,7 +40,7 @@ router.get('/', async function (ctx, next) {
                 outTradeNo: doc._id.toString(),
                 productCode: 'QUICK_WAP_WAY',
                 quitUrl:'http://p.rrtvz.com/alipay/content',
-                subject: encodeURIComponent('黑牛全本小说'),
+                subject: 'xxx',
                 totalAmount: total_fee
             },
         }, {
