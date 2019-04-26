@@ -9,6 +9,7 @@ const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const AlipaySdk = require('alipay-sdk').default
 const AliPayForm = require('alipay-sdk/lib/form').default
+const mem = require("../util/mem")
 
 const alipaySdk = new AlipaySdk({
     appId: '2019042264267313',
