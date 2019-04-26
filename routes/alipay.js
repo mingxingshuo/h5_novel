@@ -58,6 +58,8 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/back', async function (ctx, next) {
+    console.log(ctx.request.body)
+
     var buf = "";
     ctx.req.setEncoding('utf8');
     ctx.req.on('data', function (chunk) {
