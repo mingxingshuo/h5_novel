@@ -3,7 +3,7 @@
 	"pay_domain":"p.rrtvz.com",
 	"wxpay_domain":"px.rrtvz.com",
 	"wx_app":{
-		"appid":"",
-		"appsecret":""
+		"appid":"wx2f289986bee197b2",
+		"appsecret":"1e9cadf7167a9ba4d453d8fb8171ba43"
 	}
 }

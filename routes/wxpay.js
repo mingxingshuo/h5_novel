@@ -8,6 +8,8 @@ const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const wx_conf = require('../conf/proj.json')
 
+router.prefix('/wxpay')
+
 router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution

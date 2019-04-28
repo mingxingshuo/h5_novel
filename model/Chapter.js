@@ -10,6 +10,7 @@ var ChapterSchema = new Schema({
     content: String,
     isvip: {type: Number, default: 0}, //0免费，1付费
     bid: Number,  //书id
+    index : Number,//书的第几章
     createAt: {
         type: Date,
         default: Date.now
