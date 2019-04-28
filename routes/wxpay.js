@@ -6,7 +6,7 @@ const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
-const wx_conf = require('../conf/proj.json').router.prefix('/wxpay')
+const wx_conf = require('../conf/proj.json')
 
 router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
