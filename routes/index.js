@@ -26,9 +26,17 @@ router.all('/build/*', async(ctx, next) => {
 
 
 router.get('/', async(ctx, next) => {
-    let books = await BookModel.find({}, {id: 1})
-    let book = books[parseInt(Math.random() * books.length)]
-    ctx.redirect('/content?bid=' + book.id)
+    let books = await BookModel.find({}, {id: 1,weight:1})
+    let book_list = []
+    for (var i = 0; i < books.length; i++) {
+        let item = books[i]
+        for (var j = 0; j < item.weight; j++) {
+            book_list.push(item.id)
+        }
+    }
+    //console.log(book_list)
+    let book_id = book_list[parseInt(Math.random() * book_list.length)]
+    ctx.redirect('/content?bid=' + book_id)
 })
 
 router.get('/content', async(ctx, next) => {
