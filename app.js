@@ -21,7 +21,7 @@ const UserModel = require('./model/User')
 const mem = require('./util/mem')
 const userAgent = require('koa2-useragent');
 const rp = require('request-promise');
-var wx_conf = require('../conf/proj.json').wx_app;
+var wx_conf = require('./conf/proj.json').wx_app;
 
 // error handler
 onerror(app)
