@@ -1,4 +1,9 @@
 {
 	"mongodb":"mongodb://mingxing:liujiazhi88@dds-2ze36af17eb05c042440-pub.mongodb.rds.aliyuncs.com:3717/h5_novel?replicaSet=mgset-5196081",
-	"pay_domain":"p.rrtvz.com"
+	"pay_domain":"p.rrtvz.com",
+	"wxpay_domain":"px.rrtvz.com",
+	"wx_app":{
+		"appid":"",
+		"appsecret":""
+	}
 }

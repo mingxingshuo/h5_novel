@@ -21,6 +21,7 @@ const UserModel = require('./model/User')
 const mem = require('./util/mem')
 const userAgent = require('koa2-useragent');
 const rp = require('request-promise');
+var wx_conf = require('../conf/proj.json').wx_app;
 
 // error handler
 onerror(app)
@@ -184,7 +185,7 @@ async function getOpenid(ctx,next){
         ctx.cookies.set('ctx_openid_'+index_id,openid);
     }
     let code = ctx.query.code;
-    let config = await getConfig(index_id);
+    let config = wx_conf;
     if(!openid){
         /*req.session.openid = 'o3qBK0RXH4BlFLEIksKOJEzx08og';
         return callback(req,res);*/
@@ -214,15 +215,5 @@ async function getOpenid(ctx,next){
     }
 }
 
-async function getConfig(key){
-    let dis = await mem.get("h5_novel_adzone_dis_" + key);
-    if (dis) {
-        dis = JSON.parse(dis)
-    } else {
-        dis = await DistributionModel.findOne({_id:key})
-        await mem.set("h5_novel_adzone_dis_" + key, JSON.stringify(dis), 60*60)
-    }
-    return dis.official
-}
 
 module.exports = app

@@ -139,6 +139,8 @@ router.get('/content', async(ctx, next) => {
         needpay: needpay,
         rule_data: JSON.parse(vip_chapter),
         pay_domain : pro_conf.pay_domain,
+        wxpay_domain : pro_conf.wxpay_domain,
+        isWXchat : ctx.userAgent.isWechat,
         dis : dis
     })
 

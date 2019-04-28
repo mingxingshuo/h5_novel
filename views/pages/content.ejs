@@ -63,6 +63,9 @@
       </ul>
 
     </div>
+
+    <!--引导关注公众号-->
+    <% if(!isWXchat){ %>
     <div class="footer-message-nourl">
       <textarea id="foo"></textarea>
       <img class="copy-btn" src="http://h.tyuss.com/uploads/1556269545098.gif" alt="">
@@ -70,6 +73,28 @@
       <p>关注后回复<span class="font-red"><%= bid%></span>继续阅读</p>
       <!--有可能回复不是bid 还可能是其他 -->
     </div>
+    <script>
+      function bind_copy() {
+        var btn = document.getElementsByClassName('copy-btn')[0]
+        var copy = function() {
+          var b = document.getElementById('foo')
+          b.value = "小说公号";
+          b.select();
+          b.setSelectionRange(0, b.value.length);
+          if(document.execCommand('copy', false, null)) {
+            b.remove()
+          }
+        };
+        btn.addEventListener('click', function(){
+          copy()
+          alert("微信网页提示：\n\n1.公号已成功复制\n\n2.点击确定前往微信添加公众号");
+          window.location.replace('weixin://');
+        });
+      }
+      bind_copy()
+    </script>
+    <% } %>
+
     <% if (needpay) {%>
       <div class="dialog-wrapper">
         <div class="dialog">
@@ -105,10 +130,11 @@ function isWeiXin(){
 }
 
   $(function () {
-    let id, bid, pay_domain;
+    let id, bid, pay_domain,wxpay_domain;
       id = <%= id %>;
       bid = <%= bid %>;
       pay_domain = '<%= pay_domain %>';
+      wxpay_domain = '<%= wxpay_domain %>';
     let rid = '<%= rule_data._id %>';
     /*
     document.onreadystatechange = function () {
@@ -133,6 +159,9 @@ function isWeiXin(){
           location.href = pay_url
         }else{
           //微信js 支付
+          var pay_url = location.protocol+'//'+wxpay_domain+'/wxpay?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
+          console.log(pay_url)
+          location.href = pay_url
         }
       }
     } else {
@@ -306,25 +335,6 @@ function isWeiXin(){
 
 </script>
 
-<script>
-  function bind_copy() {
-    var btn = document.getElementsByClassName('copy-btn')[0]
-    var copy = function() {
-      var b = document.getElementById('foo')
-      b.value = "小说公号";
-      b.select();
-      b.setSelectionRange(0, b.value.length);
-      if(document.execCommand('copy', false, null)) {
-        b.remove()
-      }
-    };
-    btn.addEventListener('click', function(){
-      copy()
-      alert("微信网页提示：\n\n1.公号已成功复制\n\n2.点击确定前往微信添加公众号");
-      window.location.replace('weixin://');
-    });
-  }
-  bind_copy()
-</script>
+
 
 </html>
