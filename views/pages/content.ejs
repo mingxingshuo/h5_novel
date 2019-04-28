@@ -65,10 +65,10 @@
     </div>
 
     <!--引导关注公众号-->
-    <% if(!isWXchat){ %>
+    <% if(!isWXchat && dis && dis.official.name){ %>
     <div class="footer-message-nourl">
       <textarea id="foo"></textarea>
-      <img class="copy-btn" src="http://h.tyuss.com/uploads/1556269545098.gif" alt="">
+      <img class="copy-btn" src="<%= dis.official.image%>" alt="">
       <p>点击图片关注微信公众号</p>
       <p>关注后回复<span class="font-red"><%= bid%></span>继续阅读</p>
       <!--有可能回复不是bid 还可能是其他 -->
@@ -78,7 +78,7 @@
         var btn = document.getElementsByClassName('copy-btn')[0]
         var copy = function() {
           var b = document.getElementById('foo')
-          b.value = "小说公号";
+          b.value = "<%= dis.official.name%>";
           b.select();
           b.setSelectionRange(0, b.value.length);
           if(document.execCommand('copy', false, null)) {
