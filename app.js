@@ -19,6 +19,8 @@ const rule = require('./routes/rule')
 const distribution = require('./routes/distribution')
 const UserModel = require('./model/User')
 const mem = require('./util/mem')
+const userAgent = require('koa2-useragent');
+const rp = require('request-promise');
 
 // error handler
 onerror(app)
@@ -36,6 +38,8 @@ app.use(require('koa-static')(__dirname + '/public'),{maxAge:1000*60*60})
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
 }));
+
+app.use(userAgent());
 
 
 app.use(async(ctx, next) => {
@@ -57,6 +61,7 @@ app.use(async(ctx, next) => {
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+
 app.use(async(ctx, next) => {
     if(ctx.url.indexOf('.')!=-1){
         await next()
@@ -65,7 +70,6 @@ app.use(async(ctx, next) => {
         await next()
         return
     }
-    let uid = ctx.cookies.get('h5_novels');
     //console.log(uid)
     let query_channel =ctx.query.channel;
     let channel;
@@ -95,13 +99,34 @@ app.use(async(ctx, next) => {
         );
         channel = 'main'
     }
-    //console.log(channel)
+    ctx.channel = channel
+    await next()
+})
+
+app.use(getOpenid);
+
+app.use(async(ctx,next)=>{
+    if(ctx.userAgent.isWechat){
+        if(!ctx.openid){
+            return await next()
+        }
+    }
+    let uid = ctx.cookies.get('h5_novels');
     if(!uid){
-        //生成uid，存储渠道号，存储期限无限长
-        var  user = new UserModel({
-            distribution:channel
-        })
-        await user.save();
+        let  user;
+        if(ctx.userAgent.isWechat){
+            user = await UserModel.findOne({openid:ctx.openid})
+        }
+        if(!user){
+            //生成uid，存储渠道号，存储期限无限长
+            user = new UserModel({
+                distribution:ctx.channel
+            })
+            if(ctx.userAgent.isWechat){
+                user.openid = ctx.openid
+            }
+            await user.save();
+        } 
         uid = user._id;
         ctx.cookies.set(
             'h5_novels',uid,{
@@ -113,8 +138,7 @@ app.use(async(ctx, next) => {
             }
         );
         ctx.user = user
-        ctx.id = user._id
-        ctx.channel = channel
+        ctx.id = user._id     
     }else{
         let user = await mem.get("h5_novel_uid_" + uid);
         if (!user) {
@@ -125,9 +149,9 @@ app.use(async(ctx, next) => {
         }
         ctx.user = user
         ctx.id = user._id
-        ctx.channel = channel
     }
     await next()
+    
 })
 
 // routes
@@ -146,5 +170,59 @@ app.use(distribution.routes(), distribution.allowedMethods())
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx)
 });
+
+
+async function getOpenid(ctx,next){
+    if(!ctx.userAgent.isWechat){
+        return await next()
+    }
+    let openid = ctx.cookies.get('h5_novel_ctx_openid_'+ctx.channel);
+    if(!openid){
+        console.log('-----ctx.query.uuu-----')
+        console.log(ctx.query.uuu);
+        openid = ctx.query.uuu;
+        ctx.cookies.set('ctx_openid_'+index_id,openid);
+    }
+    let code = ctx.query.code;
+    let config = await getConfig(index_id);
+    if(!openid){
+        /*req.session.openid = 'o3qBK0RXH4BlFLEIksKOJEzx08og';
+        return callback(req,res);*/
+        if(!code){
+            console.log('------go to get code-------')
+            console.log('http://'+ctx.hostname+ctx.originalUrl)
+            let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+config
+            .appid+"&redirect_uri="+encodeURIComponent('http://'+ctx.hostname+ctx.originalUrl)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+            ctx.redirect(url);
+        }else{
+            let api_url="https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config
+            .appid+"&secret="+config
+            .appsecret+"&code="+code+"&grant_type=authorization_code";
+            let body = await rp({
+                uri:api_url,
+                json:true
+            });
+            ctx.cookies.set('h5_novel_ctx_openid_'+ctx.channel,body.openid);
+            console.log('-------get  openid---------')
+            console.log(body.openid)
+            ctx.openid = body.openid
+            await next()
+        }
+    }else{
+        ctx.openid = body.openid
+        await next()
+    }
+}
+
+async function getConfig(key){
+    let dis = await mem.get("h5_novel_adzone_dis_" + key);
+    if (dis) {
+        dis = JSON.parse(dis)
+    } else {
+        dis = await DistributionModel.findOne({_id:key})
+        await mem.set("h5_novel_adzone_dis_" + key, JSON.stringify(dis), 60*60)
+    }
+    return dis.official
+}
 
 module.exports = app

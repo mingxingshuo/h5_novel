@@ -6,6 +6,7 @@ var DB = require('./DB');
 var UserSchema = new Schema({
     tag_sex: Number,
     shelf: Array,
+    openid:String,
     distribution:String,//渠道key
     createAt: {
         type: Date,
