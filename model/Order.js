@@ -12,7 +12,7 @@ var OrderSchema = new Schema({
     distribution: String,
     total_fee: Number,
     status: {type: Number, default: 0}, //订单是否支付，1是，0不是
-    type: Number,//1微信，2支付宝
+    type: Number,//1微信，2支付宝, 3微信js
     createAt: {
         type: Date,
         default: Date.now
