@@ -21,7 +21,9 @@ var DistributionSchema = new Schema({
     	name : {
         type: String,
         default: ''
-      }
+      },
+        appid : String,
+        appsecret : String
     }
 
 });

@@ -26,6 +26,7 @@
     "koa-static": "^3.0.0",
     "koa-views": "^5.2.1",
     "koa2-cors": "^2.0.6",
+    "koa2-useragent": "^0.3.2",
     "memcached": "^2.2.2",
     "mongoose": "^5.4.0",
     "mongoose-auto-increment": "^5.0.1",

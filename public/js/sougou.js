@@ -14,6 +14,12 @@ sougou.loadScript = function($e,key){
     document.body.appendChild(b)
 }
 
-sougou.setelm = function($e,key){
+sougou.load_setelm = function($e,key){
 	sougou.loadScript($e,key)
+}
+
+sougou.setelm = function($e,sougou_id){
+	$e.attr('id','sogou_wap_'+sougou_id)
+	window.sogou_un = window.sogou_un || [];
+	window.sogou_un.push({id: sougou_id,ele:$e[0]});
 }
