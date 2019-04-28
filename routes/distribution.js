@@ -66,7 +66,7 @@ router.get('/delete', async(ctx, next) => {
 
 router.get('/adzones', async function (ctx, next) {
     let id = ctx.request.query.id;
-    let distribution = await DistributionModel.findOne({id: id})
+    let distribution = await DistributionModel.findOne({_id: id})
     let data = {
         _id: distribution._id,
         title : distribution.title
