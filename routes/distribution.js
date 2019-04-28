@@ -34,11 +34,11 @@ router.get('/', async function (ctx, next) {
 router.post('/create', async function (ctx, next) {
     let title = ctx.request.body.title
     let official = ctx.request.body.official
-    let docs = await DistributionModel.findByIdAndUpdate(id, {title: title, official: official}, {new: true});
+    let docs = await DistributionModel.create({title: title, official: official});
     if (docs) {
         ctx.body = {success: '成功', data: docs}
     } else {
-        ctx.body = {err: '修改失败，请检查输入是否有误'}
+        ctx.body = {err: '创建失败，请检查输入是否有误'}
     }
 })
 
