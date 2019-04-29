@@ -3,6 +3,8 @@ const BookModel = require('../model/Book')
 const ChapterModel = require('../model/Chapter')
 const RecordModel = require('../model/Record')
 const multer = require('koa-multer');
+const mem = require("../util/mem")
+
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -47,6 +49,7 @@ router.post('/update', async function (ctx, next) {
     let image_url = ctx.request.body.image_url
     let page_title = ctx.request.body.page_title
     let docs = await BookModel.findByIdAndUpdate(id, {image_url: image_url, page_title: page_title}, {new: true});
+    await mem.set("h5_novel_book_" + id, '', 60)
     if (docs) {
         ctx.body = {success: '成功', data: docs}
     } else {

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/content.css">
     <script src="/js/rem.js"></script>
+    <script src="/js/cookie.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <title><%=url_title?url_title:'在线阅读'%></title>
     <style>
     </style>
@@ -78,7 +80,6 @@
           bind_copy()
         </script>
     <% } %>
-
     <% if (needpay) { %>
     <div class="dialog-wrapper">
         <div class="dialog">
@@ -93,13 +94,7 @@
     </div>
     <% } %>
 </div>
-<div style="display: none;">
-    <script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1277353497&web_id=1277353497"></script>
-</div>
 
-</body>
-<script src="/js/cookie.js"></script>
-<script src="/js/jquery.min.js"></script>
 <script>
   //判断是否是微信浏览器的函数
   function isWeiXin() {
@@ -174,8 +169,8 @@
   }
 
   // 是否显示弹窗
-
 </script>
+
 
 <!--  广告  -->
 
@@ -252,8 +247,11 @@
   function randomP(arr) {
     return arr[parseInt(Math.random() * arr.length)]
   }
-
 </script>
 
+<div style="display: none;">
+    <script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1277353497&web_id=1277353497"></script>
+</div>
 
+</body>
 </html>

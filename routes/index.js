@@ -139,7 +139,7 @@ router.get('/content', async(ctx, next) => {
     return ctx.render('pages/content', {
         imgUrl: isfirst ? firstChapter.image_url : '',
         title: isfirst ? firstChapter.page_title : '',
-        url_title : firstChapter.name,
+        url_title : firstChapter.title,
         data: chapter,
         isfirst: isfirst,
         islast: islast,
@@ -188,7 +188,7 @@ async function get_book(bid) {
         book = JSON.parse(book)
     } else {
         book = await BookModel.findOne({id:bid})
-        await mem.set("h5_novel_book_" + bid, JSON.stringify(bid), 24*60*60)
+        await mem.set("h5_novel_book_" + bid, JSON.stringify(bid), 10*60)
     }
     return book
 }

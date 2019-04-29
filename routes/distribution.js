@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const DistributionModel = require('../model/Distribution')
 const multer = require('koa-multer');
+const mem = require("../util/mem")
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -47,6 +48,7 @@ router.post('/update', async function (ctx, next) {
     let title = ctx.request.body.title
     let official = ctx.request.body.official
     let docs = await DistributionModel.findByIdAndUpdate(id, {title: title, official: official}, {new: true});
+    await mem.set("h5_novel_adzone_dis_" + id, '', 60)
     if (docs) {
         ctx.body = {success: '成功', data: docs}
     } else {
