@@ -197,14 +197,14 @@ async function getOpenid(ctx,next){
     //console.log('-----是否微信打开-------')
     //console.log(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')
     if(!(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')){
-        console.log('------no wechat---------')
+        //console.log('------no wechat---------')
         return await next()
     }
     let openid = ctx.cookies.get('h5_novel_ctx_openid_'+ctx.channel);
     //console.log('openid-------',openid)
     if(!openid){
-        console.log('-----ctx.query.uuu-----')
-        console.log(ctx.query.uuu);
+        //console.log('-----ctx.query.uuu-----')
+        //console.log(ctx.query.uuu);
         openid = ctx.query.uuu;
         if(openid){
             ctx.cookies.set('h5_novel_ctx_openid_'+ctx.channel,openid);

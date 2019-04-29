@@ -128,8 +128,9 @@ router.get('/content', async(ctx, next) => {
     }
 
     let dis = await get_dis(ctx.channel)
-    console.log(ctx.channel)
-    console.log(dis)
+    //console.log(ctx.channel)
+    //console.log(dis)
+    
     statics(ctx)
 
     //console.log(needpay, '---------------------needpay')
