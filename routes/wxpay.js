@@ -57,8 +57,8 @@ router.get('/', async function (ctx, next) {
     let param = builder.buildObject(send_data);
     console.log(param, '-----------------param')
     let result = await req(param)
-    let pack = "prepay_id=" + result.xml.prepay_id[0];
     console.log(result, '-----------------result')
+    let pack = "prepay_id=" + result.xml.prepay_id[0];
     let timeStamp = Date.now() / 1000
     let js_str = "appId=" + appid + "&nonceStr=" + js_nonce_str + "&package=" + pack + "&signType=MD5" + "&timeStamp=" + timeStamp + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW";
     let js_sign = md5(js_str)
