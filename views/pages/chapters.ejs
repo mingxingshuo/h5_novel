@@ -62,6 +62,7 @@
         setTimeout(function () {
           page ++ ;
           let result = getChapters(id, page)
+          console.log(result)
           me.resetload();
           if (result.length < 20) {
             // 锁定
