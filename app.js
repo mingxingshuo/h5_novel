@@ -180,6 +180,7 @@ async function getOpenid(ctx,next){
         return await next()
     }
     let openid = ctx.cookies.get('h5_novel_ctx_openid_'+ctx.channel);
+    console.log('openid-------',openid)
     if(!openid){
         console.log('-----ctx.query.uuu-----')
         console.log(ctx.query.uuu);
