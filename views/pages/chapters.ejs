@@ -11,7 +11,6 @@
     <meta name="description" content="描述">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/chapters.css">
-    <link rel="stylesheet" href="/css/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="/css/dropload.css">
     <script src="/js/rem.js"></script>
     <title>目录</title>
@@ -47,8 +46,9 @@
 <!--</script>-->
 <script>
   $(function () {
-    let id = location.search.split("=")[1].split("&")[0]
+    let id = location.search.split("=")[1]
     let title = "<%= title %>"
+    console.log(title)
     let page = 0;
     $('.book-media').dropload({
       scrollArea: window,
@@ -77,7 +77,7 @@
   })
 </script>
 <script>
-  function chapterClick(bid, title) {
+  function chapterClick(bid) {
     $(".chapter_list").on("click", "li", function () {
       let id = $(this).attr("data-id")
       window.location.href = "/content?bid=" + bid + "&id=" + id;
@@ -91,7 +91,7 @@
         html += `
           <li data-id="${el.id}">
             <p>${el.title.slice(0, 15)}</p>
-            <span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>
+            <!--<span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>-->
           </li>
         `
       })
