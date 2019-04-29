@@ -140,7 +140,7 @@ router.get('/content', async(ctx, next) => {
         rule_data: JSON.parse(vip_chapter),
         pay_domain : pro_conf.pay_domain,
         wxpay_domain : pro_conf.wxpay_domain,
-        isWXchat : ctx.userAgent.isWechat,
+        isWXchat : ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger',
         dis : dis
     })
 
