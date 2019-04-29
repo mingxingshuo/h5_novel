@@ -88,6 +88,9 @@
     httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
       let arr = res.data, html = "";
       result = [...arr];
+
+      console.log(arr, 'arr')
+      console.log(result, 'result')
       $.each(arr, function (i, el) {
         html += `
           <li data-id="${el.id}">
