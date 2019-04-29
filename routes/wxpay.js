@@ -30,6 +30,8 @@ router.get('/', async function (ctx, next) {
     let spbill_create_ip = "39.106.138.15"
     let trade_type = "JSAPI"
     let rule = await mem.get("h5_novel_rule_" + rid);
+    let back_url = ctx.request.query.back;
+
     if (rule) {
         rule = JSON.parse(rule)
     } else {
@@ -76,7 +78,8 @@ router.get('/', async function (ctx, next) {
         "nonceStr": js_nonce_str,
         "package": pack,
         "signType": "MD5",
-        "paySign": js_sign
+        "paySign": js_sign,
+        "back_url" : back_url
     })
 })
 
