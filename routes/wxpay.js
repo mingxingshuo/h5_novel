@@ -71,7 +71,7 @@ router.get('/', async function (ctx, next) {
     let js_str = "appId=" + appid + "&nonceStr=" + js_nonce_str + "&package=" + pack + "&signType=MD5" + "&timeStamp=" + timeStamp + "&key=qFpSfNEnHFntDotwa7kewnhey55Ho6DD";
     let js_sign = md5(js_str)
     return ctx.render('pay/wxpay', {
-        "appid": appid,
+        "appId": appid,
         "timeStamp": timeStamp,
         "nonceStr": js_nonce_str,
         "package": pack,
