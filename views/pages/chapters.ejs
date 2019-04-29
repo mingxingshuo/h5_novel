@@ -48,7 +48,6 @@
   $(function () {
     let id = location.search.split("=")[1]
     let title = "<%= title %>"
-    console.log(title)
     let page = 0;
     $('.book-media').dropload({
       scrollArea: window,
@@ -86,8 +85,9 @@
   }
 
   function getChapters(id, page) {
+    let arr;
     httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
-      let arr = res.data, html = "";
+      arr = res.data, html = "";
       $.each(arr, function (i, el) {
         html += `
           <li data-id="${el.id}">
@@ -97,8 +97,8 @@
         `
       })
       $(".chapter_list").append(html)
-      return arr;
     })
+    return arr;
   }
 </script>
 

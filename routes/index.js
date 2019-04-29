@@ -30,7 +30,6 @@ router.get('/chapters', async(ctx, next) => {
     let book = await BookModel.findOne({id: bid});
     let data = {result: result};
     data = JSON.stringify(data);
-    console.log('title', book);
     await ctx.render('pages/chapters', {data: data, title: book.title})
 });
 
