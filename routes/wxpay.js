@@ -16,7 +16,9 @@ router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
     let uid = ctx.request.query.uid
+    console.log(uid,'------------uid')
     let user = await UserModel.findById(uid)
+    console.log(user,'------------user')
     let openid = user.openid
     console.log(openid,'------------openid')
     let appid = wx_conf.wx_app.appid
