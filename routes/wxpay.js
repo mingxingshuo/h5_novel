@@ -79,6 +79,7 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/back', async function (ctx, next) {
+    console.log('----------------------aaa')
     console.log(ctx.request.body,'----------------------body')
     console.log(ctx.request,'----------------------request')
     var buf = "";
