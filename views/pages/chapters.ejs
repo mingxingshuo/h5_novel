@@ -47,8 +47,8 @@
 <script>
   $(function () {
     let id = location.search.split("=")[1]
-    let title = "<%= title %>"
     let page = 0;
+    var result = [];
     $('.book-media').dropload({
       scrollArea: window,
       domDown: {
@@ -60,7 +60,7 @@
       loadDownFn: function (me) {
         setTimeout(function () {
           page ++ ;
-          let result = getChapters(id, page)
+          getChapters(id, page)
           console.log(result)
           me.resetload();
           if (result.length < 20) {
@@ -73,7 +73,7 @@
         }, 500);
       }
     });
-    chapterClick(id, title)
+    chapterClick(id)
   })
 </script>
 <script>
@@ -85,9 +85,9 @@
   }
 
   function getChapters(id, page) {
-    let arr;
     httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
-      arr = res.data, html = "";
+      let arr = res.data, html = "";
+      result = [...arr];
       $.each(arr, function (i, el) {
         html += `
           <li data-id="${el.id}">
@@ -98,7 +98,6 @@
       })
       $(".chapter_list").append(html)
     })
-    return arr;
   }
 </script>
 
