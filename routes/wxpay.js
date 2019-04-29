@@ -92,6 +92,7 @@ router.post('/back', async function (ctx, next) {
     ctx.req.on('end', function () {
         buf = buf.replace('undefined', '');
         parser.parseString(buf, async function (err, data) {
+            console.log(data,'------------------data')
             if (err) {
                 console.log(err, ' 订单返回错误');
             } else {
