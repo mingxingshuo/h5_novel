@@ -61,7 +61,7 @@
       loadDownFn: function (me) {
         setTimeout(function () {
           page ++ ;
-          getChapters(id, page)
+          let result = getChapters(id, page)
           me.resetload();
           if (result.length < 20) {
             // 锁定
@@ -96,6 +96,7 @@
         `
       })
       $(".chapter_list").append(html)
+      return arr;
     })
   }
 </script>
