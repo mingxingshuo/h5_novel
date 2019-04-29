@@ -132,7 +132,7 @@ app.use(async(ctx,next)=>{
             user = new UserModel({
                 distribution:ctx.channel
             })
-            if(ctx.userAgent.isWechat){
+            if(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger'){
                 user.openid = ctx.openid
             }
             await user.save();
@@ -202,7 +202,9 @@ async function getOpenid(ctx,next){
         console.log('-----ctx.query.uuu-----')
         console.log(ctx.query.uuu);
         openid = ctx.query.uuu;
-        ctx.cookies.set('ctx_openid_'+index_id,openid);
+        if(openid){
+            ctx.cookies.set('h5_novel_ctx_openid_'+ctx.channel,openid);
+        }
     }
     let code = ctx.query.code;
     let config = wx_conf;
