@@ -27,7 +27,7 @@ router.all('/build/*', async(ctx, next) => {
 router.get('/chapters', async(ctx, next) => {
     let bid = ctx.request.query.bid;
     let result = await ChapterModel.find({bid: bid});
-    let book = await BookModel.find({id: bid});
+    let book = await BookModel.findOne({id: bid});
     let data = {result: result};
     data = JSON.stringify(data);
     console.log('title', book);
