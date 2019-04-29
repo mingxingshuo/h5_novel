@@ -165,10 +165,10 @@
 
   // 切换章节
   function changeChapter(bid, id) {
-    $(".prev_chapter").on("tap", function () {
+    $(".prev_chapter").on("touchstart", function () {
       window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) - 1)
     });
-    $(".next_chapter").on("tap", function () {
+    $(".next_chapter").on("touchstart", function () {
       window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) + 1)
     });
   }
