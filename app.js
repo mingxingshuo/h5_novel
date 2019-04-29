@@ -115,9 +115,8 @@ app.use(async(ctx,next)=>{
         await next()
         return
     }
-    if(ctx.userAgent.isWechat){
+    if(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger'){
         console.log('------is wechat---------')
-
         if(!ctx.openid){
             return await next()
         }
@@ -192,9 +191,8 @@ async function getOpenid(ctx,next){
         await next()
         return
     }
-    console.log(ctx.userAgent.source)
-    console.log(ctx.userAgent.isWechat)
-    if(!ctx.userAgent.isWechat){
+    console.log(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')
+    if(!ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger'){
         console.log('------no wechat---------')
         return await next()
     }
