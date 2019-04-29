@@ -17,7 +17,7 @@ router.get('/', async function (ctx, next) {
     let uid = ctx.request.query.uid
     let appid = wx_conf.wx_app.appid
     let body = "黑牛全本小说"
-    let mch_id = "1527118561"
+    let mch_id = "1499792102"
     let nonce_str = rand()
     let js_nonce_str = rand()
     let notify_url = "http://p.rrtvz.com/wxpay/back"
