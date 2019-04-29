@@ -93,7 +93,7 @@ router.get('/content', async(ctx, next) => {
 
     let needpay = false;
     let vip_chapter = await mem.get("h5_novel_chapter_" + id)
-    console.log(vip_chapter, chapter.id, bid, '------------------vip_chapter1')
+    //console.log(vip_chapter, chapter.id, bid, '------------------vip_chapter1')
     if (!vip_chapter) {
         let rule = await BookPayRuleModel.findOne({
             start: {$lte: chapter.id},
@@ -108,7 +108,7 @@ router.get('/content', async(ctx, next) => {
             vip_chapter = -1
         }
     }
-    console.log(vip_chapter, '------------------vip_chapter2')
+    //console.log(vip_chapter, '------------------vip_chapter2')
 
     //缓存
 
@@ -124,7 +124,7 @@ router.get('/content', async(ctx, next) => {
     console.log(dis)
     statics(ctx)
 
-    console.log(needpay, '---------------------needpay')
+    //console.log(needpay, '---------------------needpay')
 
     // 第一章标题图片
     let firstChapter = await BookModel.findOne({id: bid});
