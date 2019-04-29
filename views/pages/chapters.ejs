@@ -22,28 +22,15 @@
 </head>
 
 <body>
-<!--<div class="loading" style="position: fixed;width: 100vw;height: 100vh;background: #fff;top: 0;left: 0; z-index:1000;">-->
-    <!--<img style="width: 20px;position: absolute;top: 30%;left: 50%;margin-left: -10px;" src="/img/loading.gif" alt="">-->
-<!--</div>-->
 <div class="book-detail">
     <div class="chapter">
         <span class="chapter-title"><%= title %></span>
-        <ul class="chapter_list">
-
-        </ul>
+        <ul class="chapter_list"></ul>
     </div>
 </div>
 </body>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/dropload.min.js"></script>
-<script src="/js/http.js"></script>
-<!--<script>-->
-  <!--document.onreadystatechange = function () {-->
-    <!--if (document.readyState == "complete") {-->
-      <!--$(".loading").remove()-->
-    <!--}-->
-  <!--}-->
-<!--</script>-->
 <script>
   $(function () {
     let id = location.search.split("=")[1]
@@ -93,10 +80,6 @@
       let id = $(this).attr("data-id")
       window.location.href = "/content?bid=" + bid + "&id=" + id;
     })
-  }
-
-  function getChapters(id, page) {
-
   }
 </script>
 

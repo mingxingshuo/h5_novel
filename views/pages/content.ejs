@@ -20,31 +20,12 @@
 </head>
 
 <body>
-<!--
-<div class="loading" style="position: fixed;width: 100vw;height: 100vh;background: #fff;top: 0;left: 0; z-index:1000;">
-  <img style="width: 20px;position: absolute;top: 30%;left: 50%;margin-left: -10px;" src="/img/loading.gif" alt="">
-</div>
- -->
 <div class="detail">
     <div class="chapter-container">
         <% if (typeof imgUrl != "undefined" && imgUrl) { %>
             <h3 class="article-title"><%= title %></h3>
             <img class="banner-img" src="<%= imgUrl %>" alt="">
         <% } %>
-        <!--<div class="setting">-->
-        <!--<ul class="color-setting">-->
-        <!--<li data-color="#eee" class="color-huise"></li>-->
-        <!--<li data-color="#cfc0a9" class="color-shushi"></li>-->
-        <!--<li data-color="#cfe5bc" class="color-lvse"></li>-->
-        <!--<li data-color="#2c3e50" class="color-heise"></li>-->
-        <!--</ul>-->
-        <!--<ul class="font-setting">-->
-        <!--<li class="font-add">A+</li>-->
-        <!--<li class="font-reduce">A-</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-
-
         <div class="chapter-content">
             <div class="chapter-name">
                 <span><%= data.title %></span>
@@ -58,9 +39,9 @@
             </li>
             <li class="to-chapters"><span>目录</span></li>
 
-        <!--<% if (isWXchat) { %>-->
-                <!--<li class="to-chapters"><span>目录</span></li>-->
-            <!--<% } %>-->
+        <% if (isWXchat) { %>
+                <li class="to-chapters"><span>目录</span></li>
+            <% } %>
             <li class="change-chapter next_chapter" style='display: <%= islast ? "none" : "block" %>'>
                 <span>下一章</span>
                 <img src="/img/next.png" alt="">
@@ -176,13 +157,6 @@
     }
     changeChapter(bid, id);
     toChapters(bid);
-    /*
-    getBgColor()
-    changeBgColor()
-    getFontSize()
-    changeFontSize()
-    */
-
   })
 
   // 跳转目录
@@ -204,68 +178,6 @@
 
   // 是否显示弹窗
 
-
-  // 获取cookie字体大小
-  function getFontSize() {
-    let fontSize = getCookie("fontSize");
-    if (fontSize) {
-      $("body .chapter-content").css({"font-size": fontSize})
-    } else {
-      $("body .chapter-content").css({"font-size": ".36rem"})
-      setCookie("fontSize", ".36rem")
-    }
-  }
-
-  // 获取cookie背景颜色
-  function getBgColor() {
-    let bgColor = getCookie("bgColor");
-    if (bgColor) {
-      $(".media").css("background-color", bgColor)
-      isBlack(bgColor)
-    } else {
-      $(".media").css("background-color", bgColor)
-      setCookie("bgColor", "#eee")
-    }
-  }
-
-  // 修改背景颜色
-  function changeBgColor() {
-    $(".color-setting").on("click", "li", function () {
-      let bgColor = $(this).attr("data-color")
-      $(".media").css("background-color", bgColor)
-      setCookie("bgColor", bgColor)
-      isBlack(bgColor)
-    })
-  }
-
-  // 是否是黑夜背景
-  function isBlack(bgColor) {
-    if (bgColor == "#2c3e50") {
-      $(".chapter-content, .font-setting, .btn-wrapper").css({color: "#f9f9f9"})
-    } else {
-      $(".chapter-content, .font-setting, .btn-wrapper").css({color: "#000"})
-    }
-  }
-
-  // 修改字体大小
-  function changeFontSize() {
-    let fontSize = getCookie("fontSize");
-    let fontNum = Number(fontSize.split("rem")[0])
-    $(".font-add").on("click", function () {
-      if (fontNum <= 0.4) {
-        fontNum += 0.02
-        $("body .chapter-content").css({"font-size": fontNum + "rem"})
-        setCookie("fontSize", fontNum + "rem")
-      }
-    })
-    $(".font-reduce").on("click", function () {
-      if (fontNum > 0.29) {
-        fontNum -= 0.02
-        $("body .chapter-content").css({"font-size": fontNum + "rem"})
-        setCookie("fontSize", fontNum + "rem")
-      }
-    })
-  }
 </script>
 
 <!--  广告  -->
