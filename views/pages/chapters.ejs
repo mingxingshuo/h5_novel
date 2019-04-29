@@ -58,10 +58,20 @@
         domNoData: '<div class="dropload-noData">到底了</div>'
       },
       loadDownFn: function (me) {
-        console.log(me)
         setTimeout(function () {
           page ++ ;
-          getChapters(id, page)
+          httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
+            let arr = res.data, html = "";
+            result = [...arr];
+            $.each(arr, function (i, el) {
+              html += `
+          <li data-id="${el.id}">
+            <p>${el.title.slice(0, 15)}</p>
+            <!--<span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>-->
+          </li>
+        `
+            })
+            $(".chapter_list").append(html)
           console.log(result)
           me.resetload();
           if (result.length < 20) {
@@ -86,21 +96,7 @@
   }
 
   function getChapters(id, page) {
-    httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
-      let arr = res.data, html = "";
-      result = [...arr];
 
-      console.log(arr, 'arr')
-      console.log(result, 'result')
-      $.each(arr, function (i, el) {
-        html += `
-          <li data-id="${el.id}">
-            <p>${el.title.slice(0, 15)}</p>
-            <!--<span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>-->
-          </li>
-        `
-      })
-      $(".chapter_list").append(html)
     })
   }
 </script>
