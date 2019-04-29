@@ -46,26 +46,30 @@
       },
       loadDownFn: function (me) {
         setTimeout(function () {
-          page ++ ;
-          httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
-            let html = "";
-            result = res.data;
-            $.each(result, function (i, el) {
-              html += `
-          <li data-id="${el.id}">
-            <p>${el.title.slice(0, 15)}</p>
-            <!--<span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>-->
-          </li>
-        `
-            })
-            $(".chapter_list").append(html);
-            me.resetload();
-            if (result.length < 20) {
-              // 锁定
-              me.lock();
-              // 无数据
-              me.noData();
+          page++;
+          $.ajax({
+            url: "/chapter/all?bid=" + id + '&page=' + page,
+            type: "get",
+            success: function (res) {
+              let html = "";
+              result = res.data;
+              $.each(result, function (i, el) {
+                html += `
+                  <li data-id="${el.id}">
+                    <p>${el.title.slice(0, 15)}</p>
+                    <!--<span class='${el.isvip == 0 ? "free" : "pay"}'>${el.isvip == 0 ? "免费" : "付费"}</span>-->
+                  </li>
+                `
+              })
+              $(".chapter_list").append(html);
               me.resetload();
+              if (result.length < 20) {
+                // 锁定
+                me.lock();
+                // 无数据
+                me.noData();
+                me.resetload();
+              }
             }
           })
         }, 500);
