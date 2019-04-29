@@ -193,7 +193,7 @@ async function getOpenid(ctx,next){
     }
     console.log('-----是否微信打开-------')
     console.log(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')
-    if(!ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger'){
+    if(!(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')){
         console.log('------no wechat---------')
         return await next()
     }
