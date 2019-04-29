@@ -117,7 +117,7 @@ app.use(async(ctx,next)=>{
     }
     if(ctx.userAgent.isWechat){
         console.log('------is wechat---------')
-        console.log(ctx.openid)
+
         if(!ctx.openid){
             return await next()
         }
@@ -192,6 +192,8 @@ async function getOpenid(ctx,next){
         await next()
         return
     }
+    console.log(ctx.userAgent.source)
+    console.log(ctx.userAgent.isWechat)
     if(!ctx.userAgent.isWechat){
         console.log('------no wechat---------')
         return await next()
