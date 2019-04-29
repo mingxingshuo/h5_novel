@@ -79,7 +79,7 @@ router.get('/', async function (ctx, next) {
         "package": pack,
         "signType": "MD5",
         "paySign": js_sign,
-        "back_url" : back_url
+        "back_url" : decodeURIComponent(back_url)
     })
 })
 
