@@ -15,7 +15,7 @@ router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
     let uid = ctx.request.query.uid
-    let appid = wx_conf.appid
+    let appid = wx_conf.wx_app.appid
     let body = "黑牛全本小说"
     let mch_id = "1527118561"
     let nonce_str = rand()
