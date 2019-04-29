@@ -61,9 +61,9 @@
         setTimeout(function () {
           page ++ ;
           httpRequest("/chapter/all?bid=" + id + '&page=' + page, "get", {}, function (res) {
-            let arr = res.data, html = "";
-            result = [...arr];
-            $.each(arr, function (i, el) {
+            let html = "";
+            result = res.data;
+            $.each(result, function (i, el) {
               html += `
           <li data-id="${el.id}">
             <p>${el.title.slice(0, 15)}</p>
@@ -71,17 +71,16 @@
           </li>
         `
             })
-            $(".chapter_list").append(html)
-          })
-          console.log('result' , result)
-          me.resetload();
-          if (result.length < 20) {
-            // 锁定
-            me.lock();
-            // 无数据
-            me.noData();
+            $(".chapter_list").append(html);
             me.resetload();
-          }
+            if (result.length < 20) {
+              // 锁定
+              me.lock();
+              // 无数据
+              me.noData();
+              me.resetload();
+            }
+          })
         }, 500);
       }
     });
