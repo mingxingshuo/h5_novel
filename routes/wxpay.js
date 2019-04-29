@@ -6,6 +6,7 @@ const builder = new xml2js.Builder();
 const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
+const UserModel = require('../model/User');
 const wx_conf = require('../conf/proj.json')
 const mem = require("../util/mem")
 
@@ -15,6 +16,8 @@ router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
     let uid = ctx.request.query.uid
+    let user = UserModel.findById(uid)
+    let openid = user.openid
     let appid = wx_conf.wx_app.appid
     let body = "黑牛全本小说"
     let mch_id = "1499792102"
@@ -39,12 +42,14 @@ router.get('/', async function (ctx, next) {
         total_fee: rule.price,
         type: 3
     })
+
     let out_trade_no = doc._id.toString()
-    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=qFpSfNEnHFntDotwa7kewnhey55Ho6DD"
+    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&openid=" + openid + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=qFpSfNEnHFntDotwa7kewnhey55Ho6DD"
     let sign = md5(str)
     let send_data = {
         appid: appid,
         body: body,
+        openid: openid,
         mch_id: mch_id,
         nonce_str: nonce_str,
         notify_url: notify_url,
