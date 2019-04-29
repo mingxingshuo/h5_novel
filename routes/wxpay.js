@@ -22,7 +22,6 @@ router.get('/', async function (ctx, next) {
     let js_nonce_str = rand()
     let notify_url = "http://p.rrtvz.com/wxpay/back"
     let spbill_create_ip = "39.106.138.15"
-    let total_fee = ctx.request.query.price * 100
     let trade_type = "JSAPI"
     let rule = await mem.get("h5_novel_rule_" + rid);
     if (rule) {
@@ -31,6 +30,7 @@ router.get('/', async function (ctx, next) {
         rule = await BookPayRuleModel.findById(rid)
         await mem.set("h5_novel_rule_" + rid, JSON.stringify(rule), 90)
     }
+    let total_fee = rule.price * 100
     let doc = await OrderModel.create({
         u_id: uid,
         bid: rule.bid,
