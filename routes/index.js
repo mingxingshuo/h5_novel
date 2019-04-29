@@ -130,7 +130,7 @@ router.get('/content', async(ctx, next) => {
     let dis = await get_dis(ctx.channel)
     //console.log(ctx.channel)
     //console.log(dis)
-    
+
     statics(ctx)
 
     //console.log(needpay, '---------------------needpay')
@@ -189,7 +189,7 @@ async function get_book(bid) {
         book = JSON.parse(book)
     } else {
         book = await BookModel.findOne({id:bid})
-        await mem.set("h5_novel_book_" + bid, JSON.stringify(bid), 10*60)
+        await mem.set("h5_novel_book_" + bid, JSON.stringify(book), 10*60)
     }
     return book
 }
