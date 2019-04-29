@@ -184,7 +184,7 @@ async function get_dis(key) {
 
 
 async function get_book(bid) {
-    await mem.set("h5_novel_book_" + bid, '', 10*60)
+    //await mem.set("h5_novel_book_" + bid, '', 10*60)
     let book = await mem.get("h5_novel_book_" + bid);
     if (book) {
         book = JSON.parse(book)
