@@ -58,6 +58,7 @@
         domNoData: '<div class="dropload-noData">到底了</div>'
       },
       loadDownFn: function (me) {
+        console.log(me)
         setTimeout(function () {
           page ++ ;
           getChapters(id, page)
