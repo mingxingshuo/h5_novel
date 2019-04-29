@@ -159,7 +159,7 @@ function isWeiXin(){
           location.href = pay_url
         }else{
           //微信js 支付
-          var pay_url = location.protocol+'//'+wxpay_domain+'/wxpay?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
+          var pay_url = location.protocol+'//'+wxpay_domain+'/wxpay/?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
           console.log(pay_url)
           location.href = pay_url
         }
