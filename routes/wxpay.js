@@ -16,8 +16,9 @@ router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
     let uid = ctx.request.query.uid
-    let user = UserModel.findById(uid)
+    let user = await UserModel.findById(uid)
     let openid = user.openid
+    console.log(openid,'------------openid')
     let appid = wx_conf.wx_app.appid
     let body = "黑牛全本小说"
     let mch_id = "1499792102"
