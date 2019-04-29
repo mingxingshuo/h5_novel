@@ -41,7 +41,7 @@ app.use(require('koa-static')(__dirname + '/public'),{maxAge:1000*60*60})
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
 }));
-app.set('view cache', true);
+//app.set('view cache', true);
 
 app.use(userAgent());
 
