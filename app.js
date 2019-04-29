@@ -68,7 +68,7 @@ app.use(async(ctx, next) => {
     if(ctx.url.indexOf('.')!=-1){
         await next()
         return 
-    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1){
+    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1 || ctx.url.indexOf('/wxpay')!=-1){
         await next()
         return
     }
@@ -111,7 +111,7 @@ app.use(async(ctx,next)=>{
     if(ctx.url.indexOf('.')!=-1){
         await next()
         return 
-    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1){
+    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1 || ctx.url.indexOf('/wxpay')!=-1){
         await next()
         return
     }
@@ -187,7 +187,7 @@ async function getOpenid(ctx,next){
     if(ctx.url.indexOf('.')!=-1){
         await next()
         return 
-    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1){
+    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1 || ctx.url.indexOf('/wxpay')!=-1){
         await next()
         return
     }
