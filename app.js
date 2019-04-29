@@ -232,7 +232,7 @@ async function getOpenid(ctx,next){
             await next()
         }
     }else{
-        ctx.openid = body.openid
+        ctx.openid = openid
         await next()
     }
 }
