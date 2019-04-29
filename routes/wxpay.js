@@ -16,11 +16,8 @@ router.get('/', async function (ctx, next) {
     let rid = ctx.request.query.rid
     let distribution = ctx.request.query.distribution
     let uid = ctx.request.query.uid
-    console.log(uid,'------------uid')
     let user = await UserModel.findById(uid)
-    console.log(user,'------------user')
     let openid = user.openid
-    console.log(openid,'------------openid')
     let appid = wx_conf.wx_app.appid
     let body = "黑牛全本小说"
     let mch_id = "1499792102"
@@ -31,7 +28,6 @@ router.get('/', async function (ctx, next) {
     let trade_type = "JSAPI"
     let rule = await mem.get("h5_novel_rule_" + rid);
     let back_url = ctx.request.query.back;
-    console.log('----back_url------')
     console.log(decodeURIComponent(back_url))
     if (rule) {
         rule = JSON.parse(rule)
@@ -66,9 +62,7 @@ router.get('/', async function (ctx, next) {
         sign: sign
     }
     let param = builder.buildObject(send_data);
-    console.log(param, '-----------------param')
     let result = await req(param)
-    console.log(result, '-----------------result')
     let pack = "prepay_id=" + result.xml.prepay_id[0];
     let timeStamp = Date.now() / 1000
     let js_str = "appId=" + appid + "&nonceStr=" + js_nonce_str + "&package=" + pack + "&signType=MD5" + "&timeStamp=" + timeStamp + "&key=qFpSfNEnHFntDotwa7kewnhey55Ho6DD";
@@ -86,6 +80,7 @@ router.get('/', async function (ctx, next) {
 
 router.post('/back', async function (ctx, next) {
     console.log(ctx.request.body,'----------------------body')
+    console.log(ctx.request,'----------------------request')
     var buf = "";
     ctx.req.setEncoding('utf8');
     ctx.req.on('data', function (chunk) {
