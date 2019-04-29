@@ -108,7 +108,16 @@ app.use(async(ctx, next) => {
 app.use(getOpenid);
 
 app.use(async(ctx,next)=>{
+    if(ctx.url.indexOf('.')!=-1){
+        await next()
+        return 
+    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1){
+        await next()
+        return
+    }
     if(ctx.userAgent.isWechat){
+        console.log('------is wechat---------')
+        console.log(ctx.openid)
         if(!ctx.openid){
             return await next()
         }
@@ -176,7 +185,15 @@ app.on('error', (err, ctx) => {
 
 
 async function getOpenid(ctx,next){
+    if(ctx.url.indexOf('.')!=-1){
+        await next()
+        return 
+    }else if(ctx.url.indexOf('/pay')!=-1 || ctx.url.indexOf('/alipay')!=-1){
+        await next()
+        return
+    }
     if(!ctx.userAgent.isWechat){
+        console.log('------no wechat---------')
         return await next()
     }
     let openid = ctx.cookies.get('h5_novel_ctx_openid_'+ctx.channel);
