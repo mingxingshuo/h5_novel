@@ -7,6 +7,7 @@ const parser = new xml2js.Parser();
 const OrderModel = require('../model/Order')
 const BookPayRuleModel = require('../model/BookPayRule');
 const wx_conf = require('../conf/proj.json')
+const mem = require("../util/mem")
 
 router.prefix('/wxpay')
 
