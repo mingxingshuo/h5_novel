@@ -31,7 +31,8 @@ router.get('/', async function (ctx, next) {
     let trade_type = "JSAPI"
     let rule = await mem.get("h5_novel_rule_" + rid);
     let back_url = ctx.request.query.back;
-
+    console.log('----back_url------')
+    console.log(decodeURIComponent(back_url))
     if (rule) {
         rule = JSON.parse(rule)
     } else {
