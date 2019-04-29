@@ -135,10 +135,11 @@ router.get('/content', async(ctx, next) => {
     //console.log(needpay, '---------------------needpay')
 
     // 第一章标题图片
-    let firstChapter = await BookModel.findOne({id: bid});
+    let firstChapter = await get_book(bid);
     return ctx.render('pages/content', {
         imgUrl: isfirst ? firstChapter.image_url : '',
         title: isfirst ? firstChapter.page_title : '',
+        url_title : firstChapter.name,
         data: chapter,
         isfirst: isfirst,
         islast: islast,
@@ -178,6 +179,18 @@ async function get_dis(key) {
         await mem.set("h5_novel_adzone_dis_" + key, JSON.stringify(dis), 60*60)
     }
     return dis
+}
+
+
+async function get_book(bid) {
+    let book = await mem.get("h5_novel_book_" + bid);
+    if (book) {
+        book = JSON.parse(book)
+    } else {
+        book = await BookModel.findOne({id:bid})
+        await mem.set("h5_novel_book_" + bid, JSON.stringify(bid), 24*60*60)
+    }
+    return book
 }
 
 
