@@ -78,9 +78,9 @@
 </script>
 <script>
   function chapterClick(bid, title) {
-    $(".chapter_list").on("tap", "li", function () {
+    $(".chapter_list").on("click", "li", function () {
       let id = $(this).attr("data-id")
-      window.location.href = "/content?bid=" + bid + "&id=" + id + "&title=" + title;
+      window.location.href = "/content?bid=" + bid + "&id=" + id;
     })
   }
 

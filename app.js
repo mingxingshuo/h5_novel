@@ -23,6 +23,7 @@ const userAgent = require('koa2-useragent');
 const rp = require('request-promise');
 var wx_conf = require('./conf/proj.json').wx_app;
 const wxpay = require('./routes/wxpay')
+const chapters = require('./routes/chapters')
 
 // error handler
 onerror(app)
@@ -176,6 +177,7 @@ app.use(alipay.routes(), alipay.allowedMethods())
 app.use(rule.routes(), rule.allowedMethods())
 app.use(distribution.routes(), distribution.allowedMethods())
 app.use(wxpay.routes(), wxpay.allowedMethods())
+app.use(chapters.routes(), chapters.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
