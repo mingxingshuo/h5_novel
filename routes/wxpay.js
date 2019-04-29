@@ -40,7 +40,7 @@ router.get('/', async function (ctx, next) {
         type: 3
     })
     let out_trade_no = doc._id.toString()
-    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW"
+    let str = "appid=" + appid + "&body=" + body + "&mch_id=" + mch_id + "&nonce_str=" + nonce_str + "&notify_url=" + notify_url + "&out_trade_no=" + out_trade_no + "&spbill_create_ip=" + spbill_create_ip + "&total_fee=" + total_fee + "&trade_type=" + trade_type + "&key=qFpSfNEnHFntDotwa7kewnhey55Ho6DD"
     let sign = md5(str)
     let send_data = {
         appid: appid,
@@ -60,7 +60,7 @@ router.get('/', async function (ctx, next) {
     console.log(result, '-----------------result')
     let pack = "prepay_id=" + result.xml.prepay_id[0];
     let timeStamp = Date.now() / 1000
-    let js_str = "appId=" + appid + "&nonceStr=" + js_nonce_str + "&package=" + pack + "&signType=MD5" + "&timeStamp=" + timeStamp + "&key=dK98AAMOJeCbqaIoCGkRJrKitN1HBfQW";
+    let js_str = "appId=" + appid + "&nonceStr=" + js_nonce_str + "&package=" + pack + "&signType=MD5" + "&timeStamp=" + timeStamp + "&key=qFpSfNEnHFntDotwa7kewnhey55Ho6DD";
     let js_sign = md5(js_str)
     return ctx.render = ('pay/wxpay', {
         "appid": appid,
