@@ -132,6 +132,10 @@ html, body {
   display: inline-block;
 }
 
+.btn-wrapper li.to-chapters span {
+  font-weight: bold;
+}
+
 /*弹窗*/
 
 .dialog-wrapper {

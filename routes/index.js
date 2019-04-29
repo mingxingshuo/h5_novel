@@ -18,12 +18,19 @@ redis_client.on("error", function (err) {
     console.log("redis Error " + err);
 });
 
-router.prefix('/')
+router.prefix('/');
 
 router.all('/build/*', async(ctx, next) => {
-    return ctx.render('build/index')
-})
+    return ctx.render('build/index');
+});
 
+router.get('/chapters', async(ctx, next) => {
+    let result = await ChapterModel.find({bid: ctx.request.query.bid});
+    let book = await BookModel.find({id: ctx.request.query.bid});
+    let data = {result: result};
+    data = JSON.stringify(data);
+    await ctx.render('pages/chapters', {data: data, title: book.title})
+});
 
 router.get('/', async(ctx, next) => {
     let books = await BookModel.find({}, {id: 1,weight:1})

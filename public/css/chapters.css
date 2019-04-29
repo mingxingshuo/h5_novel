@@ -1,0 +1,39 @@
+.chapter {
+  text-align: left;
+  margin-bottom: .5rem;
+}
+
+.chapter-title {
+  display: block;
+  font-size: .4rem;
+  text-align: center;
+  padding: .9rem 0;
+  font-size: .5rem;
+  font-weight: bold;
+  color: rgb(1, 119, 230)
+}
+
+.chapter_list {
+}
+
+.chapter_list li {
+  padding: .3rem .5rem;
+  border-bottom: 1px solid #b9b9b9;
+}
+
+.chapter_list li p {
+  display: inline;
+}
+
+.chapter_list li span {
+  display: block;
+  float: right;
+}
+
+.free {
+  color: red;
+}
+
+.pay {
+  color: blue;
+}

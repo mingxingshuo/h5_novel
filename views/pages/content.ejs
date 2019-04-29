@@ -2,21 +2,21 @@
 <html lang="en" style="font-size:48px">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta content="black" name="apple-mobile-web-app-status-bar-style">
-  <meta content="telephone=no" name="format-detection">
-  <meta name="Keywords" content="关键词">
-  <meta name="description" content="描述">
-  <meta name="baidu_union_verify" content="9bb04fa7d60affbd6588c7404a97178e">
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/content.css">
-  <script src="/js/rem.js"></script>
-  <title>内容</title>
-  <style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="Keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="baidu_union_verify" content="9bb04fa7d60affbd6588c7404a97178e">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/content.css">
+    <script src="/js/rem.js"></script>
+    <title>内容</title>
+    <style>
 
-  </style>
+    </style>
 </head>
 
 <body>
@@ -25,116 +25,120 @@
   <img style="width: 20px;position: absolute;top: 30%;left: 50%;margin-left: -10px;" src="/img/loading.gif" alt="">
 </div>
  -->
-  <div class="detail">
+<div class="detail">
     <div class="chapter-container">
-      <% if (typeof imgUrl !="undefined" && imgUrl) {%>
-        <h3 class="article-title"><%= title %></h3>
-        <img class="banner-img" src="<%= imgUrl %>" alt="">
-      <% } %>
-      <!--<div class="setting">-->
+        <% if (typeof imgUrl != "undefined" && imgUrl) { %>
+            <h3 class="article-title"><%= title %></h3>
+            <img class="banner-img" src="<%= imgUrl %>" alt="">
+        <% } %>
+        <!--<div class="setting">-->
         <!--<ul class="color-setting">-->
-          <!--<li data-color="#eee" class="color-huise"></li>-->
-          <!--<li data-color="#cfc0a9" class="color-shushi"></li>-->
-          <!--<li data-color="#cfe5bc" class="color-lvse"></li>-->
-          <!--<li data-color="#2c3e50" class="color-heise"></li>-->
+        <!--<li data-color="#eee" class="color-huise"></li>-->
+        <!--<li data-color="#cfc0a9" class="color-shushi"></li>-->
+        <!--<li data-color="#cfe5bc" class="color-lvse"></li>-->
+        <!--<li data-color="#2c3e50" class="color-heise"></li>-->
         <!--</ul>-->
         <!--<ul class="font-setting">-->
-          <!--<li class="font-add">A+</li>-->
-          <!--<li class="font-reduce">A-</li>-->
+        <!--<li class="font-add">A+</li>-->
+        <!--<li class="font-reduce">A-</li>-->
         <!--</ul>-->
-      <!--</div>-->
+        <!--</div>-->
 
-      
-      <div class="chapter-content">
-        <div class="chapter-name">
-          <span><%= data.title %></span>
+
+        <div class="chapter-content">
+            <div class="chapter-name">
+                <span><%= data.title %></span>
+            </div>
+            <div class="chapter-text"><%- data.content %></div>
         </div>
-        <div class="chapter-text"><%- data.content %></div>
-      </div>
-      <ul class="btn-wrapper">
-        <li class="change-chapter prev_chapter" style='display: <%= isfirst ? "none" : "block" %>'>
-          <img src="/img/prev.png" alt="">
-          <span>上一章</span>
-        </li>
-        <li class="change-chapter next_chapter" style='display: <%= islast ? "none" : "block" %>'>
-          <span>下一章</span>
-          <img src="/img/next.png" alt="">
-        </li>
-      </ul>
+        <ul class="btn-wrapper">
+            <li class="change-chapter prev_chapter" style='display: <%= isfirst ? "none" : "block" %>'>
+                <img src="/img/prev.png" alt="">
+                <span>上一章</span>
+            </li>
+            <% if (isWXchat) { %>
+                <li class="to-chapters"><span>目录</span></li>
+            <% } %>
+            <li class="change-chapter next_chapter" style='display: <%= islast ? "none" : "block" %>'>
+                <span>下一章</span>
+                <img src="/img/next.png" alt="">
+            </li>
+        </ul>
 
     </div>
 
     <!--引导关注公众号-->
     <% if(!isWXchat && dis && dis.official.name){ %>
-    <div class="footer-message-nourl">
-      <textarea id="foo"></textarea>
-      <img class="copy-btn" src="<%= dis.official.image%>" alt="">
-      <p>点击图片关注微信公众号</p>
-      <p>关注后回复<span class="font-red"><%= bid%></span>继续阅读</p>
-      <!--有可能回复不是bid 还可能是其他 -->
-    </div>
-    <script>
-      function bind_copy() {
-        var btn = document.getElementsByClassName('copy-btn')[0]
-        var copy = function() {
-          var b = document.getElementById('foo')
-          b.value = "<%= dis.official.name%>";
-          b.select();
-          b.setSelectionRange(0, b.value.length);
-          if(document.execCommand('copy', false, null)) {
-            b.remove()
+        <div class="footer-message-nourl">
+            <textarea id="foo"></textarea>
+            <img class="copy-btn" src="<%= dis.official.image %>" alt="">
+            <p>点击图片关注微信公众号</p>
+            <p>关注后回复<span class="font-red"><%= bid %></span>继续阅读</p>
+            <!--有可能回复不是bid 还可能是其他 -->
+        </div>
+        <script>
+          function bind_copy() {
+            var btn = document.getElementsByClassName('copy-btn')[0]
+            var copy = function () {
+              var b = document.getElementById('foo')
+              b.value = "<%= dis.official.name %>";
+              b.select();
+              b.setSelectionRange(0, b.value.length);
+              if (document.execCommand('copy', false, null)) {
+                b.remove()
+              }
+            };
+            btn.addEventListener('click', function () {
+              copy()
+              alert("微信网页提示：\n\n1.公号已成功复制\n\n2.点击确定前往微信添加公众号");
+              window.location.replace('weixin://');
+            });
           }
-        };
-        btn.addEventListener('click', function(){
-          copy()
-          alert("微信网页提示：\n\n1.公号已成功复制\n\n2.点击确定前往微信添加公众号");
-          window.location.replace('weixin://');
-        });
-      }
-      bind_copy()
-    </script>
+
+          bind_copy()
+        </script>
     <% } %>
 
-    <% if (needpay) {%>
-      <div class="dialog-wrapper">
+    <% if (needpay) { %>
+    <div class="dialog-wrapper">
         <div class="dialog">
-          <div class="dialog-info">
-            <p>充值<%=rule_data.price%>元</p>
-            <p>可以阅读<%=rule_data.end-rule_data.start+1 %>章精彩内容</p>
-          </div>
-          <div class="dialog-btn">
-            <span>确定</span>
-          </div>
+            <div class="dialog-info">
+                <p>充值<%= rule_data.price %>元</p>
+                <p>可以阅读<%= rule_data.end-rule_data.start+1 %>章精彩内容</p>
+            </div>
+            <div class="dialog-btn">
+                <span>确定</span>
+            </div>
         </div>
-      </div>
+    </div>
     <% } %>
-  </div>
-  <div style="display: none;">
+</div>
+<div style="display: none;">
     <script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1277353497&web_id=1277353497"></script>
-  </div>
+</div>
 
 </body>
 <script src="/js/cookie.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script>
-//判断是否是微信浏览器的函数
-function isWeiXin(){
-  //window.navigator.userAgent属性包含了浏览器类型、版本、操作系统类型、浏览器引擎类型等信息，这个属性可以用来判断浏览器类型
-  var ua = window.navigator.userAgent.toLowerCase();
-  //通过正则表达式匹配ua中是否含有MicroMessenger字符串
-  if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-  return true;
-  }else{
-  return false;
+  //判断是否是微信浏览器的函数
+  function isWeiXin() {
+    //window.navigator.userAgent属性包含了浏览器类型、版本、操作系统类型、浏览器引擎类型等信息，这个属性可以用来判断浏览器类型
+    var ua = window.navigator.userAgent.toLowerCase();
+    //通过正则表达式匹配ua中是否含有MicroMessenger字符串
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+      return true;
+    } else {
+      return false;
+    }
   }
-}
 
   $(function () {
-    let id, bid, pay_domain,wxpay_domain;
-      id = <%= id %>;
-      bid = <%= bid %>;
-      pay_domain = '<%= pay_domain %>';
-      wxpay_domain = '<%= wxpay_domain %>';
+    let id, bid, pay_domain, wxpay_domain;
+    id = <%= id %>;
+    bid = <%= bid %>;
+    pay_domain = '<%= pay_domain %>';
+    wxpay_domain = '<%= wxpay_domain %>';
     let rid = '<%= rule_data._id %>';
     /*
     document.onreadystatechange = function () {
@@ -143,23 +147,24 @@ function isWeiXin(){
       }
     };
     */
-    if(<%= needpay %>) {
+    if (<%= needpay %>) {
 
       //打印跳转
-      var pay_url = location.protocol+'//'+pay_domain+'/alipay?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
-       console.log(pay_url)
+      var pay_url = location.protocol + '//' + pay_domain + '/alipay?rid=' + rid + '&uid=' + getCookie('h5_novels') + '&distribution=' + getCookie('h5_channels') + '&back=' + encodeURIComponent(location.href);
+      console.log(pay_url)
 
 
       $("body").css({'overflow': 'hidden', position: 'fixed'});
       $(".dialog-btn").click(payhref)
-      function payhref(){
-        if(!isWeiXin()){
-          var pay_url = location.protocol+'//'+pay_domain+'/alipay?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
+
+      function payhref() {
+        if (!isWeiXin()) {
+          var pay_url = location.protocol + '//' + pay_domain + '/alipay?rid=' + rid + '&uid=' + getCookie('h5_novels') + '&distribution=' + getCookie('h5_channels') + '&back=' + encodeURIComponent(location.href);
           console.log(pay_url)
           location.href = pay_url
-        }else{
+        } else {
           //微信js 支付
-          var pay_url = location.protocol+'//'+wxpay_domain+'/wxpay/?rid='+rid+'&uid='+getCookie('h5_novels')+'&distribution='+getCookie('h5_channels')+'&back='+encodeURIComponent(location.href);
+          var pay_url = location.protocol + '//' + wxpay_domain + '/wxpay/?rid=' + rid + '&uid=' + getCookie('h5_novels') + '&distribution=' + getCookie('h5_channels') + '&back=' + encodeURIComponent(location.href);
           console.log(pay_url)
           location.href = pay_url
         }
@@ -167,8 +172,8 @@ function isWeiXin(){
     } else {
       $("body").css({'overflow': 'auto', position: 'relative'});
     }
-    changeChapter(bid, id)
-
+    changeChapter(bid, id);
+    toChapters(bid);
     /*
     getBgColor()
     changeBgColor()
@@ -178,12 +183,19 @@ function isWeiXin(){
 
   })
 
+  // 跳转目录
+  function toChapters(bid) {
+    $(".to-chapters").on("click", function () {
+      window.location.href = "/chapters?bid=" + bid;
+    })
+  }
+
   // 切换章节
   function changeChapter(bid, id) {
-    $(".prev_chapter").on("click", function() {
+    $(".prev_chapter").on("click", function () {
       window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) - 1)
     });
-    $(".next_chapter").on("click", function() {
+    $(".next_chapter").on("click", function () {
       window.location.href = "/content?bid=" + bid + "&id=" + (Number(id) + 1)
     });
   }
@@ -194,7 +206,7 @@ function isWeiXin(){
   // 获取cookie字体大小
   function getFontSize() {
     let fontSize = getCookie("fontSize");
-    if(fontSize) {
+    if (fontSize) {
       $("body .chapter-content").css({"font-size": fontSize})
     } else {
       $("body .chapter-content").css({"font-size": ".36rem"})
@@ -205,11 +217,11 @@ function isWeiXin(){
   // 获取cookie背景颜色
   function getBgColor() {
     let bgColor = getCookie("bgColor");
-    if(bgColor) {
-      $(".media").css("background-color",bgColor)
+    if (bgColor) {
+      $(".media").css("background-color", bgColor)
       isBlack(bgColor)
     } else {
-      $(".media").css("background-color",bgColor)
+      $(".media").css("background-color", bgColor)
       setCookie("bgColor", "#eee")
     }
   }
@@ -218,7 +230,7 @@ function isWeiXin(){
   function changeBgColor() {
     $(".color-setting").on("click", "li", function () {
       let bgColor = $(this).attr("data-color")
-      $(".media").css("background-color",bgColor)
+      $(".media").css("background-color", bgColor)
       setCookie("bgColor", bgColor)
       isBlack(bgColor)
     })
@@ -226,7 +238,7 @@ function isWeiXin(){
 
   // 是否是黑夜背景
   function isBlack(bgColor) {
-    if(bgColor == "#2c3e50") {
+    if (bgColor == "#2c3e50") {
       $(".chapter-content, .font-setting, .btn-wrapper").css({color: "#f9f9f9"})
     } else {
       $(".chapter-content, .font-setting, .btn-wrapper").css({color: "#000"})
@@ -237,15 +249,15 @@ function isWeiXin(){
   function changeFontSize() {
     let fontSize = getCookie("fontSize");
     let fontNum = Number(fontSize.split("rem")[0])
-    $(".font-add").on("click", function() {
-      if(fontNum <= 0.4) {
+    $(".font-add").on("click", function () {
+      if (fontNum <= 0.4) {
         fontNum += 0.02
         $("body .chapter-content").css({"font-size": fontNum + "rem"})
         setCookie("fontSize", fontNum + "rem")
       }
     })
-    $(".font-reduce").on("click", function() {
-      if(fontNum > 0.29) {
+    $(".font-reduce").on("click", function () {
+      if (fontNum > 0.29) {
         fontNum -= 0.02
         $("body .chapter-content").css({"font-size": fontNum + "rem"})
         setCookie("fontSize", fontNum + "rem")
@@ -256,85 +268,81 @@ function isWeiXin(){
 
 <!--  广告  -->
 
-<% if (dis && dis.adzones) {%>
-    <% for(key in dis.adzones){%>
-      <% if (key == 'doumeng') { %>
-        <!--  豆盟 -->
-        <script type="text/javascript" src="/js/doumeng.js"></script>
-      <% }else if(key == 'sougou'){ %>
-      <!--  搜狗广告代码  -->
-        <script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script>
-        <script type="text/javascript">
-          var sougou={}
-          sougou.setelm = function($e,key){
-            $e.attr('id','sogou_wap_<%= dis.adzones[key].adkey%>')
-            window.sogou_un = window.sogou_un || [];
-            window.sogou_un.push({id: '<%= dis.adzones[key].adkey%>',ele:$e[0]});
-          }
-        </script>
-        <!-- <script type="text/javascript" src="/js/sougou.js"></script> -->
-      <%}%>
-    <%}%>
-<% }%>
-
-
-
+<% if (dis && dis.adzones) { %>
+    <% for(key in dis.adzones){ %>
+        <% if (key == 'doumeng') { %>
+            <!--  豆盟 -->
+            <script type="text/javascript" src="/js/doumeng.js"></script>
+        <% }else if(key == 'sougou'){ %>
+            <!--  搜狗广告代码  -->
+            <script async="async" src="http://src.inte.sogoucdn.com/wap/js/aw.js"></script>
+            <script type="text/javascript">
+              var sougou = {}
+              sougou.setelm = function ($e, key) {
+                $e.attr('id', 'sogou_wap_<%= dis.adzones[key].adkey %>')
+                window.sogou_un = window.sogou_un || [];
+                window.sogou_un.push({id: '<%= dis.adzones[key].adkey %>', ele: $e[0]});
+              }
+            </script>
+            <!-- <script type="text/javascript" src="/js/sougou.js"></script> -->
+        <% } %>
+    <% } %>
+<% } %>
 
 <script type="text/javascript">
-  var $arrs=[]
+  var $arrs = []
 
   //头部广告
-  var $adzone1= $('<div class="adzone doumeng"></div>')
+  var $adzone1 = $('<div class="adzone doumeng"></div>')
   $('.chapter-content').before($adzone1)
   $arrs.push($adzone1)
 
   //尾部广告
-  var $adzone2= $('<div class="adzone doumeng"></div>')
+  var $adzone2 = $('<div class="adzone doumeng"></div>')
   $('.chapter-content').after($adzone2)
   $arrs.push($adzone2)
 
   //文章页面中广告
   var ps = $('.chapter-text').find('p')
-  var adcount = parseInt(ps.length/15) //15个P标签展示一个广告
-  adcount += ps.length%15>8?0:-1
+  var adcount = parseInt(ps.length / 15) //15个P标签展示一个广告
+  adcount += ps.length % 15 > 8 ? 0 : -1
   for (var i = 0; i < adcount; i++) {
-    var $adzone= $('<div class="adzone doumeng"></div>')
-    $(ps[15*(i+1)]).after($adzone)
+    var $adzone = $('<div class="adzone doumeng"></div>')
+    $(ps[15 * (i + 1)]).after($adzone)
     $arrs.push($adzone)
     //var sogou_div = document.getElementById("sogou_wap_1028619");
   }
 
   var key = getCookie('h5_channels')
-  setAdzone($arrs,key)
+  setAdzone($arrs, key)
 
   // 加载广告
-  function setAdzone($arrs,key){
-     var platforms =[];
-    <% if (dis && dis.adzones) {%>
-    <% for(key in dis.adzones){%>
-        platforms.push(<%= key%>)
-      <%}%>
-    <%}%>
-   if(platforms.length==0){
-    return
-   }
+  function setAdzone($arrs, key) {
+    var platforms = [];
+      <% if (dis && dis.adzones) { %>
+      <% for(key in dis.adzones){ %>
+    platforms.push(<%= key %>)
+      <% } %>
+      <% } %>
+    if (platforms.length == 0) {
+      return
+    }
     for (var i = 0; i < $arrs.length; i++) {
-      (function(i) {
-        setTimeout(function(){
+      (function (i) {
+        setTimeout(function () {
           var $elm = $arrs[i]
           var platform = randomP(platforms);
-          platform.setelm($elm,key)
-        },i*500)
+          platform.setelm($elm, key)
+        }, i * 500)
       })(i)
     }
   }
 
-  function randomP(arr){
-    return arr[parseInt(Math.random()*arr.length)]
+  function randomP(arr) {
+    return arr[parseInt(Math.random() * arr.length)]
   }
 
 </script>
-
 
 
 </html>
