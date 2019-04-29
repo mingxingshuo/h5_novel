@@ -41,6 +41,7 @@ app.use(require('koa-static')(__dirname + '/public'),{maxAge:1000*60*60})
 app.use(views(__dirname + '/views', {
     extension: 'ejs'
 }));
+app.set('view cache', true);
 
 app.use(userAgent());
 
@@ -117,7 +118,7 @@ app.use(async(ctx,next)=>{
         return
     }
     if(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger'){
-        console.log('------is wechat---------')
+        //console.log('------is wechat---------')
         if(!ctx.openid){
             return await next()
         }
@@ -193,14 +194,14 @@ async function getOpenid(ctx,next){
         await next()
         return
     }
-    console.log('-----是否微信打开-------')
-    console.log(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')
+    //console.log('-----是否微信打开-------')
+    //console.log(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')
     if(!(ctx.userAgent.source.match(/MicroMessenger/i) == 'MicroMessenger')){
         console.log('------no wechat---------')
         return await next()
     }
     let openid = ctx.cookies.get('h5_novel_ctx_openid_'+ctx.channel);
-    console.log('openid-------',openid)
+    //console.log('openid-------',openid)
     if(!openid){
         console.log('-----ctx.query.uuu-----')
         console.log(ctx.query.uuu);
