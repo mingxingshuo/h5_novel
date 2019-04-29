@@ -96,6 +96,7 @@ router.post('/back', async function (ctx, next) {
                 console.log(err, ' 订单返回错误');
             } else {
                 if (data.xml) {
+                    console.log('订单成功');
                     await OrderModel.findOneAndUpdate({_id: data.xml.out_trade_no[0]}, {
                         status: 1,
                         updateAt: Date.now()
