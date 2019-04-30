@@ -20,14 +20,15 @@ router.post('/create', async(ctx, next) => {
     let start = ctx.request.body.start
     let end = ctx.request.body.end
     let starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1)
-    starts = starts.id
-    let ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1)
-    ends = ends.id
+    let ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1) 
+    if(!starts || !ends){
+        ctx.body = {err: '创建失败，章节不存在'}
+    }
     let data = {
         bid: ctx.request.body.bid,
         price: ctx.request.body.price,
-        start: starts,
-        end: ends,
+        start: starts.id,
+        end: ends.id,
         start_index : start,
         end_index :end
     }
@@ -47,10 +48,13 @@ router.post('/update', async(ctx, next) => {
       price = ctx.request.body.price,
       starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1),
       ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1),
+      if(!starts || !ends){
+        ctx.body = {err: '创建失败，章节不存在'}
+      }
       data = {
         price: price,
-        start: starts,
-        end: ends,
+        start: starts.id,
+        end: ends.id,
         start_index : start,
         end_index :end
     },
