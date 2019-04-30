@@ -16,9 +16,6 @@ router.get('/', async function (ctx, next) {
 })
 
 router.post('/create', async(ctx, next) => {
-    console.log('11111111111111111111111111111111')
-    console.log(ctx.request.body)
-    console.log('11111111111111111111111111111111')
     let bid = ctx.request.body.bid
     let start = ctx.request.body.start
     let end = ctx.request.body.end
@@ -34,7 +31,6 @@ router.post('/create', async(ctx, next) => {
         start_index : start,
         end_index :end
     }
-    console.log(data, '11111111111111111111111111111111111111111------------')
     let docs = await RuleModel.create(data);
     if (docs) {
         ctx.body = {success: '成功', data: docs}
@@ -43,26 +39,28 @@ router.post('/create', async(ctx, next) => {
     }
 })
 
-// router.post('/update', async(ctx, next) => {
-//     let id = ctx.request.body.id;
-//     let bid = ctx.request.body.bid
-//     let start = ctx.request.body.start
-//     let end = ctx.request.body.end
-//     let starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1)
-//     let ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1)
-//     let data = {
-//         bid: ctx.request.body.bid,
-//         price: ctx.request.body.price,
-//         start: starts,
-//         end: ends
-//     }
-//     var docs = await RuleModel.findByIdAndUpdate(id, data, {new: true});
-//     if (docs) {
-//         ctx.body = {success: '成功', data: docs}
-//     } else {
-//         ctx.body = {err: '修改失败，请检查输入是否有误'}
-//     }
-// })
+router.post('/update', async(ctx, next) => {
+    let id = ctx.request.body.id,
+      bid = ctx.request.body.bid,
+      start = ctx.request.body.start,
+      end = ctx.request.body.end,
+      price = ctx.request.body.price,
+      starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1),
+      ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1),
+      data = {
+        price: price,
+        start: starts,
+        end: ends,
+        start_index : start,
+        end_index :end
+    },
+      docs = await RuleModel.findByIdAndUpdate(id, data, {new: true});
+    if (docs) {
+        ctx.body = {success: '成功', data: docs}
+    } else {
+        ctx.body = {err: '修改失败，请检查输入是否有误'}
+    }
+});
 
 router.get('/delete', async(ctx, next) => {
     var id = ctx.request.query.id;
@@ -74,4 +72,4 @@ router.get('/delete', async(ctx, next) => {
     }
 })
 
-module.exports = router
+module.exports = router;
