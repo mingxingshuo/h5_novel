@@ -47,18 +47,19 @@ router.post('/update', async(ctx, next) => {
       end = ctx.request.body.end,
       price = ctx.request.body.price,
       starts = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(start - 1),
-      ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1),
+      ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1);
       if(!starts || !ends){
         ctx.body = {err: '创建失败，章节不存在'}
+        return
       }
-      data = {
+    let  data = {
         price: price,
         start: starts.id,
         end: ends.id,
         start_index : start,
         end_index :end
-    },
-      docs = await RuleModel.findByIdAndUpdate(id, data, {new: true});
+    }
+    let docs = await RuleModel.findByIdAndUpdate(id, data, {new: true});
     if (docs) {
         ctx.body = {success: '成功', data: docs}
     } else {
