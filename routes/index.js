@@ -119,10 +119,13 @@ router.get('/content', async(ctx, next) => {
     //console.log(vip_chapter, '------------------vip_chapter2')
 
     //缓存
-
+    console.log('---------订单查询条件--------------')
+    console.log({u_id: u_id, rid: JSON.parse(vip_chapter)._id})
     if (vip_chapter != -1) {
-        let order = await OrderModel.findOne({u_id: u_id, rid: JSON.parse(vip_chapter)._id})
-        if (!order || !order.status) {
+        let order = await OrderModel.findOne({u_id: u_id, rid: JSON.parse(vip_chapter)._id,status:1})
+        console.log('---------订单--------------')
+        console.log(order)
+        if (!order) {
             needpay = true
         }
     }
