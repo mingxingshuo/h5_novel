@@ -186,18 +186,21 @@ html, body {
   padding: 20px 10px 40px;
   margin: 0 auto;
   position: relative;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: .35rem;
 }
 
-.footer-message-nourl p {
-  margin-top: 6px;
-  line-height: 29px;
+.content-p {
+  padding-top: .5rem;
+}
+
+.footer-message-nourl .content-p p {
   text-align: center;
 }
 
 .font-red {
   color: red;
+  font-size: .5rem;
+  padding: 0 .1rem;
 }
 
 #foo {
