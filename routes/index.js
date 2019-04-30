@@ -109,10 +109,10 @@ router.get('/content', async(ctx, next) => {
             bid: parseInt(bid)
         })
         if (rule && rule.price) {
-            await mem.set("h5_novel_chapter_" + id, JSON.stringify(rule), 80)
+            await mem.set("h5_novel_chapter_" + id, JSON.stringify(rule), 10)
             vip_chapter = JSON.stringify(rule)
         } else {
-            await mem.set("h5_novel_chapter_" + id, -1, 80)
+            await mem.set("h5_novel_chapter_" + id, -1, 10)
             vip_chapter = -1
         }
     }
