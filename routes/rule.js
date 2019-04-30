@@ -23,6 +23,7 @@ router.post('/create', async(ctx, next) => {
     let ends = await ChapterModel.findOne({bid: bid}, {id: 1}).sort({id: 1}).skip(end - 1) 
     if(!starts || !ends){
         ctx.body = {err: '创建失败，章节不存在'}
+        return
     }
     let data = {
         bid: ctx.request.body.bid,
