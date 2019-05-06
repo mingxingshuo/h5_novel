@@ -192,6 +192,7 @@ html, body {
   margin-top: 6px;
   line-height: 29px;
   text-align: center;
+  font-size: .3rem;
 }
 
 .content-p {
@@ -205,11 +206,12 @@ html, body {
 
 .btn-color {
   color: #3c76ff;
+  font-size: .36rem;
 }
 
 .font-red {
   color: red;
-  font-size: .5rem;
+  font-size: .36rem;
   padding: 0 .2rem;
 }
 
