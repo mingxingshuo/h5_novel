@@ -32,7 +32,7 @@ async function getBook() {
             let chapter_data = {
                 title: chapter.title,
                 content: chapter.content,
-                isvip: parseInt(chapter.isvip),
+                isvip: 0,
                 bid: bookRes.id
             }
             await ChapterModel.create(chapter_data)
